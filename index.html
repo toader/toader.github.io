@@ -148,6 +148,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Knowledge-Graph" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/09/Knowledge-Graph/">Knowledge Graph</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/09/Knowledge-Graph/" class="archive-article-date">
+  	<time datetime="2019-01-09T13:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>知识图谱构建以及底层图数据分析</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/09/Knowledge-Graph/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Graph-Database" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -169,14 +245,70 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="图数据分析"><a href="#图数据分析" class="headerlink" title="图数据分析"></a>图数据分析</h1><p><strong>目前市场上的图数据库会宣传的一些特性：</strong></p>
-<p>原生图格式/非原生图格式</p>
-<p>几种常见的图数据库</p>
-<h2 id="Neo4j"><a href="#Neo4j" class="headerlink" title="Neo4j"></a>Neo4j</h2><p><a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h2><p><a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
-<h2 id="cayley"><a href="#cayley" class="headerlink" title="cayley"></a>cayley</h2><p><a href="https://github.com/cayleygraph/cayley" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Arangodb"><a href="#Arangodb" class="headerlink" title="Arangodb"></a>Arangodb</h2><p><a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
-<p><a href="https://www.jianshu.com/p/191d1e21f7ed" target="_blank" rel="noopener">markdown学习</a><br><a href="https://www.jianshu.com" target="_blank" rel="noopener">简书</a></p>
-
+<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p>是否能快速加载一个大图是检验的主要标准，这个规模大概是<code>10亿</code>边，<code>0.5～1亿</code>顶点</p>
+<h2 id="实时"><a href="#实时" class="headerlink" title="实时"></a>实时</h2><p>主要是指实时<code>更新</code>,数据库更新包括<code>顶点/边的插入/删除</code>，现有<code>顶点/边的属性的upsert</code>等<br>这里注意两个概念：<br><code>事务</code>，在图上并没有清晰概念的事务，锁的粒度大小也非常难于控制，因此现在大多数的<code>事务</code>概念都是<code>伪事务</code><br>另外一点是和多维分析有关，和之前业界多维分析的概念类似，实际非原生图格式的图数据库，它的存储是放在HDFS上，由于<br>HDFS的设计限制，大多数基于HDFS的图平台（例如Giraph，Graphx）不支持实时更新。</p>
+<h2 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h2><ol>
+<li>原生图格式 </li>
+<li>非原生图格式 </li>
+</ol>
+<p>原生图格式：<br>以图模型格式-<code>顶点</code>和<code>边</code>存储图数据。此类供应商中典型的厂商为Neo4j，TigerGraph。</p>
+<p>非原生图格式：<br>实际存储是关系模型、RDF三元组、键值对，在内存中，他们提供中间层API来模拟图遍历，真实的底层存储构建于其他第三方的组件，<br>当然一般上会构建在hadoop生态上。</p>
+<h2 id="查询语言"><a href="#查询语言" class="headerlink" title="查询语言"></a>查询语言</h2><p>图语言可以是<a href="https://en.wikipedia.org/wiki/Turing_completeness" target="_blank" rel="noopener"><code>图灵完备</code></a>的<br>目前业界常见的三个事实上的标准：<br>    TigerGraph的<code>GSQL</code> 类似PL/SQL风格的语言<br>    Neo4j的<code>Cypher</code>，易用性非常好的语言，实现精细的控制比较难<br>    <code>Gremlin</code>，高度表达，学习曲线不低，复杂度高。</p>
+<h2 id="计算-存储的横向扩展-纵向扩展"><a href="#计算-存储的横向扩展-纵向扩展" class="headerlink" title="计算/存储的横向扩展/纵向扩展"></a>计算/存储的横向扩展/纵向扩展</h2><blockquote>
+<p>一些图数据库可以在存储水平上水平扩展（横向扩展），这意味着将机器加倍，存储可以加倍，但是计算速度不会提高2倍。</p>
+</blockquote>
+<blockquote>
+<p>一些图数据库也可以在计算上扩展，如果他们这样做，他们必须有一个MPP建筑。</p>
+</blockquote>
+<p>两个概念搭建需要去熟悉<code>MPP</code>和<code>MDD</code></p>
+<p>纵向扩展意味着在单个机器上，图计算引擎可以探索多核并行化计算，并在添加更多核时实现加速，注意加载工作量不能因为横向扩展而加大工作量，否则不是一个优秀的实现。</p>
+<blockquote>
+<p>据TigerGraph描述，其拥有可以横向扩展和纵向扩展的MPP架构；亚马逊海王星无法横向扩展，它可以拥有主数据库的副本以提高吞吐量；Janus Graph和ArangoDB可以横向扩展存储，但不能在同一查询上横向扩展计算；Neo4j无法扩展计算或存储。</p>
+</blockquote>
+<h2 id="OLTP-OLAP-HTAP"><a href="#OLTP-OLAP-HTAP" class="headerlink" title="OLTP/OLAP/HTAP"></a>OLTP/OLAP/HTAP</h2><p>参考上文<code>事务</code>概念，OLAP是离线分析。如果涉及QPS（Query Per Second）则一般上都是支持OLTP的。<br>常用来做测试的算法：连通分量和PageRank算法。是否能在合理的时间内完成10亿个边缘图。</p>
+<h2 id="多图"><a href="#多图" class="headerlink" title="多图"></a>多图</h2><p>其实理论上是TigerGraph提出的概念，在图数据库实现中，能完全切分的连通分支，天然的可以被看成两个不同的图。</p>
+<h2 id="模式-非模式"><a href="#模式-非模式" class="headerlink" title="模式/非模式"></a>模式/非模式</h2><p>目前的图数据库市场，过分的强调无模式的方式，其实元数据分离技术，可以大量的提高数据库系统的性能</p>
+<h2 id="磁盘数据库VS内存数据库"><a href="#磁盘数据库VS内存数据库" class="headerlink" title="磁盘数据库VS内存数据库"></a>磁盘数据库VS内存数据库</h2><p>内存数据库查询更快，预加载比较慢，内存总容量要求大，分布式的情况下更加复杂。<br>磁盘数据库，内存作为缓存，有缓存命中率的问题，与MySQL的机制类似。</p>
+<p>几种常见的开源图数据库</p>
+<h2 id="Neo4j"><a href="#Neo4j" class="headerlink" title="Neo4j"></a>Neo4j</h2><p>java实现<a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener">地址</a></p>
+<h2 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h2><p>go实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
+<h2 id="cayley"><a href="#cayley" class="headerlink" title="cayley"></a>cayley</h2><p>go实现<a href="https://github.com/cayleygraph/cayley" target="_blank" rel="noopener">地址</a></p>
+<h2 id="Arangodb"><a href="#Arangodb" class="headerlink" title="Arangodb"></a>Arangodb</h2><p>多模型的 C++实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
+<h1 id="以上几种数据本人的看法"><a href="#以上几种数据本人的看法" class="headerlink" title="以上几种数据本人的看法"></a>以上几种数据本人的看法</h1><p>Neo4j非常早的支持事务的本地原生图数据库。优点很明显，缺点也很明显：<br>明显的优点是：产品成熟，易使用。<br>缺点也非常明显：效率低下，没有数据分片机制，不支持横向扩展–所谓的<code>分布式集群</code>只能提高数据吞吐量，是完整的数据备份。<br>两个go项目：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">project</th>
+<th style="text-align:center">star</th>
+<th style="text-align:center">latestVer</th>
+<th style="text-align:center">文档</th>
+<th style="text-align:center">商业运作</th>
+<th style="text-align:center">存储模式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cayley</td>
+<td style="text-align:center">12091</td>
+<td style="text-align:center">v0.7.5</td>
+<td style="text-align:center">很少</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">非原生图</td>
+</tr>
+<tr>
+<td style="text-align:center">dgraph</td>
+<td style="text-align:center">7291</td>
+<td style="text-align:center">v1.0.11</td>
+<td style="text-align:center">尚可</td>
+<td style="text-align:center">商业公司</td>
+<td style="text-align:center">原生图</td>
+</tr>
+</tbody>
+</table>
+<p>这两个项目不建议使用cayley；建议dgraph在公司内部使用。</p>
+<p>Arangodb是C++实现，以后着重分析</p>
+<p>接下来需要分析的几个要点：</p>
+<h1 id="图的事务概念"><a href="#图的事务概念" class="headerlink" title="图的事务概念"></a>图的事务概念</h1>
       
 
       
@@ -250,27 +382,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>放下一段时间了，重新拿起来，终于能静下心来写一些blog，关于生活，关于家庭，关于工作，关于技术。</p>
+<p>非常感谢这个技术开放的世界，工程领域的很多知识都可以通过互联网的方式学习到。<br>新开了这个博客，重新开始书写是因为要组织图数据库的项目开发工作。</p>
 </blockquote>
-<hr>
-<blockquote>
-<p>非常感谢这个技术开放的世界，自己的对世界的认识越来越清晰，也能触碰到一些当前人类认知的边界，感觉非常幸运。</p>
-</blockquote>
-<h1 id="Hexo学习链接汇总"><a href="#Hexo学习链接汇总" class="headerlink" title="Hexo学习链接汇总"></a>Hexo学习链接汇总</h1><p><a href="https://blog.csdn.net/a3212/article/details/77099492" target="_blank" rel="noopener">安装</a><br><a href="https://blog.csdn.net/binglumeng/article/details/67637368" target="_blank" rel="noopener">配置</a><br><a href="https://blog.csdn.net/zhuzhuyule/article/details/58347687" target="_blank" rel="noopener">写作</a></p>
+<h1 id="Hexo学习链接汇总"><a href="#Hexo学习链接汇总" class="headerlink" title="Hexo学习链接汇总"></a>Hexo学习链接汇总</h1><p>重新搭建这个blog所有参考到的文章<br><a href="https://blog.csdn.net/a3212/article/details/77099492" target="_blank" rel="noopener">安装</a><br><a href="https://blog.csdn.net/binglumeng/article/details/67637368" target="_blank" rel="noopener">配置</a><br><a href="https://blog.csdn.net/zhuzhuyule/article/details/58347687" target="_blank" rel="noopener">写作教程</a></p>
 <p>当前该博客未集成rss插件，后续应该会补充上来。</p>
-<p>写作的时候注意一些，为了将代码和内容完全分离，尽量不要使用下面的代码风格去书写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock %&#125;</span><br><span class="line">alert(&apos;Hello World!&apos;);</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>尽量使用<code>```</code>来包裹代码块，以便markdown语法统一，另外注意:<br>Hexo中使用的Markdown语法为 <strong>GFM</strong><br>Markdown语法需要长期学习并使用，以达到熟练的程度。</p>
-<p>最后的结果展示为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(&apos;Hello World!&apos;);</span><br></pre></td></tr></table></figure>
-<p>参考如下的<a href="https://blog.csdn.net/zhuzhuyule/article/details/58347687" target="_blank" rel="noopener">教程</a><br>以下为Markdown语法测试块</p>
+<p>Hexo中使用的MarkDown语法为 <strong>GFM</strong><br>MarkDown需要长期学习并使用，以达到熟练的程度。</p>
+<p>写作风格问题，请禁止使用该代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock %&#125;</span><br><span class="line">alert(&apos;Hello World!&apos;);</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>应使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```alert(&apos;Hello World!&apos;);```</span><br></pre></td></tr></table></figure></p>
+<p>最后的结果展示为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(&apos;Hello World!&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>以下为Markdown语法区域</p>
 <p>这是一个分段的开始</p>
 <p>这是另一个分段<br>这是一个换行，为什么是两个空格？</p>
-<h2 id="测试标题"><a href="#测试标题" class="headerlink" title="测试标题"></a>测试标题</h2><h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h2><h3 id="标题3"><a href="#标题3" class="headerlink" title="标题3"></a>标题3</h3><h4 id="标题4"><a href="#标题4" class="headerlink" title="标题4"></a>标题4</h4><h5 id="标题5"><a href="#标题5" class="headerlink" title="标题5"></a>标题5</h5><h6 id="标题6"><a href="#标题6" class="headerlink" title="标题6"></a>标题6</h6><h2 id="以下为强调文字"><a href="#以下为强调文字" class="headerlink" title="以下为强调文字"></a>以下为强调文字</h2><p><strong>文字</strong>  加粗<br><em>文字</em>  斜体<br><strong><em>字体</em></strong> 加粗并斜体</p>
+<h2 id="测试标题"><a href="#测试标题" class="headerlink" title="测试标题"></a>测试标题</h2><h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h2><h3 id="标题3"><a href="#标题3" class="headerlink" title="标题3"></a>标题3</h3><h4 id="标题4"><a href="#标题4" class="headerlink" title="标题4"></a>标题4</h4><h5 id="标题5"><a href="#标题5" class="headerlink" title="标题5"></a>标题5</h5><h6 id="标题6"><a href="#标题6" class="headerlink" title="标题6"></a>标题6</h6><h2 id="以下为强调文字"><a href="#以下为强调文字" class="headerlink" title="以下为强调文字"></a>以下为强调文字</h2><p><strong>加粗</strong><br><em>斜体</em><br><strong><em>加粗并斜体</em></strong></p>
 <h2 id="另外一种方法"><a href="#另外一种方法" class="headerlink" title="另外一种方法"></a>另外一种方法</h2><p><strong>加粗</strong><br>_斜体_<br><strong><em>加粗并斜体</em></strong><br><em><strong>加粗并斜体</strong></em></p>
 <p><del>删除线</del> 来一发</p>
-<h2 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h2><p><code>这个只是高亮显示</code><br><code>这个是高亮显示的吗</code></p>
-<p><code>`</code> 转义</p>
-<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>另外一篇文章中学到的代码块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">private String code;</span><br><span class="line">Object obc = new Object();</span><br></pre></td></tr></table></figure></p>
+<h2 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h2><p><code>这个是高亮显示</code><br><code>这个也是高亮显示</code><br>使用<code>&lt;code&gt;&lt;/code&gt;</code>或使用<code>`</code> 转义</p>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>另外一篇文章中学到的代码块，后面也会提到有三种风格：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import java.io.*;</span><br><span class="line">private String code;</span><br><span class="line">Object obc = new Object();</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">private</span> String code;</span><br><span class="line">Object obc = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
 <pre><code>import java.io.*;
 private String code;
@@ -295,7 +422,7 @@ Object obc = new Object();
 <blockquote>
 <p>猴子<br>人</p>
 <blockquote>
-<p>程序猿<br>攻城狮<br>产品狗<br>射鸡虱</p>
+<p>程序猿<br>攻城狮<br>产品狗 <code>注意这里：因为没有空行间隔，忽略降级引用标记</code><br>射鸡虱 <code>注意这里：因为没有空行间隔，即使没有引用标记，也沿用上一行引用层级</code></p>
 </blockquote>
 </blockquote>
 </blockquote>
@@ -335,9 +462,64 @@ Object obc = new Object();
 </tr>
 </tbody>
 </table>
-<h2 id="代码块附加"><a href="#代码块附加" class="headerlink" title="代码块附加"></a>代码块附加</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String s = <span class="string">"xxxxx"</span>;</span><br><span class="line">HashMap map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># _*_ coding: utf-8 _*_</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Hello World!'</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">import java.io.*;</span><br><span class="line">private String code;</span><br><span class="line">Object obc = new Object();</span><br><span class="line">```</span><br></pre></td></tr></table></figure>
+<p><code>注意对齐的声明方式</code></p>
+<h2 id="代码块附加"><a href="#代码块附加" class="headerlink" title="代码块附加"></a>代码块附加</h2><p>这里添加了代码块的语言类型，个人感觉增加了不用编程语言的关键字识别</p>
+<p><code>java</code>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String s = <span class="string">"xxxxx"</span>;</span><br><span class="line">HashMap map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure></p>
+<p><code>Python</code>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># _*_ coding: utf-8 _*_</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Hello World!'</span></span><br></pre></td></tr></table></figure></p>
+<p><code>无语言代码</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">import java.io.*;</span><br><span class="line">private String code;</span><br><span class="line">Object obc = new Object();</span><br><span class="line">```</span><br></pre></td></tr></table></figure></p>
+<h2 id="图片插入"><a href="#图片插入" class="headerlink" title="图片插入"></a>图片插入</h2><p><code>代码</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![我的头像](/family/avatar.png)</span><br></pre></td></tr></table></figure></p>
+<p><code>效果</code>：<br><img src="/family/avatar.png" alt="我的头像"></p>
+<p><code>控制下大小</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img width=&quot;150&quot; src=&quot;/family/avatar.png&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>效果</code>：<br><img width="150" src="/family/avatar.png"></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>无序列表</p>
+<ul>
+<li>列表项1</li>
+<li>列表项2</li>
+<li>列表项3<ul>
+<li>子列表1</li>
+<li>子列表2</li>
+<li>子列表3</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>列表项4</li>
+<li>列表项5</li>
+<li>列表项6<ul>
+<li>子列表X</li>
+<li>子列表Y</li>
+<li>子列表Z</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>继续列表1</li>
+<li>继续列表2<ul>
+<li>继续子列表M</li>
+<li>继续子列表N</li>
+</ul>
+</li>
+</ul>
+<p>有序列表：<br>这种方式不用收到设置序号，自动生成列表序列</p>
+<ol>
+<li>我是一级序列 </li>
+<li>我是一级序列 </li>
+<li>我是一级序列 <ol>
+<li>我是二级序列 </li>
+<li>我是二级序列 </li>
+<li>我是二级序列 </li>
+</ol>
+</li>
+<li>我是一级序列 </li>
+<li>我是一级序列 <ol>
+<li>我是二级序列 </li>
+<li>我是二级序列 </li>
+<li>还是二级序列，没有三级序列 </li>
+</ol>
+</li>
+</ol>
+<p>自动检测链接：</p>
+<p>本人github：<a href="https://github.com/toader" target="_blank" rel="noopener">https://github.com/toader</a></p>
 
       
 
