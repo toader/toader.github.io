@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Engineer Gilbert">
 <meta property="og:description" content="图数据分析目前市场上的图数据库会宣传的一些特性： 加载是否能快速加载一个大图是检验的主要标准，这个规模大概是10亿边，0.5～1亿顶点 实时主要是指实时更新,数据库更新包括顶点/边的插入/删除，现有顶点/边的属性的upsert等这里注意两个概念：事务，在图上并没有清晰概念的事务，锁的粒度大小也非常难于控制，因此现在大多数的事务概念都是伪事务另外一点是和多维分析有关，和之前业界多维分析的概念类似，实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-09T13:18:52.963Z">
+<meta property="og:updated_time" content="2019-01-11T04:44:00.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graph Database">
 <meta name="twitter:description" content="图数据分析目前市场上的图数据库会宣传的一些特性： 加载是否能快速加载一个大图是检验的主要标准，这个规模大概是10亿边，0.5～1亿顶点 实时主要是指实时更新,数据库更新包括顶点/边的插入/删除，现有顶点/边的属性的upsert等这里注意两个概念：事务，在图上并没有清晰概念的事务，锁的粒度大小也非常难于控制，因此现在大多数的事务概念都是伪事务另外一点是和多维分析有关，和之前业界多维分析的概念类似，实">
@@ -196,7 +196,8 @@
 <h2 id="Neo4j"><a href="#Neo4j" class="headerlink" title="Neo4j"></a>Neo4j</h2><p>java实现<a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener">地址</a></p>
 <h2 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h2><p>go实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
 <h2 id="cayley"><a href="#cayley" class="headerlink" title="cayley"></a>cayley</h2><p>go实现<a href="https://github.com/cayleygraph/cayley" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Arangodb"><a href="#Arangodb" class="headerlink" title="Arangodb"></a>Arangodb</h2><p>多模型的 C++实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
+<h2 id="Arangodb"><a href="#Arangodb" class="headerlink" title="Arangodb"></a>Arangodb</h2><p>多模型的C++实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
+<h2 id="Titan-JanusGraph-IBM-Graph"><a href="#Titan-JanusGraph-IBM-Graph" class="headerlink" title="Titan/JanusGraph/IBM Graph"></a>Titan/JanusGraph/IBM Graph</h2><p>理解这些图数据库，需要了解Apache TinkerPop complian</p>
 <h1 id="以上几种数据本人的看法"><a href="#以上几种数据本人的看法" class="headerlink" title="以上几种数据本人的看法"></a>以上几种数据本人的看法</h1><p>Neo4j非常早的支持事务的本地原生图数据库。优点很明显，缺点也很明显：<br>明显的优点是：产品成熟，易使用。<br>缺点也非常明显：效率低下，没有数据分片机制，不支持横向扩展–所谓的<code>分布式集群</code>只能提高数据吞吐量，是完整的数据备份。<br>两个go项目：</p>
 <table>
 <thead>
@@ -231,7 +232,31 @@
 <p>这两个项目不建议使用cayley；建议dgraph在公司内部使用。</p>
 <p>Arangodb是C++实现，以后着重分析</p>
 <p>接下来需要分析的几个要点：</p>
-<h1 id="图的事务概念"><a href="#图的事务概念" class="headerlink" title="图的事务概念"></a>图的事务概念</h1>
+<h1 id="图的事务概念"><a href="#图的事务概念" class="headerlink" title="图的事务概念"></a>图的事务概念</h1><p>图数据库的使用价值</p>
+<ol>
+<li>优秀的查询性能<ol>
+<li>相对关系型数据库，图数据库产品一般在设计避免大量的join操作，提供快速的查询。 </li>
+</ol>
+</li>
+<li>灵活的数据建模<ol>
+<li>多数图数据库没有预设的schema，借助底层的存储机制，能够更加灵活的变更结构。</li>
+</ol>
+</li>
+<li>易于理解，更加敏捷<ol>
+<li>相对于关系数据库的表格，图的组织形式更接近于现实世界，易于理解。</li>
+</ol>
+</li>
+<li>基于图算法提供强大分析能力<ol>
+<li>PageRank/社区发现算法等</li>
+</ol>
+</li>
+</ol>
+<p>FlocksDB 是 Twitter的产品</p>
+<p>一个底层K/V facebook的 RocksDB</p>
+<blockquote>
+<p>Titan = IBM Graph = DataStax Enterprise Graph = JanusGraph<br>MySQL = MariaDB</p>
+</blockquote>
+
       
 
       
