@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Java 8 | Engineer Gilbert</title>
+  <title>Go学习笔记 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="以后会把所有关于Java 8的学习细节和心得写入这个博客  Java 8被直接升级到Java 10把整个工程压力从自己身上移开，开始做技术规划和技术方向预测是技术管理的核心。  Java 8学习经历">
+  <meta name="description" content="Go学习笔记经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java 8">
-<meta property="og:url" content="https://toader.github.io/2019/01/17/Java-8/index.html">
+<meta property="og:title" content="Go学习笔记">
+<meta property="og:url" content="https://toader.github.io/2019/03/01/Go学习笔记/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="以后会把所有关于Java 8的学习细节和心得写入这个博客  Java 8被直接升级到Java 10把整个工程压力从自己身上移开，开始做技术规划和技术方向预测是技术管理的核心。  Java 8学习经历">
+<meta property="og:description" content="Go学习笔记经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-11T03:54:30.443Z">
+<meta property="og:updated_time" content="2019-03-08T06:03:28.967Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java 8">
-<meta name="twitter:description" content="以后会把所有关于Java 8的学习细节和心得写入这个博客  Java 8被直接升级到Java 10把整个工程压力从自己身上移开，开始做技术规划和技术方向预测是技术管理的核心。  Java 8学习经历">
+<meta name="twitter:title" content="Go学习笔记">
+<meta name="twitter:description" content="Go学习笔记经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -147,31 +147,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java-8" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Go学习笔记" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java 8
+      Go学习笔记
     </h1>
   
 
         
-        <a href="/2019/01/17/Java-8/" class="archive-article-date">
-  	<time datetime="2019-01-17T09:53:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-17</time>
+        <a href="/2019/03/01/Go学习笔记/" class="archive-article-date">
+  	<time datetime="2019-03-01T09:52:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>以后会把所有关于Java 8的学习细节和心得写入这个博客</code></p>
+        <h2 id="Go学习笔记"><a href="#Go学习笔记" class="headerlink" title="Go学习笔记"></a>Go学习笔记</h2><p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
+<p>闭包</p>
+<p>闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。</p>
+<p>闭包 = 函数 + 引用环境</p>
+<p>闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变量分配到堆上。</p>
+<p>如果函数返回的闭包引用了该函数的局部变量（参数或函数内部变量）：</p>
+<p>1、多次调用该函数，返回的多个闭包所引用的外部变量是多个副本，原因是每次调用函数都会为局部变量分配内存。<br>2、用一个闭包函数多次，如果该闭包修改了其引用的外部变量，则每一次调用该闭包对该外部变量都有影响，因为闭包函数共享外部引用。</p>
+<p>demo:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fa</span><span class="params">(a <span class="keyword">int</span>)</span> <span class="title">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">        <span class="built_in">println</span>(&amp;a, a)</span><br><span class="line">        a =  a + i</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f := fa(<span class="number">1</span>)</span><br><span class="line">    g := fa(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(f(<span class="number">1</span>))</span><br><span class="line">    <span class="built_in">println</span>(f(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(g(<span class="number">1</span>))</span><br><span class="line">    <span class="built_in">println</span>(g(<span class="number">1</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请预测程序执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0xc420014058 1</span><br><span class="line">2</span><br><span class="line">0xc420014058 2</span><br><span class="line">3</span><br><span class="line">0xc420014060 1</span><br><span class="line">2</span><br><span class="line">0xc420014060 2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>上面的演示是个好的编程方式</p>
+<p>如果函数返回的闭包引用的是全局变量a, 则多次调用该函数返回的多个闭包引用的都是同一个a。同理，调用一个闭包多次引用的也是同一个a。此时如果闭包中修改了a值的逻辑，则每次闭包调用都会影响全局变量a的值。使用闭包是为了减少全局变量，所以闭包引用全局变量不是好的编程方式。</p>
 <blockquote>
-<p>Java 8被直接升级到Java 10把整个工程压力从自己身上移开，开始做技术规划和技术方向预测是技术管理的核心。</p>
+<p>对象是附有行为的数据，而闭包是附有数据的行为，闭包仅仅是锦上添花的东西，不是不可缺少的</p>
 </blockquote>
-<h1 id="Java-8学习经历"><a href="#Java-8学习经历" class="headerlink" title="Java 8学习经历"></a>Java 8学习经历</h1>
+<p>有关闭包的内部实现原理见下文。</p>
+
       
 
       
@@ -261,7 +273,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/01/17/Java-8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/03/01/Go学习笔记/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -275,18 +287,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/24/Graph-Database-2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/03/05/Go的panic-recover/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Graph Database 2
+          Go的panic&amp;recover
         
       </div>
     </a>
   
   
-    <a href="/2019/01/16/郑州出差归来/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">郑州出差归来</div>
+    <a href="/2019/02/03/ubuntu-16-04科学上网/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ubuntu 16.04科学上网</div>
       <i class="icon-circle-right"></i>
     </a>
   

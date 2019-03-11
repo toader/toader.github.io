@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Engineer Gilbert">
 <meta property="og:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-03T06:07:05.308Z">
+<meta property="og:updated_time" content="2019-02-03T06:29:02.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu 16.04科学上网">
 <meta name="twitter:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
@@ -177,7 +177,8 @@
 <blockquote>
 </blockquote>
 <p>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}</p>
-<p><code>nohup /usr/bin/sslocal -c /etc/shadowsocks.json &amp;</code><br>即可后台执行</p>
+<p><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
+<p>双级代理</p>
 
       
 
@@ -281,6 +282,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/03/01/Go学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Go学习笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2019/01/24/Graph-Database-3/" id="article-nav-older" class="article-nav-link-wrap">
@@ -407,6 +417,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">家庭</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">管理</a>
               </li>
             
             <div class="clearfix"></div>
