@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Engineer Gilbert">
 <meta property="og:description" content="图数据分析目前市场上的图数据库会宣传的一些特性： 加载是否能快速加载一个大图是检验的主要标准，这个规模大概是10亿边，0.5～1亿顶点 实时主要是指实时更新,数据库更新包括顶点/边的插入/删除，现有顶点/边的属性的upsert等这里注意两个概念：事务，在图上并没有清晰概念的事务，锁的粒度大小也非常难于控制，因此现在大多数的事务概念都是伪事务另外一点是和多维分析有关，和之前业界多维分析的概念类似，实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-01T08:24:17.002Z">
+<meta property="og:updated_time" content="2019-03-14T12:58:28.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graph Database">
 <meta name="twitter:description" content="图数据分析目前市场上的图数据库会宣传的一些特性： 加载是否能快速加载一个大图是检验的主要标准，这个规模大概是10亿边，0.5～1亿顶点 实时主要是指实时更新,数据库更新包括顶点/边的插入/删除，现有顶点/边的属性的upsert等这里注意两个概念：事务，在图上并没有清晰概念的事务，锁的粒度大小也非常难于控制，因此现在大多数的事务概念都是伪事务另外一点是和多维分析有关，和之前业界多维分析的概念类似，实">
@@ -176,7 +176,7 @@
 </ol>
 <p>原生图格式：<br>以图模型格式-<code>顶点</code>和<code>边</code>存储图数据。此类供应商中典型的厂商为Neo4j，TigerGraph。</p>
 <p>非原生图格式：<br>实际存储是关系模型、RDF三元组、键值对，在内存中，他们提供中间层API来模拟图遍历，真实的底层存储构建于其他第三方的组件，<br>当然一般上会构建在hadoop生态上。</p>
-<h2 id="查询语言"><a href="#查询语言" class="headerlink" title="查询语言"></a>查询语言</h2><p>图语言可以是<a href="https://en.wikipedia.org/wiki/Turing_completeness" target="_blank" rel="noopener"><code>图灵完备</code></a>的<br>目前业界常见的三个事实上的标准：<br>    TigerGraph的<code>GSQL</code> 类似PL/SQL风格的语言<br>    Neo4j的<code>Cypher</code>，易用性非常好的语言，实现精细的控制比较难<br>    <code>Gremlin</code>，高度表达，学习曲线不低，复杂度高。</p>
+<h2 id="查询语言"><a href="#查询语言" class="headerlink" title="查询语言"></a>查询语言</h2><p>图语言可以是<a href="https://en.wikipedia.org/wiki/Turing_completeness" target="_blank" rel="noopener"><code>图灵完备</code></a>的<br>目前业界常见的三个事实上的标准：<br>TigerGraph的<code>GSQL</code> 类似PL/SQL风格的语言<br>Neo4j的<code>Cypher</code>，易用性非常好的语言，实现精细的控制比较难<br><code>Gremlin</code>，高度表达，学习曲线不低，复杂度高。</p>
 <h2 id="计算-存储的横向扩展-纵向扩展"><a href="#计算-存储的横向扩展-纵向扩展" class="headerlink" title="计算/存储的横向扩展/纵向扩展"></a>计算/存储的横向扩展/纵向扩展</h2><blockquote>
 <p>一些图数据库可以在存储水平上水平扩展（横向扩展），这意味着将机器加倍，存储可以加倍，但是计算速度不会提高2倍。</p>
 </blockquote>
@@ -197,7 +197,7 @@
 <h2 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h2><p>go实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
 <h2 id="cayley"><a href="#cayley" class="headerlink" title="cayley"></a>cayley</h2><p>go实现<a href="https://github.com/cayleygraph/cayley" target="_blank" rel="noopener">地址</a></p>
 <h2 id="Arangodb"><a href="#Arangodb" class="headerlink" title="Arangodb"></a>Arangodb</h2><p>多模型的C++实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Titan-JanusGraph-IBM-Graph"><a href="#Titan-JanusGraph-IBM-Graph" class="headerlink" title="Titan/JanusGraph/IBM Graph"></a>Titan/JanusGraph/IBM Graph</h2><p>理解这些图数据库，需要了解Apache TinkerPop complian</p>
+<h2 id="Titan-JanusGraph-IBM-Graph"><a href="#Titan-JanusGraph-IBM-Graph" class="headerlink" title="Titan/JanusGraph/IBM Graph"></a>Titan/JanusGraph/IBM Graph</h2><p>理解这些图数据库，需要了解Apache TinkerPop Gremlin</p>
 <h1 id="以上几种数据本人的看法"><a href="#以上几种数据本人的看法" class="headerlink" title="以上几种数据本人的看法"></a>以上几种数据本人的看法</h1><p>Neo4j非常早的支持事务的本地原生图数据库。优点很明显，缺点也很明显：<br>明显的优点是：产品成熟，易使用。<br>缺点也非常明显：效率低下，没有数据分片机制，不支持横向扩展–所谓的<code>分布式集群</code>只能提高数据吞吐量，是完整的数据备份。<br>两个go项目：</p>
 <table>
 <thead>
