@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>ubuntu 16.04科学上网 | Engineer Gilbert</title>
+  <title>Raft | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
+  <meta name="description" content="共识算法：Raft上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu 16.04科学上网">
-<meta property="og:url" content="https://toader.github.io/2019/02/03/ubuntu-16-04科学上网/index.html">
+<meta property="og:title" content="Raft">
+<meta property="og:url" content="https://toader.github.io/2019/03/27/Raft/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
+<meta property="og:description" content="共识算法：Raft上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-03T06:29:02.327Z">
+<meta property="og:updated_time" content="2019-04-12T11:04:04.715Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu 16.04科学上网">
-<meta name="twitter:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
+<meta name="twitter:title" content="Raft">
+<meta name="twitter:description" content="共识算法：Raft上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -147,38 +147,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ubuntu-16-04科学上网" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Raft" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ubuntu 16.04科学上网
+      Raft
     </h1>
   
 
         
-        <a href="/2019/02/03/ubuntu-16-04科学上网/" class="archive-article-date">
-  	<time datetime="2019-02-03T05:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
+        <a href="/2019/03/27/Raft/" class="archive-article-date">
+  	<time datetime="2019-03-27T04:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>ubuntu下配置shadowsocks客户端的方法</p>
-</blockquote>
-<p><code>apt-get install shadowsocks</code></p>
-<p> 启动的方法：</p>
-<p><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code></p>
-<p>vim /etc/shadowsocks.json内容如下：</p>
+        <h2 id="共识算法：Raft"><a href="#共识算法：Raft" class="headerlink" title="共识算法：Raft"></a>共识算法：Raft</h2><p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
 <blockquote>
+<p>拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这种情况不考虑计算机之间互相发送恶意信息，极大简化了系统对容错的要求，最主要的是达到一致性。</p>
 </blockquote>
-<p>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}</p>
-<p><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
-<p>双级代理</p>
+<p>所以将拜占庭将军问题根据常见的工作上的问题进行简化：假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定？</p>
+<p>对于这个简化后的问题，有许多解决方案，第一个被证明的共识算法是 <code>Paxos</code>，由拜占庭将军问题的作者 <code>Leslie Lamport</code> 在1990年提出，最初以论文难懂而出名，后来这哥们在2001重新发了一篇简单版的论文 <code>Paxos Made Simple</code>，然而还是挺难懂的。</p>
+<p>因为 <code>Paxos</code> 难懂，难实现，所以斯坦福大学的教授在2014年发表了新的分布式协议 <code>Raft</code>。与 <code>Paxos</code> 相比，<code>Raft</code> 有着基本相同的运行效率，但是更容易理解，也更容易被用在系统开发上。</p>
+<h1 id="针对简化版拜占庭将军问题，Raft-解决方案类比"><a href="#针对简化版拜占庭将军问题，Raft-解决方案类比" class="headerlink" title="针对简化版拜占庭将军问题，Raft 解决方案类比"></a>针对简化版拜占庭将军问题，Raft 解决方案类比</h1><p>我们还是用拜占庭将军的例子来帮助理解 <code>Raft</code>。</p>
+<blockquote>
+<p>假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定</p>
+</blockquote>
+<p>Raft 的解决方案大概可以理解成 先在所有将军中选出一个大将军，所有的决定由大将军来做。<br><code>选举环节</code>：<br>比如说现在一共有3个将军 A, B, C，每个将军都有一个随机时间的倒计时器，倒计时一结束，这个将军就会把自己当成大将军候选人，然后派信使去问其他几个将军，能不能选我为总将军？假设现在将军A倒计时结束了，他派信使传递选举投票的信息给将军B和C，如果将军B和C还没把自己当成候选人（倒计时还没有结束），并且没有把选举票投给其他，他们把票投给将军A，信使在回到将军A时，将军A知道自己收到了足够的票数，成为了大将军。在这之后，是否要进攻就由大将军决定，然后派信使去通知另外两个将军，如果在一段时回间后还没有收到复（可能信使被暗杀），那就再重派一个信使，直到收到回复。</p>
+<p>故事先讲到这里，希望不做技术方面的朋友可以大概能理解 <code>Raft</code> 的原理，下面从比较技术的角度讲讲 <code>Raft</code> 的原理。</p>
+<h1 id="Raft-节点状态"><a href="#Raft-节点状态" class="headerlink" title="Raft 节点状态"></a>Raft 节点状态</h1><p>从拜占庭将军的故事映射到分布式系统上，每个将军相当于一个分布式网络节点，每个节点有三种状态：<code>Follower</code>，<code>Candidate</code>，<code>Leader</code>，状态之间是互相转换的，可以参考下图，具体的后面说。</p>
+<p>每个结点上都有一个倒计时器，时间随机在150ms到300ms之间。有几种情况会重设Timeout:</p>
+<ol>
+<li>收到选举的请求</li>
+<li>收到<code>Leader</code>的<code>Heartbeat</code></li>
+</ol>
+<p>在Raft运行过程中，最主要进行两个活动：</p>
+<ol>
+<li>选主<code>Leader Election</code></li>
+<li>复制日志 <code>Log Replication</code></li>
+</ol>
+<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><hr>
+<p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
+<p>在一个节点倒计时结束后，这个节点的状态变成<code>Candidate</code>开始选举，它给其他几个节点发送选举请求（RequestVote）</p>
+<p>其他四个鸡诶单都返回成功，这个节点的状态由<code>Candidate</code>变成了<code>Leader</code>，并在每个一小段时间后，就给所有的<code>Follower</code>发送一个<code>Heartbeat</code>以保持所有节点的状态，<code>Follower</code>收到<code>Leader</code>的<code>Heartbeat</code>后重设<code>Timeout</code>。</p>
+<p>这是最简单的选主情况，只要有超过一半的节点投支持票了，<code>Candidate</code>才会被选举为<code>Leader</code>，5个节点的情况下，3个节点（包括<code>Candidate</code>本身）投了支持就行。</p>
+<h2 id="Leader出故障情况下的选主"><a href="#Leader出故障情况下的选主" class="headerlink" title="Leader出故障情况下的选主"></a>Leader出故障情况下的选主</h2><p>一开始已经有一个<code>Leader</code>，所有节点正常运行。</p>
+<p><code>Leader</code>出故障挂掉了，其他四个<code>Follower</code>将进行重新选主。</p>
+<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
 
       
 
@@ -269,7 +289,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/02/03/ubuntu-16-04科学上网/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/03/27/Raft/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -283,18 +303,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/01/Go学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Go学习笔记
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/24/Graph-Database-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Graph Database 3</div>
+    <a href="/2019/03/18/汽车金融业务-反欺诈/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">汽车金融业务反欺诈</div>
       <i class="icon-circle-right"></i>
     </a>
   

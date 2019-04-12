@@ -148,6 +148,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Raft" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/Raft/">Raft</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/27/Raft/" class="archive-article-date">
+  	<time datetime="2019-03-27T04:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="共识算法：Raft"><a href="#共识算法：Raft" class="headerlink" title="共识算法：Raft"></a>共识算法：Raft</h2><p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
+<blockquote>
+<p>拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这种情况不考虑计算机之间互相发送恶意信息，极大简化了系统对容错的要求，最主要的是达到一致性。</p>
+</blockquote>
+<p>所以将拜占庭将军问题根据常见的工作上的问题进行简化：假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定？</p>
+<p>对于这个简化后的问题，有许多解决方案，第一个被证明的共识算法是 <code>Paxos</code>，由拜占庭将军问题的作者 <code>Leslie Lamport</code> 在1990年提出，最初以论文难懂而出名，后来这哥们在2001重新发了一篇简单版的论文 <code>Paxos Made Simple</code>，然而还是挺难懂的。</p>
+<p>因为 <code>Paxos</code> 难懂，难实现，所以斯坦福大学的教授在2014年发表了新的分布式协议 <code>Raft</code>。与 <code>Paxos</code> 相比，<code>Raft</code> 有着基本相同的运行效率，但是更容易理解，也更容易被用在系统开发上。</p>
+<h1 id="针对简化版拜占庭将军问题，Raft-解决方案类比"><a href="#针对简化版拜占庭将军问题，Raft-解决方案类比" class="headerlink" title="针对简化版拜占庭将军问题，Raft 解决方案类比"></a>针对简化版拜占庭将军问题，Raft 解决方案类比</h1><p>我们还是用拜占庭将军的例子来帮助理解 <code>Raft</code>。</p>
+<blockquote>
+<p>假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定</p>
+</blockquote>
+<p>Raft 的解决方案大概可以理解成 先在所有将军中选出一个大将军，所有的决定由大将军来做。<br><code>选举环节</code>：<br>比如说现在一共有3个将军 A, B, C，每个将军都有一个随机时间的倒计时器，倒计时一结束，这个将军就会把自己当成大将军候选人，然后派信使去问其他几个将军，能不能选我为总将军？假设现在将军A倒计时结束了，他派信使传递选举投票的信息给将军B和C，如果将军B和C还没把自己当成候选人（倒计时还没有结束），并且没有把选举票投给其他，他们把票投给将军A，信使在回到将军A时，将军A知道自己收到了足够的票数，成为了大将军。在这之后，是否要进攻就由大将军决定，然后派信使去通知另外两个将军，如果在一段时回间后还没有收到复（可能信使被暗杀），那就再重派一个信使，直到收到回复。</p>
+<p>故事先讲到这里，希望不做技术方面的朋友可以大概能理解 <code>Raft</code> 的原理，下面从比较技术的角度讲讲 <code>Raft</code> 的原理。</p>
+<h1 id="Raft-节点状态"><a href="#Raft-节点状态" class="headerlink" title="Raft 节点状态"></a>Raft 节点状态</h1><p>从拜占庭将军的故事映射到分布式系统上，每个将军相当于一个分布式网络节点，每个节点有三种状态：<code>Follower</code>，<code>Candidate</code>，<code>Leader</code>，状态之间是互相转换的，可以参考下图，具体的后面说。</p>
+<p>每个结点上都有一个倒计时器，时间随机在150ms到300ms之间。有几种情况会重设Timeout:</p>
+<ol>
+<li>收到选举的请求</li>
+<li>收到<code>Leader</code>的<code>Heartbeat</code></li>
+</ol>
+<p>在Raft运行过程中，最主要进行两个活动：</p>
+<ol>
+<li>选主<code>Leader Election</code></li>
+<li>复制日志 <code>Log Replication</code></li>
+</ol>
+<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><hr>
+<p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
+<p>在一个节点倒计时结束后，这个节点的状态变成<code>Candidate</code>开始选举，它给其他几个节点发送选举请求（RequestVote）</p>
+<p>其他四个鸡诶单都返回成功，这个节点的状态由<code>Candidate</code>变成了<code>Leader</code>，并在每个一小段时间后，就给所有的<code>Follower</code>发送一个<code>Heartbeat</code>以保持所有节点的状态，<code>Follower</code>收到<code>Leader</code>的<code>Heartbeat</code>后重设<code>Timeout</code>。</p>
+<p>这是最简单的选主情况，只要有超过一半的节点投支持票了，<code>Candidate</code>才会被选举为<code>Leader</code>，5个节点的情况下，3个节点（包括<code>Candidate</code>本身）投了支持就行。</p>
+<h2 id="Leader出故障情况下的选主"><a href="#Leader出故障情况下的选主" class="headerlink" title="Leader出故障情况下的选主"></a>Leader出故障情况下的选主</h2><p>一开始已经有一个<code>Leader</code>，所有节点正常运行。</p>
+<p><code>Leader</code>出故障挂掉了，其他四个<code>Follower</code>将进行重新选主。</p>
+<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/27/Raft/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-汽车金融业务-反欺诈" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -192,8 +297,16 @@
 <blockquote>
 <p>长期来看，基于数据与技术的精细化运营能力将越来越重要，并将左右这些头部平台的兴衰存亡。</p>
 </blockquote>
-<h4 id="汽车金融公司背景"><a href="#汽车金融公司背景" class="headerlink" title="汽车金融公司背景"></a>汽车金融公司背景</h4><p>汽车金融主要方式有银行车贷，信用卡分期，汽车厂商自己的消费金融公司，以及近几年兴起的互联网平台。<br>银行车贷产品优点是利率最低，可选车型也多，首付至少三成，需要办理抵质押流程，审批流程和时间较长，而且审批较为严格，而且一般还会捆绑销售让你买全险。申请银行车贷一般会要求你提供身份证、房产证、社保基数、银行流水等，银行会平局你的信用情况和还款能力，然后给你一个额度。如果你通过4S来办的话，4S店可能还会收你一笔手续费，当然了，作为汽车金融的主要获客渠道，不管你用什么机构的金融服务，只要你在4S店办的贷款或分期，4S店一般都会收一笔手续费。</p>
-<p>信用卡分析可能不同银行车贷产品车型有限，缺点是额度可能不大，而且手续费隐含的实际利率比较高，分期半年内较之车贷有优势，因为很多信用卡分期半年内有优惠，超过二年的实际成本等同甚至超过一些互联网平台，年华实际利率可能会超过12%以上，对信用审批相对来说也比较严格，信用卡买车的车价折扣较少，价格可能会比你从经销商那拿的高，这个其实跟你在各家银行的信用</p>
+<h4 id="汽车金融公司背景"><a href="#汽车金融公司背景" class="headerlink" title="汽车金融公司背景"></a>汽车金融公司背景</h4><p>汽车金融主要方式有银行车贷，信用卡分期，汽车厂商自己的消费金融公司，以及近几年兴起的互联网平台。</p>
+<p><strong>银行车贷</strong></p>
+<p>银行车贷产品优点是利率最低，可选车型也多，首付至少三成，需要办理抵质押流程，审批流程和时间较长，而且审批较为严格，而且一般还会捆绑销售让你买全险。申请银行车贷一般会要求你提供身份证、房产证、社保基数、银行流水等，银行会平局你的信用情况和还款能力，然后给你一个额度。如果你通过4S来办的话，4S店可能还会收你一笔手续费，当然了，作为汽车金融的主要获客渠道，不管你用什么机构的金融服务，只要你在4S店办的贷款或分期，4S店一般都会收一笔手续费。</p>
+<p><strong>信用卡分析</strong></p>
+<p>信用卡分析可能不同银行车贷产品车型有限，缺点是额度可能不大，而且手续费隐含的实际利率比较高，分期半年内较之车贷有优势，因为很多信用卡分期半年内有优惠，超过二年的实际成本等同甚至超过一些互联网平台，年华实际利率可能会超过12%以上，对信用审批相对来说也比较严格，信用卡买车的车价折扣较少，价格可能会比你从经销商那拿的高，这个其实跟你在各家银行的信用卡商城买任何东西都是一样的，银行不光是赚利息，还赚商品销售利润，而且分期额度还是受制于你的信用卡额度。</p>
+<p><strong>厂商背景的汽车金融公司</strong></p>
+<p>国内主要的玩家包括上汽通用汽车金融、宝马汽车金融（中国）、大众汽车金融（中国）、福特汽车金融（中国）、东风日产汽车金融、梅赛德斯-奔驰汽车金融、北京现代汽车金融、东风标致雪铁龙汽车金融、丰田汽车金融（中国）、瑞福德汽车金融、广汽汇理汽车金融、奇瑞徽银汽车金融等。这些公司的优势是销售渠道成熟，而且由于中国汽车市场的利润大部分在生产环节，因此厂家经常为了促销可以拿销售利润来补贴，经常能看到第一年0首付，0利率或者0手续费等这种宣传，但是买得永远不如卖的精，这三项优惠基本不会出现在同一款车型上，而且补贴和优惠一般都是促销车型，你想买的热门车型往往都是没有优惠的，如果你想买的车正好出了优惠，那么还是很划算的。还有就是每家汽车金融公司只给自家的车型提供金融服务，成本比银行贷款略高，搭配的收费项目也挺多，保险一般肯定是要搭售的，而且可能还会把第一受益人写成汽车金融公司，这个也好理解，如果车坏了被偷了抢了，购车客户不还钱了，汽车金融公司还是要有安全保障的。审批整体来说也是比较严格，可能比银行车贷稍微松些。</p>
+<p>汽车金融公司也是一块金融牌照，之前资金来源主要是跟银行的同业拆借，这两年比较流行通过发ABS通过资产证券化来融资。</p>
+<p><strong>互联网平台</strong></p>
+<p>主要是提供的是分期服务，优点不用说了，对贷款人的信用要求比较低，审批快，首付低至一成</p>
 
       
 
@@ -914,91 +1027,6 @@
 
 
   
-    <article id="post-ubuntu-16-04科学上网" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/03/ubuntu-16-04科学上网/">ubuntu 16.04科学上网</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/03/ubuntu-16-04科学上网/" class="archive-article-date">
-  	<time datetime="2019-02-03T05:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>ubuntu下配置shadowsocks客户端的方法</p>
-</blockquote>
-<p><code>apt-get install shadowsocks</code></p>
-<p> 启动的方法：</p>
-<p><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code></p>
-<p>vim /etc/shadowsocks.json内容如下：</p>
-<blockquote>
-</blockquote>
-<p>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}</p>
-<p><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
-<p>双级代理</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/03/ubuntu-16-04科学上网/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1092,11 +1120,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
