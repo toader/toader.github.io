@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Go的panic&amp;recover | Engineer Gilbert</title>
+  <title>Go的panic &amp; recover | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="panic &amp;amp; recover这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。 基本概念 panic 和 recover的函数签名如下： 12panic (i interface() &amp;#123;&amp;#125;)recover () interface &amp;#123;&amp;#125;">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go的panic&amp;recover">
+<meta property="og:title" content="Go的panic &amp; recover">
 <meta property="og:url" content="https://toader.github.io/2019/03/05/Go的panic-recover/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
 <meta property="og:description" content="panic &amp;amp; recover这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。 基本概念 panic 和 recover的函数签名如下： 12panic (i interface() &amp;#123;&amp;#125;)recover () interface &amp;#123;&amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-05T13:05:38.040Z">
+<meta property="og:updated_time" content="2019-04-18T10:15:24.008Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go的panic&amp;recover">
+<meta name="twitter:title" content="Go的panic &amp; recover">
 <meta name="twitter:description" content="panic &amp;amp; recover这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。 基本概念 panic 和 recover的函数签名如下： 12panic (i interface() &amp;#123;&amp;#125;)recover () interface &amp;#123;&amp;#125;">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
@@ -154,7 +154,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Go的panic&amp;recover
+      Go的panic &amp; recover
     </h1>
   
 
@@ -168,7 +168,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="panic-amp-recover"><a href="#panic-amp-recover" class="headerlink" title="panic &amp; recover"></a>panic &amp; recover</h2><p>这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。</p>
-<p>基本概念</p>
+<p><strong>基本概念</strong></p>
 <p>panic 和 recover的函数签名如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span> (i <span class="keyword">interface</span>() &#123;&#125;)</span><br><span class="line"><span class="built_in">recover</span> () <span class="keyword">interface</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>引发panic有两种情况，一种是程序主动调用panic函数，另一种程序产生运行时错误，由运行时检测并抛出。<br>发生panic后，程序会从调用panic的函数位置或发生panic的地方立即返回，逐层向上执行函数的defer语句，然后逐层打印函数调用堆栈，直到被recover捕获或运行到最外层函数而推出。</p>
@@ -407,15 +407,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
               </li>
              
               <li class="article-tag-list-item">

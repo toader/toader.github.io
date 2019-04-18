@@ -168,7 +168,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="共识算法：Raft"><a href="#共识算法：Raft" class="headerlink" title="共识算法：Raft"></a>共识算法：Raft</h2><p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
+        <p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
 <blockquote>
 <p>拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这种情况不考虑计算机之间互相发送恶意信息，极大简化了系统对容错的要求，最主要的是达到一致性。</p>
 </blockquote>
@@ -192,14 +192,42 @@
 <li>选主<code>Leader Election</code></li>
 <li>复制日志 <code>Log Replication</code></li>
 </ol>
-<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><hr>
-<p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
+<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
 <p>在一个节点倒计时结束后，这个节点的状态变成<code>Candidate</code>开始选举，它给其他几个节点发送选举请求（RequestVote）</p>
 <p>其他四个鸡诶单都返回成功，这个节点的状态由<code>Candidate</code>变成了<code>Leader</code>，并在每个一小段时间后，就给所有的<code>Follower</code>发送一个<code>Heartbeat</code>以保持所有节点的状态，<code>Follower</code>收到<code>Leader</code>的<code>Heartbeat</code>后重设<code>Timeout</code>。</p>
 <p>这是最简单的选主情况，只要有超过一半的节点投支持票了，<code>Candidate</code>才会被选举为<code>Leader</code>，5个节点的情况下，3个节点（包括<code>Candidate</code>本身）投了支持就行。</p>
 <h2 id="Leader出故障情况下的选主"><a href="#Leader出故障情况下的选主" class="headerlink" title="Leader出故障情况下的选主"></a>Leader出故障情况下的选主</h2><p>一开始已经有一个<code>Leader</code>，所有节点正常运行。</p>
 <p><code>Leader</code>出故障挂掉了，其他四个<code>Follower</code>将进行重新选主。</p>
-<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
+<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term 1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term 2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
+<h2 id="多个Candidate情况下的选主"><a href="#多个Candidate情况下的选主" class="headerlink" title="多个Candidate情况下的选主"></a>多个<code>Candidate</code>情况下的选主</h2><p>假设一开始有4个节点，都还是<code>Follower</code>。</p>
+<p>有两个<code>Follower</code>同时<code>Timeout</code>，都变成了<code>Candidate</code>开始选举，分别给一个<code>Follower</code>发送了投票请求。</p>
+<p>两个<code>Follower</code>分别返回了<code>OK</code>，这时两个<code>Candidate</code>都只有2票，要3票才能被选成<code>Leader</code>。</p>
+<p>两个<code>Candidate</code>会分别给另外一个还没有给自己投票的<code>Follower</code>发送投票请求。</p>
+<p>但是因为<code>Follower</code>在这一轮选举中，都已经投完票了，所以都拒绝了他们的请求。所以在<code>Term 2</code>没有<code>Leader</code>被选出来。</p>
+<p>这时，两个节点的状态是 <code>Candidate</code>，两个是 <code>Follower</code>，但是他们的倒计时器仍然在运行，最先 <code>Timeout</code> 的那个节点会进行发起新一轮 <code>Term 3</code> 的投票。</p>
+<p>两个 <code>Follower</code> 在 <code>Term 3</code> 还没投过票，所以返回 <code>OK</code>，这时 <code>Candidate</code> 一共有三票，被选为了 <code>Leader</code>。</p>
+<p>如果 <code>Leader</code> <code>Heartbeat</code> 的时间晚于另外一个 <code>Candidate</code> <code>timeout</code> 的时间，另外一个 <code>Candidate</code> 仍然会发送选举请求。</p>
+<p>两个 <code>Follower</code> 已经投完票了，拒绝了这个 <code>Candidate</code> 的投票请求。</p>
+<p><code>Leader</code> 进行 <code>Heartbeat</code>， <code>Candidate</code> 收到后状态自动转为 <code>Follower</code>，完成选主。</p>
+<p>以上是 <code>Raft</code> 最重要活动之一选主的介绍，以及在不同情况下如何进行选主。</p>
+<h1 id="复制日志-Log-Replication"><a href="#复制日志-Log-Replication" class="headerlink" title="复制日志 Log Replication"></a>复制日志 <code>Log</code> <code>Replication</code></h1><h2 id="正常情况下复制日志"><a href="#正常情况下复制日志" class="headerlink" title="正常情况下复制日志"></a>正常情况下复制日志</h2><p>Raft 在实际应用场景中的一致性更多的是体现在不同节点之间的数据一致性，客户端发送请求到任何一个节点都能收到一致的返回，当一个节点出故障后，其他节点仍然能以已有的数据正常进行。在选主之后的复制日志就是为了达到这个目的。</p>
+<p>一开始，<code>Leader</code> 和 两个 <code>Follower</code> 都没有任何数据。</p>
+<p>客户端发送请求给 <code>Leader</code>，储存数据 <code>sally</code>，<code>Leader</code> 先将数据写在本地日志，这时候数据还是 <code>Uncommitted</code> (还没最终确认，红色表示)</p>
+<p><code>Leader</code> 给两个 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，数据在 <code>Follower</code> 上没有冲突，则将数据暂时写在本地日志，<code>Follower</code> 的数据也还是 <code>Uncommitted</code>。</p>
+<p><code>Follower</code> 将数据写到本地后，返回 OK。<code>Leader</code> 收到后成功返回，只要收到的成功的返回数量超过半数 (包含<code>Leader</code>)，<code>Leader</code> 将数据 <code>sally</code> 的状态改成 <code>Committed</code>。( 这个时候 <code>Leader</code> 就可以返回给客户端了)</p>
+<p>Leader 再次给 Follower 发送 AppendEntries 请求，收到请求后，Follower 将本地日志里 Uncommitted 数据改成 Committed。这样就完成了一整个复制日志的过程，三个节点的数据是一致的</p>
+<h2 id="Network-Partition-情况下进行复制日志"><a href="#Network-Partition-情况下进行复制日志" class="headerlink" title="Network Partition 情况下进行复制日志"></a>Network Partition 情况下进行复制日志</h2><p>在 Network Partition 的情况下，部分节点之间没办法互相通信，Raft 也能保证在这种情况下数据的一致性。</p>
+<p>一开始有 5 个节点处于同一网络状态下。</p>
+<p>Network Partition 将节点分成两边，一边有两个节点，一边三个节点。</p>
+<p>两个节点这边已经有 Leader 了，来自客户端的数据 “bob” 通过 Leader 同步到 Follower。</p>
+<p>因为只有两个节点，少于3个节点，所以 “bob” 的状态仍是 Uncommitted。所以在这里，服务器会返回错误给客户端</p>
+<p>另外一个 Partition 有三个节点，进行重新选主。客户端数据 “tom” 发到新的 Leader，通过和上节网络状态下相似的过程，同步到另外两个 Follower</p>
+<p>因为这个 Partition 有3个节点，超过半数，所以数据 “tom” 都 Commit 了</p>
+<p>网络状态恢复，5个节点再次处于同一个网络状态下。但是这里出现了数据冲突 “bob” 和 “tom”</p>
+<p>三个节点的 Leader 广播 AppendEntries</p>
+<p>两个节点 Partition 的 Leader 自动降级为 Follower，因为这个 Partition 的数据 “bob” 没有 Commit，返回给客户端的是错误，客户端知道请求没有成功，所以 Follower 在收到 AppendEntries 请求时，可以把 “bob“ 删除，然后同步 ”tom”，通过这么一个过程，就完成了在 Network Partition 情况下的复制日志，保证了数据的一致性。</p>
+<p>小总结<br>Raft 是能够实现分布式系统强一致性的算法，每个系统节点有三种状态 Follower，Candidate，Leader。实现 Raft 算法两个最重要的事是：选主和复制日志</p>
+<p><a href="https://www.infoq.cn/article/coreos-analyse-etcd" target="_blank" rel="noopener">CoreOS实战剖析etcd</a></p>
 
       
 
@@ -305,8 +333,6 @@
 <p><strong>厂商背景的汽车金融公司</strong></p>
 <p>国内主要的玩家包括上汽通用汽车金融、宝马汽车金融（中国）、大众汽车金融（中国）、福特汽车金融（中国）、东风日产汽车金融、梅赛德斯-奔驰汽车金融、北京现代汽车金融、东风标致雪铁龙汽车金融、丰田汽车金融（中国）、瑞福德汽车金融、广汽汇理汽车金融、奇瑞徽银汽车金融等。这些公司的优势是销售渠道成熟，而且由于中国汽车市场的利润大部分在生产环节，因此厂家经常为了促销可以拿销售利润来补贴，经常能看到第一年0首付，0利率或者0手续费等这种宣传，但是买得永远不如卖的精，这三项优惠基本不会出现在同一款车型上，而且补贴和优惠一般都是促销车型，你想买的热门车型往往都是没有优惠的，如果你想买的车正好出了优惠，那么还是很划算的。还有就是每家汽车金融公司只给自家的车型提供金融服务，成本比银行贷款略高，搭配的收费项目也挺多，保险一般肯定是要搭售的，而且可能还会把第一受益人写成汽车金融公司，这个也好理解，如果车坏了被偷了抢了，购车客户不还钱了，汽车金融公司还是要有安全保障的。审批整体来说也是比较严格，可能比银行车贷稍微松些。</p>
 <p>汽车金融公司也是一块金融牌照，之前资金来源主要是跟银行的同业拆借，这两年比较流行通过发ABS通过资产证券化来融资。</p>
-<p><strong>互联网平台</strong></p>
-<p>主要是提供的是分期服务，优点不用说了，对贷款人的信用要求比较低，审批快，首付低至一成</p>
 
       
 
@@ -568,6 +594,8 @@
         <h1 id="英语学习事情"><a href="#英语学习事情" class="headerlink" title="英语学习事情"></a>英语学习事情</h1><h2 id="流利说的学习笔记"><a href="#流利说的学习笔记" class="headerlink" title="流利说的学习笔记"></a>流利说的学习笔记</h2><blockquote>
 <p>今天是学习英语流利说的第一天，一定要抓紧时间，按时按量完成任务。<br>英语学习建立单独的tag来支撑整个</p>
 </blockquote>
+<hr>
+<p>实践已经清晰的表明，完全没有时间去做这些事情。</p>
 
       
 
@@ -621,83 +649,6 @@
 
 
   
-    <article id="post-SQH-Tech-Poster" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/SQH-Tech-Poster/">SQH Tech Poster</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/11/SQH-Tech-Poster/" class="archive-article-date">
-  	<time datetime="2019-03-11T11:15:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="三个职位"><a href="#三个职位" class="headerlink" title="三个职位"></a>三个职位</h1><h2 id="风控业务专家"><a href="#风控业务专家" class="headerlink" title="风控业务专家"></a>风控业务专家</h2><h2 id="销售经理"><a href="#销售经理" class="headerlink" title="销售经理"></a>销售经理</h2><h2 id="管理培训生"><a href="#管理培训生" class="headerlink" title="管理培训生"></a>管理培训生</h2><p>业务上面有很多的东西可以学习</p>
-<blockquote>
-<p>poster需要根据微信公众号文章的地址生成二维码地址，以后串行，有周期的事情，一定要提前声明自己如何去做。</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">管理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/11/SQH-Tech-Poster/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-DV购买计划" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -721,8 +672,8 @@
         <h1 id="为即将落地的新生命准备"><a href="#为即将落地的新生命准备" class="headerlink" title="为即将落地的新生命准备"></a>为即将落地的新生命准备</h1><blockquote>
 <p>我家桃子快要出生了，非常耐心的等等宝宝的到来，紧张忐忑还有很多的开心。<br>计划买个DV，这个月底吧，记录下宝宝出生到以后的所有的事情。</p>
 </blockquote>
-<p><a href="https://item.jd.com/2655177.html#crumb-wrap" target="_blank" rel="noopener">地址</a></p>
-<p>给自己买个mark杯，多喝点水。</p>
+<h2 id="地址"><a href="#地址" class="headerlink" title="地址"></a><a href="https://item.jd.com/2655177.html#crumb-wrap" target="_blank" rel="noopener">地址</a></h2><p>这个价格太贵，重要的是给宝宝一个留念的工具<br><a href="">新地址</a></p>
+<h2 id="给自己买个mark杯，多喝点水。"><a href="#给自己买个mark杯，多喝点水。" class="headerlink" title="给自己买个mark杯，多喝点水。"></a>给自己买个mark杯，多喝点水。</h2><p>mark杯已买</p>
 
       
 
@@ -796,14 +747,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="公司内部开会总结了最近的项目研发进展"><a href="#公司内部开会总结了最近的项目研发进展" class="headerlink" title="公司内部开会总结了最近的项目研发进展"></a>公司内部开会总结了最近的项目研发进展</h2><h1 id="图数据库进展"><a href="#图数据库进展" class="headerlink" title="图数据库进展"></a>图数据库进展</h1><blockquote>
-<p>目前来看，可以应对公司的宣传需求，内核完全重构和外围文档梳理书写，需要时间整理。当前进展合理，是个工程好的方向，我自己会深入跟进。<br>招募人才遇到公司内部薪资的巨大阻力，无法找到成本可接受的可以胜任职位的人才。</p>
+        <p>公司内部开会总结了最近的项目研发进展</p>
+<h2 id="图数据库进展"><a href="#图数据库进展" class="headerlink" title="图数据库进展"></a>图数据库进展</h2><blockquote>
+<p>目前来看，可以应对公司的宣传需求，内核完全重构和外围文档梳理书写，需要时间整理。当前进展合理，是个工程好的方向，我自己会深入跟进。<br>招募人才遇到公司内部薪资的巨大阻力，无法找到成本可接受的可以胜任职位的人才。<br>2019-04-18 更新<br>目前的进度非常不好，数据导入没有完成，销售材料没有书写完成。<br>我在这里列出一个需要完成的材料列表</p>
 </blockquote>
-<h1 id="Fusion的产品进展，移动端"><a href="#Fusion的产品进展，移动端" class="headerlink" title="Fusion的产品进展，移动端"></a>Fusion的产品进展，移动端</h1><blockquote>
-<p>产品成型，但是数据有很大问题，无论数据清洗，还是数据采集，需求和实际能做到的鸿沟非常巨大。且没有看到可以弥合这两者的趋势或者可能。</p>
+<h2 id="Fusion的产品进展，移动端"><a href="#Fusion的产品进展，移动端" class="headerlink" title="Fusion的产品进展，移动端"></a>Fusion的产品进展，移动端</h2><blockquote>
+<p>产品成型，但是数据有很大问题，无论数据清洗，还是数据采集，需求和实际能做到的鸿沟非常巨大。且没有看到可以弥合这两者的趋势或者可能。<br>2019-04-18 更新<br>产品与预期一样，数据遇到了很大的问题，目前的问题还是围绕数据，进入客户实际使用的见光死阶段。</p>
 </blockquote>
-<h1 id="建模平台"><a href="#建模平台" class="headerlink" title="建模平台"></a>建模平台</h1><blockquote>
-<p>产品经理胜任能力不足，需要算法工程师等高素质人才进驻，当前招募到的南加大的同学不错，观察进闸。</p>
+<h2 id="建模平台"><a href="#建模平台" class="headerlink" title="建模平台"></a>建模平台</h2><blockquote>
+<p>产品经理胜任能力不足，需要算法工程师等高素质人才进驻，当前招募到的南加大的同学不错，观察进展。<br>2019-04-18 更新<br>目前进展良好，所有可演示的材料，已经汉化，定制化都在进展中了。</p>
 </blockquote>
 
       
@@ -865,7 +817,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/Go的panic-recover/">Go的panic&amp;recover</a>
+      <a class="article-title" href="/2019/03/05/Go的panic-recover/">Go的panic &amp; recover</a>
     </h1>
   
 
@@ -879,7 +831,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="panic-amp-recover"><a href="#panic-amp-recover" class="headerlink" title="panic &amp; recover"></a>panic &amp; recover</h2><p>这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。</p>
-<p>基本概念</p>
+<p><strong>基本概念</strong></p>
 <p>panic 和 recover的函数签名如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span> (i <span class="keyword">interface</span>() &#123;&#125;)</span><br><span class="line"><span class="built_in">recover</span> () <span class="keyword">interface</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
 <p>引发panic有两种情况，一种是程序主动调用panic函数，另一种程序产生运行时错误，由运行时检测并抛出。<br>发生panic后，程序会从调用panic的函数位置或发生panic的地方立即返回，逐层向上执行函数的defer语句，然后逐层打印函数调用堆栈，直到被recover捕获或运行到最外层函数而推出。</p>
@@ -958,8 +910,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Go学习笔记"><a href="#Go学习笔记" class="headerlink" title="Go学习笔记"></a>Go学习笔记</h2><p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
-<p>闭包</p>
+        <p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
+<p><strong>闭包</strong></p>
 <p>闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。</p>
 <p>闭包 = 函数 + 引用环境</p>
 <p>闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变量分配到堆上。</p>
@@ -998,6 +950,83 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/03/01/Go学习笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ubuntu-16-04科学上网" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/03/ubuntu-16-04科学上网/">ubuntu 16.04科学上网</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/03/ubuntu-16-04科学上网/" class="archive-article-date">
+  	<time datetime="2019-02-03T05:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>ubuntu下配置shadowsocks客户端的方法</p>
+</blockquote>
+<p><code>apt-get install shadowsocks</code><br>启动的方法：<br><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code><br>vim /etc/shadowsocks.json内容如下：<br>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}<br><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/03/ubuntu-16-04科学上网/">展开全文 >></a>
         </p>
       
 
@@ -1116,15 +1145,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
               </li>
              
               <li class="article-tag-list-item">

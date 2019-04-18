@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://toader.github.io">
   <title>ubuntu 16.04科学上网 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
+  <meta name="description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks启动的方法：sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfbvim /etc/shadowsocks.json内容如下：{“server”:”ip”,“server_port”:443,“local_port”">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu 16.04科学上网">
 <meta property="og:url" content="https://toader.github.io/2019/02/03/ubuntu-16-04科学上网/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
+<meta property="og:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks启动的方法：sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfbvim /etc/shadowsocks.json内容如下：{“server”:”ip”,“server_port”:443,“local_port”">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-03T06:29:02.327Z">
+<meta property="og:updated_time" content="2019-04-18T10:12:33.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu 16.04科学上网">
-<meta name="twitter:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks  启动的方法： sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb vim /etc/shadowsocks.json内容如下：   {“server”:”ip”,“server_port”:443,“loca">
+<meta name="twitter:description" content="ubuntu下配置shadowsocks客户端的方法  apt-get install shadowsocks启动的方法：sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfbvim /etc/shadowsocks.json内容如下：{“server”:”ip”,“server_port”:443,“local_port”">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -170,15 +170,7 @@
         <blockquote>
 <p>ubuntu下配置shadowsocks客户端的方法</p>
 </blockquote>
-<p><code>apt-get install shadowsocks</code></p>
-<p> 启动的方法：</p>
-<p><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code></p>
-<p>vim /etc/shadowsocks.json内容如下：</p>
-<blockquote>
-</blockquote>
-<p>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}</p>
-<p><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
-<p>双级代理</p>
+<p><code>apt-get install shadowsocks</code><br>启动的方法：<br><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code><br>vim /etc/shadowsocks.json内容如下：<br>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}<br><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
 
       
 
@@ -412,15 +404,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
               </li>
              
               <li class="article-tag-list-item">

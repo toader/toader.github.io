@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://toader.github.io">
   <title>Go学习笔记 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Go学习笔记经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包">
+  <meta name="description" content="经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go学习笔记">
 <meta property="og:url" content="https://toader.github.io/2019/03/01/Go学习笔记/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="Go学习笔记经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包">
+<meta property="og:description" content="经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-08T06:03:28.967Z">
+<meta property="og:updated_time" content="2019-04-18T10:14:07.920Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go学习笔记">
-<meta name="twitter:description" content="Go学习笔记经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包">
+<meta name="twitter:description" content="经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -167,8 +167,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Go学习笔记"><a href="#Go学习笔记" class="headerlink" title="Go学习笔记"></a>Go学习笔记</h2><p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
-<p>闭包</p>
+        <p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
+<p><strong>闭包</strong></p>
 <p>闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。</p>
 <p>闭包 = 函数 + 引用环境</p>
 <p>闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变量分配到堆上。</p>
@@ -291,7 +291,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Go的panic&amp;recover
+          Go的panic &amp; recover
         
       </div>
     </a>
@@ -416,15 +416,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
               </li>
              
               <li class="article-tag-list-item">

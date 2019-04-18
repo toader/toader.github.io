@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://toader.github.io">
   <title>Raft | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="共识算法：Raft上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题">
+  <meta name="description" content="上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raft">
 <meta property="og:url" content="https://toader.github.io/2019/03/27/Raft/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="共识算法：Raft上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题">
+<meta property="og:description" content="上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-12T11:04:04.715Z">
+<meta property="og:updated_time" content="2019-04-18T13:32:05.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raft">
-<meta name="twitter:description" content="共识算法：Raft上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题">
+<meta name="twitter:description" content="上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -167,7 +167,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="共识算法：Raft"><a href="#共识算法：Raft" class="headerlink" title="共识算法：Raft"></a>共识算法：Raft</h2><p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
+        <p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
 <blockquote>
 <p>拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这种情况不考虑计算机之间互相发送恶意信息，极大简化了系统对容错的要求，最主要的是达到一致性。</p>
 </blockquote>
@@ -191,14 +191,42 @@
 <li>选主<code>Leader Election</code></li>
 <li>复制日志 <code>Log Replication</code></li>
 </ol>
-<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><hr>
-<p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
+<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
 <p>在一个节点倒计时结束后，这个节点的状态变成<code>Candidate</code>开始选举，它给其他几个节点发送选举请求（RequestVote）</p>
 <p>其他四个鸡诶单都返回成功，这个节点的状态由<code>Candidate</code>变成了<code>Leader</code>，并在每个一小段时间后，就给所有的<code>Follower</code>发送一个<code>Heartbeat</code>以保持所有节点的状态，<code>Follower</code>收到<code>Leader</code>的<code>Heartbeat</code>后重设<code>Timeout</code>。</p>
 <p>这是最简单的选主情况，只要有超过一半的节点投支持票了，<code>Candidate</code>才会被选举为<code>Leader</code>，5个节点的情况下，3个节点（包括<code>Candidate</code>本身）投了支持就行。</p>
 <h2 id="Leader出故障情况下的选主"><a href="#Leader出故障情况下的选主" class="headerlink" title="Leader出故障情况下的选主"></a>Leader出故障情况下的选主</h2><p>一开始已经有一个<code>Leader</code>，所有节点正常运行。</p>
 <p><code>Leader</code>出故障挂掉了，其他四个<code>Follower</code>将进行重新选主。</p>
-<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
+<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term 1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term 2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
+<h2 id="多个Candidate情况下的选主"><a href="#多个Candidate情况下的选主" class="headerlink" title="多个Candidate情况下的选主"></a>多个<code>Candidate</code>情况下的选主</h2><p>假设一开始有4个节点，都还是<code>Follower</code>。</p>
+<p>有两个<code>Follower</code>同时<code>Timeout</code>，都变成了<code>Candidate</code>开始选举，分别给一个<code>Follower</code>发送了投票请求。</p>
+<p>两个<code>Follower</code>分别返回了<code>OK</code>，这时两个<code>Candidate</code>都只有2票，要3票才能被选成<code>Leader</code>。</p>
+<p>两个<code>Candidate</code>会分别给另外一个还没有给自己投票的<code>Follower</code>发送投票请求。</p>
+<p>但是因为<code>Follower</code>在这一轮选举中，都已经投完票了，所以都拒绝了他们的请求。所以在<code>Term 2</code>没有<code>Leader</code>被选出来。</p>
+<p>这时，两个节点的状态是 <code>Candidate</code>，两个是 <code>Follower</code>，但是他们的倒计时器仍然在运行，最先 <code>Timeout</code> 的那个节点会进行发起新一轮 <code>Term 3</code> 的投票。</p>
+<p>两个 <code>Follower</code> 在 <code>Term 3</code> 还没投过票，所以返回 <code>OK</code>，这时 <code>Candidate</code> 一共有三票，被选为了 <code>Leader</code>。</p>
+<p>如果 <code>Leader</code> <code>Heartbeat</code> 的时间晚于另外一个 <code>Candidate</code> <code>timeout</code> 的时间，另外一个 <code>Candidate</code> 仍然会发送选举请求。</p>
+<p>两个 <code>Follower</code> 已经投完票了，拒绝了这个 <code>Candidate</code> 的投票请求。</p>
+<p><code>Leader</code> 进行 <code>Heartbeat</code>， <code>Candidate</code> 收到后状态自动转为 <code>Follower</code>，完成选主。</p>
+<p>以上是 <code>Raft</code> 最重要活动之一选主的介绍，以及在不同情况下如何进行选主。</p>
+<h1 id="复制日志-Log-Replication"><a href="#复制日志-Log-Replication" class="headerlink" title="复制日志 Log Replication"></a>复制日志 <code>Log</code> <code>Replication</code></h1><h2 id="正常情况下复制日志"><a href="#正常情况下复制日志" class="headerlink" title="正常情况下复制日志"></a>正常情况下复制日志</h2><p>Raft 在实际应用场景中的一致性更多的是体现在不同节点之间的数据一致性，客户端发送请求到任何一个节点都能收到一致的返回，当一个节点出故障后，其他节点仍然能以已有的数据正常进行。在选主之后的复制日志就是为了达到这个目的。</p>
+<p>一开始，<code>Leader</code> 和 两个 <code>Follower</code> 都没有任何数据。</p>
+<p>客户端发送请求给 <code>Leader</code>，储存数据 <code>sally</code>，<code>Leader</code> 先将数据写在本地日志，这时候数据还是 <code>Uncommitted</code> (还没最终确认，红色表示)</p>
+<p><code>Leader</code> 给两个 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，数据在 <code>Follower</code> 上没有冲突，则将数据暂时写在本地日志，<code>Follower</code> 的数据也还是 <code>Uncommitted</code>。</p>
+<p><code>Follower</code> 将数据写到本地后，返回 OK。<code>Leader</code> 收到后成功返回，只要收到的成功的返回数量超过半数 (包含<code>Leader</code>)，<code>Leader</code> 将数据 <code>sally</code> 的状态改成 <code>Committed</code>。( 这个时候 <code>Leader</code> 就可以返回给客户端了)</p>
+<p>Leader 再次给 Follower 发送 AppendEntries 请求，收到请求后，Follower 将本地日志里 Uncommitted 数据改成 Committed。这样就完成了一整个复制日志的过程，三个节点的数据是一致的</p>
+<h2 id="Network-Partition-情况下进行复制日志"><a href="#Network-Partition-情况下进行复制日志" class="headerlink" title="Network Partition 情况下进行复制日志"></a>Network Partition 情况下进行复制日志</h2><p>在 Network Partition 的情况下，部分节点之间没办法互相通信，Raft 也能保证在这种情况下数据的一致性。</p>
+<p>一开始有 5 个节点处于同一网络状态下。</p>
+<p>Network Partition 将节点分成两边，一边有两个节点，一边三个节点。</p>
+<p>两个节点这边已经有 Leader 了，来自客户端的数据 “bob” 通过 Leader 同步到 Follower。</p>
+<p>因为只有两个节点，少于3个节点，所以 “bob” 的状态仍是 Uncommitted。所以在这里，服务器会返回错误给客户端</p>
+<p>另外一个 Partition 有三个节点，进行重新选主。客户端数据 “tom” 发到新的 Leader，通过和上节网络状态下相似的过程，同步到另外两个 Follower</p>
+<p>因为这个 Partition 有3个节点，超过半数，所以数据 “tom” 都 Commit 了</p>
+<p>网络状态恢复，5个节点再次处于同一个网络状态下。但是这里出现了数据冲突 “bob” 和 “tom”</p>
+<p>三个节点的 Leader 广播 AppendEntries</p>
+<p>两个节点 Partition 的 Leader 自动降级为 Follower，因为这个 Partition 的数据 “bob” 没有 Commit，返回给客户端的是错误，客户端知道请求没有成功，所以 Follower 在收到 AppendEntries 请求时，可以把 “bob“ 删除，然后同步 ”tom”，通过这么一个过程，就完成了在 Network Partition 情况下的复制日志，保证了数据的一致性。</p>
+<p>小总结<br>Raft 是能够实现分布式系统强一致性的算法，每个系统节点有三种状态 Follower，Candidate，Leader。实现 Raft 算法两个最重要的事是：选主和复制日志</p>
+<p><a href="https://www.infoq.cn/article/coreos-analyse-etcd" target="_blank" rel="noopener">CoreOS实战剖析etcd</a></p>
 
       
 
@@ -423,15 +451,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
               </li>
              
               <li class="article-tag-list-item">

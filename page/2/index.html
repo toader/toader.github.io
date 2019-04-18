@@ -148,91 +148,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-ubuntu-16-04科学上网" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/03/ubuntu-16-04科学上网/">ubuntu 16.04科学上网</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/03/ubuntu-16-04科学上网/" class="archive-article-date">
-  	<time datetime="2019-02-03T05:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>ubuntu下配置shadowsocks客户端的方法</p>
-</blockquote>
-<p><code>apt-get install shadowsocks</code></p>
-<p> 启动的方法：</p>
-<p><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code></p>
-<p>vim /etc/shadowsocks.json内容如下：</p>
-<blockquote>
-</blockquote>
-<p>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}</p>
-<p><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
-<p>双级代理</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/03/ubuntu-16-04科学上网/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Graph-Database-3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -256,9 +171,7 @@
         <h1 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h1><p>为了能够继续推进Dgraph，我们必须开始掌握Go语言，搭建公司的Go语言环境。</p>
 <p>dgraph的参考的google论文是哪些？</p>
 <p><a href="https://blog.dgraph.io/post/badger/" target="_blank" rel="noopener">地址</a><br><a href="https://www.infoq.cn/article/2017%2F11%2Fknowledge-graph-articles" target="_blank" rel="noopener">地址</a></p>
-<p>Pregel的工作量很大，需要长时间的准备。</p>
-<p>一个现实并可行的方案，是直接使用dgraph来做。Go项目能不能开发起来呢，我们需要把系统用Go构建起来。</p>
-<p>看更多的Go的代码，学习大神的代码的原则。</p>
+<p>Pregel的工作量很大，需要长时间的准备。<br>一个现实并可行的方案，是直接使用dgraph来做。Go项目能不能开发起来呢，我们需要把系统用Go构建起来。<br>看更多的Go的代码，学习大神的代码的原则。<br>当前遇到的问题是，人员不能很好的工作，有大量的文档需要书写，但是好像没人写，我这边来准备材料吧。</p>
 
       
 
@@ -504,7 +417,7 @@
 <blockquote>
 <p>Java 8被直接升级到Java 10把整个工程压力从自己身上移开，开始做技术规划和技术方向预测是技术管理的核心。</p>
 </blockquote>
-<h1 id="Java-8学习经历"><a href="#Java-8学习经历" class="headerlink" title="Java 8学习经历"></a>Java 8学习经历</h1><p>以后补充过来</p>
+<h1 id="Java-8学习经历"><a href="#Java-8学习经历" class="headerlink" title="Java 8学习经历"></a>Java 8学习经历</h1><p>未补充</p>
 
       
 
@@ -586,11 +499,12 @@
 <li>逻辑架构</li>
 <li>技术架构</li>
 </ul>
-<p><strong>逻辑机构</strong></p>
-<ol>
+<hr>
+<p><strong>逻辑架构</strong></p>
+<ul>
 <li>模式层</li>
 <li>数据层</li>
-</ol>
+</ul>
 <blockquote>
 <p>在数据层之上，是知识图谱的核心，存储经过提炼的知识，通常通过本体库来管理这一层<br>数据层存储真实的数据</p>
 </blockquote>
@@ -602,23 +516,12 @@
 <blockquote>
 <p>知识图谱的整体架构如图所示，其中虚线框内的部分为知识图谱的构建过程，同时也是知识图谱更新的过程。</p>
 </blockquote>
-<p><img width="400" src="/family/Newlife.png"></p>
-<p>让我们顺着这张图来理一下思路。首先我们有一大堆数据，这些数据可能是结构化的、非机构化的以及半结构化的，然后我们机遇这些数据来构建知识图谱，这一步主要是通过一系列自动化和半自动化的技术手段，来从原始数据中提取出知识要素，即一堆实体关系，并将其存入我们的知识库的模式层和数据层。</p>
+<p><img width="600" src="/family/Newlife.png"></p>
+<p>让我们顺着这张图来理一下思路。首先我们有一大堆数据，这些数据可能是结构化的、非机构化的以及半结构化的，然后我们基于这些数据来构建知识图谱，这一步主要是通过一系列自动化和半自动化的技术手段，来从原始数据中提取出知识要素，即一堆实体关系，并将其存入我们的知识库的模式层和数据层。</p>
 <p>构建知识图谱是一个迭代更新的过程，根据知识获取的逻辑，每一轮迭代包含三个阶段：</p>
-<ul>
-<li>信息抽取<blockquote>
-<p>从各种类型的数据源中提取出实体、属性以及实体间的相互关系，在此基础上形成本体化的知识表达</p>
-</blockquote>
-</li>
-<li>知识融合<blockquote>
-<p>在获取新知识之后，需要对其进行整合，以消除矛盾和歧义，比如某些实体可能有多种表达，某个特定称谓也许对应于多个不同的实体等</p>
-</blockquote>
-</li>
-<li>知识加工<blockquote>
-<p>对于经过融合的新知识，需要经过质量评估之后，才能将合格的部分加入到知识库中，以确保知识库的质量</p>
-</blockquote>
-</li>
-</ul>
+<h3 id="信息抽取"><a href="#信息抽取" class="headerlink" title="信息抽取"></a>信息抽取</h3><p>从各种类型的数据源中提取出实体、属性以及实体间的相互关系，在此基础上形成本体化的知识表达</p>
+<h3 id="知识融合"><a href="#知识融合" class="headerlink" title="知识融合"></a>知识融合</h3><p>在获取新知识之后，需要对其进行整合，以消除矛盾和歧义，比如某些实体可能有多种表达，某个特定称谓也许对应于多个不同的实体等</p>
+<h3 id="知识加工"><a href="#知识加工" class="headerlink" title="知识加工"></a>知识加工</h3><p>对于经过融合的新知识，需要经过质量评估之后，才能将合格的部分加入到知识库中，以确保知识库的质量</p>
 <p><strong>构建技术</strong></p>
 <ol>
 <li>自顶向下</li>
@@ -667,11 +570,11 @@
 </li>
 <li>不一致性验证（类似交叉验证）—关系推理</li>
 <li>异常分析（运算量大，一般离线）<ol>
-<li>静态分析 给定一个图形结构和某个时间点，从中去发现一些异常点（比如有异常的子图）。</li>
-<li>动态分析 分析其结构随时间变化的趋势。（假设短时间内知识图谱结构的变化不会太大，如果它的变化很大，就说明可能存在异常，<br>需要进一步的关注。会涉及到时序分析技术和图相似性计算技术。）</li>
+<li>静态分析 给定一个图形结构和某个时间点，从中去发现一些异常点。</li>
+<li>动态分析 分析其结构随时间变化的趋势。</li>
 </ol>
 </li>
-<li>失联客户管理 挖掘</li>
+<li>失联客户管理挖掘</li>
 </ol>
 
       
@@ -827,7 +730,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="知识图谱构建以及底层图数据分析"><a href="#知识图谱构建以及底层图数据分析" class="headerlink" title="知识图谱构建以及底层图数据分析"></a>知识图谱构建以及底层图数据分析</h1><blockquote>
-<p>底层依然使用图数据库，图数据本身具有很大的可研就性</p>
+<p>底层依然使用图数据库，图数据本身具有很大的可研究性</p>
 </blockquote>
 <blockquote>
 <p>知识图谱（知识引擎）是多种技术的综合应用，包括自然语言识别（NLP）、机器学习及图存储技术等，其大量知识来源于非结构化数据。</p>
@@ -1460,15 +1363,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">家庭</a>
               </li>
              
               <li class="article-tag-list-item">
