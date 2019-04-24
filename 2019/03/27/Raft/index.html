@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Engineer Gilbert">
 <meta property="og:description" content="上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-18T13:32:05.323Z">
+<meta property="og:updated_time" content="2019-04-24T02:34:48.220Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raft">
 <meta name="twitter:description" content="上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。  拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这">
@@ -214,18 +214,18 @@
 <p>客户端发送请求给 <code>Leader</code>，储存数据 <code>sally</code>，<code>Leader</code> 先将数据写在本地日志，这时候数据还是 <code>Uncommitted</code> (还没最终确认，红色表示)</p>
 <p><code>Leader</code> 给两个 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，数据在 <code>Follower</code> 上没有冲突，则将数据暂时写在本地日志，<code>Follower</code> 的数据也还是 <code>Uncommitted</code>。</p>
 <p><code>Follower</code> 将数据写到本地后，返回 OK。<code>Leader</code> 收到后成功返回，只要收到的成功的返回数量超过半数 (包含<code>Leader</code>)，<code>Leader</code> 将数据 <code>sally</code> 的状态改成 <code>Committed</code>。( 这个时候 <code>Leader</code> 就可以返回给客户端了)</p>
-<p>Leader 再次给 Follower 发送 AppendEntries 请求，收到请求后，Follower 将本地日志里 Uncommitted 数据改成 Committed。这样就完成了一整个复制日志的过程，三个节点的数据是一致的</p>
+<p><code>Leader</code> 再次给 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，收到请求后，<code>Follower</code> 将本地日志里 <code>Uncommitted</code> 数据改成 <code>Committed</code>。这样就完成了一整个复制日志的过程，三个节点的数据是一致的</p>
 <h2 id="Network-Partition-情况下进行复制日志"><a href="#Network-Partition-情况下进行复制日志" class="headerlink" title="Network Partition 情况下进行复制日志"></a>Network Partition 情况下进行复制日志</h2><p>在 Network Partition 的情况下，部分节点之间没办法互相通信，Raft 也能保证在这种情况下数据的一致性。</p>
 <p>一开始有 5 个节点处于同一网络状态下。</p>
 <p>Network Partition 将节点分成两边，一边有两个节点，一边三个节点。</p>
-<p>两个节点这边已经有 Leader 了，来自客户端的数据 “bob” 通过 Leader 同步到 Follower。</p>
-<p>因为只有两个节点，少于3个节点，所以 “bob” 的状态仍是 Uncommitted。所以在这里，服务器会返回错误给客户端</p>
-<p>另外一个 Partition 有三个节点，进行重新选主。客户端数据 “tom” 发到新的 Leader，通过和上节网络状态下相似的过程，同步到另外两个 Follower</p>
-<p>因为这个 Partition 有3个节点，超过半数，所以数据 “tom” 都 Commit 了</p>
-<p>网络状态恢复，5个节点再次处于同一个网络状态下。但是这里出现了数据冲突 “bob” 和 “tom”</p>
-<p>三个节点的 Leader 广播 AppendEntries</p>
-<p>两个节点 Partition 的 Leader 自动降级为 Follower，因为这个 Partition 的数据 “bob” 没有 Commit，返回给客户端的是错误，客户端知道请求没有成功，所以 Follower 在收到 AppendEntries 请求时，可以把 “bob“ 删除，然后同步 ”tom”，通过这么一个过程，就完成了在 Network Partition 情况下的复制日志，保证了数据的一致性。</p>
-<p>小总结<br>Raft 是能够实现分布式系统强一致性的算法，每个系统节点有三种状态 Follower，Candidate，Leader。实现 Raft 算法两个最重要的事是：选主和复制日志</p>
+<p>两个节点这边已经有 <code>Leader</code> 了，来自客户端的数据 <code>bob</code> 通过 <code>Leader</code> 同步到 <code>Follower</code>。</p>
+<p>因为只有两个节点，少于3个节点，所以 <code>bob</code> 的状态仍是 <code>Uncommitted</code>。所以在这里，服务器会返回错误给客户端</p>
+<p>另外一个 <code>Partition</code> 有三个节点，进行重新选主。客户端数据 <code>tom</code> 发到新的 <code>Leader</code>，通过和上节网络状态下相似的过程，同步到另外两个 <code>Follower</code></p>
+<p>因为这个 <code>Partition</code> 有3个节点，超过半数，所以数据 <code>tom</code> 都 <code>Commit</code> 了</p>
+<p>网络状态恢复，5个节点再次处于同一个网络状态下。但是这里出现了数据冲突 <code>bob</code> 和 <code>tom</code></p>
+<p>三个节点的 <code>Leader</code> 广播 <code>AppendEntries</code></p>
+<p>两个节点 <code>Partition</code> 的 <code>Leader</code> 自动降级为 <code>Follower</code>，因为这个 <code>Partition</code> 的数据 <code>bob</code> 没有 <code>Commit</code>，返回给客户端的是错误，客户端知道请求没有成功，所以 <code>Follower</code> 在收到 <code>AppendEntries</code> 请求时，可以把 <code>bob</code> 删除，然后同步 <code>tom</code>，通过这么一个过程，就完成了在 <code>Network Partition</code> 情况下的复制日志，保证了数据的一致性。</p>
+<p>小总结<br>Raft 是能够实现分布式系统强一致性的算法，每个系统节点有三种状态 <code>Follower</code>，<code>Candidate</code>，<code>Leader</code>。实现 <code>Raft</code> 算法两个最重要的事是：选主和复制日志</p>
 <p><a href="https://www.infoq.cn/article/coreos-analyse-etcd" target="_blank" rel="noopener">CoreOS实战剖析etcd</a></p>
 
       
@@ -330,6 +330,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/04/24/TigerGraph-Online-Meeting/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          TigerGraph Online Meeting
+        
+      </div>
+    </a>
   
   
     <a href="/2019/03/18/汽车金融业务-反欺诈/" id="article-nav-older" class="article-nav-link-wrap">
@@ -451,11 +460,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">英语学习</a>
               </li>
              
               <li class="article-tag-list-item">
