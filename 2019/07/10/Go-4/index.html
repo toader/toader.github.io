@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Tao Zi | Engineer Gilbert</title>
+  <title>Go-4 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。">
-<meta name="keywords" content="家庭">
+  <meta name="description" content="selectselect是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。 select随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的。 123456789select &amp;#123;    case communication clause  :       stat">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tao Zi">
-<meta property="og:url" content="https://toader.github.io/2019/05/14/Tao-Zi/index.html">
+<meta property="og:title" content="Go-4">
+<meta property="og:url" content="https://toader.github.io/2019/07/10/Go-4/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。">
+<meta property="og:description" content="selectselect是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。 select随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的。 123456789select &amp;#123;    case communication clause  :       stat">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-27T09:30:40.489Z">
+<meta property="og:updated_time" content="2019-07-10T14:25:10.244Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tao Zi">
-<meta name="twitter:description" content="家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。">
+<meta name="twitter:title" content="Go-4">
+<meta name="twitter:description" content="selectselect是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。 select随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的。 123456789select &amp;#123;    case communication clause  :       stat">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -147,27 +147,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Tao-Zi" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Go-4" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Tao Zi
+      Go-4
     </h1>
   
 
         
-        <a href="/2019/05/14/Tao-Zi/" class="archive-article-date">
-  	<time datetime="2019-05-14T02:04:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+        <a href="/2019/07/10/Go-4/" class="archive-article-date">
+  	<time datetime="2019-07-10T08:38:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。</p>
+        <h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>select是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。</p>
+<p>select随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s); </span><br><span class="line">    <span class="comment">/* 你可以定义任意数量的 case */</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下描述了 select 语句的语法：</p>
+<ol>
+<li>每个case都必须是一个通信。</li>
+<li>所有channel表达式都会被求值。</li>
+<li>所有被发送的表达式都会被求值。</li>
+<li>如果任意某个通信可以进行，它就执行；其他被忽略。</li>
+<li>如果有多个case都可以运行，Select会随机公平地选出一个执行。其他不会执行。<br>否则：</li>
+<li>如果有default子句，则执行该语句。</li>
+<li>如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。</li>
+</ol>
+<p>Go语言变量作用域<br>作用域为已声明标示符所表示的常量、类型、变量、函数或包在源代码中的作用范围。<br>Go语言中变量可以在三个地方声明：</p>
+<ol>
+<li>函数内定义的变量称为局部变量</li>
+<li>函数外定义的变量称为全局变量</li>
+<li>函数定义中的变量称为形式参数</li>
+</ol>
 
       
 
@@ -202,7 +220,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		
 		</ul>
@@ -258,7 +276,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/05/14/Tao-Zi/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/07/10/Go-4/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -272,18 +290,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/27/Tao-Zi-2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/23/New-Tech/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Tao Zi 2
+          New Tech
         
       </div>
     </a>
   
   
-    <a href="/2019/04/28/OCR-Source-Code-Repo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OCR Source Code Repo</div>
+    <a href="/2019/07/09/Go-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Go-3</div>
       <i class="icon-circle-right"></i>
     </a>
   

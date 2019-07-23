@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Tao Zi | Engineer Gilbert</title>
+  <title>Go-3 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。">
-<meta name="keywords" content="家庭">
+  <meta name="description" content="这是第二篇Go相关的学习笔记  12345i = 1&amp;lt;&amp;lt;3output: 8i = 3&amp;lt;&amp;lt;1output: 6  说明 i&amp;lt;&amp;lt;j  表示i左移j位  123456789101112131415const (    i=1&amp;lt;&amp;lt;iota    j=3&amp;lt;&amp;lt;iota    k    l)func main() &amp;#123;    fmt.Pri">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tao Zi">
-<meta property="og:url" content="https://toader.github.io/2019/05/14/Tao-Zi/index.html">
+<meta property="og:title" content="Go-3">
+<meta property="og:url" content="https://toader.github.io/2019/07/09/Go-3/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。">
+<meta property="og:description" content="这是第二篇Go相关的学习笔记  12345i = 1&amp;lt;&amp;lt;3output: 8i = 3&amp;lt;&amp;lt;1output: 6  说明 i&amp;lt;&amp;lt;j  表示i左移j位  123456789101112131415const (    i=1&amp;lt;&amp;lt;iota    j=3&amp;lt;&amp;lt;iota    k    l)func main() &amp;#123;    fmt.Pri">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-27T09:30:40.489Z">
+<meta property="og:updated_time" content="2019-07-10T08:38:02.370Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tao Zi">
-<meta name="twitter:description" content="家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。">
+<meta name="twitter:title" content="Go-3">
+<meta name="twitter:description" content="这是第二篇Go相关的学习笔记  12345i = 1&amp;lt;&amp;lt;3output: 8i = 3&amp;lt;&amp;lt;1output: 6  说明 i&amp;lt;&amp;lt;j  表示i左移j位  123456789101112131415const (    i=1&amp;lt;&amp;lt;iota    j=3&amp;lt;&amp;lt;iota    k    l)func main() &amp;#123;    fmt.Pri">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -147,27 +147,76 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Tao-Zi" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Go-3" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Tao Zi
+      Go-3
     </h1>
   
 
         
-        <a href="/2019/05/14/Tao-Zi/" class="archive-article-date">
-  	<time datetime="2019-05-14T02:04:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+        <a href="/2019/07/09/Go-3/" class="archive-article-date">
+  	<time datetime="2019-07-09T13:29:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>家里添了个小家伙，桃子出生了，作为桃子爸，我很开心。</p>
+        <blockquote>
+<p>这是第二篇Go相关的学习笔记</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">1</span>&lt;&lt;<span class="number">3</span></span><br><span class="line">output: <span class="number">8</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">3</span>&lt;&lt;<span class="number">1</span></span><br><span class="line">output: <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明 i&lt;&lt;j  表示<code>i左移j位</code></p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    i=<span class="number">1</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    j=<span class="number">3</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    k</span><br><span class="line">    l</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"i="</span>,i)</span><br><span class="line">    fmt.Println(<span class="string">"j="</span>,j)</span><br><span class="line">    fmt.Println(<span class="string">"k="</span>,k)</span><br><span class="line">    fmt.Println(<span class="string">"l="</span>,l)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output: <span class="number">1</span> <span class="number">6</span> <span class="number">10</span> <span class="number">24</span></span><br></pre></td></tr></table></figure>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>真值表：<br>由于markdown语法原因<br>p|q = porq</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">p</th>
+<th style="text-align:center">q</th>
+<th style="text-align:center">p&amp;q</th>
+<th style="text-align:center">p&#124;q</th>
+<th style="text-align:center">p^q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
 
       
 
@@ -202,7 +251,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		
 		</ul>
@@ -258,7 +307,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/05/14/Tao-Zi/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/07/09/Go-3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -272,18 +321,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/27/Tao-Zi-2/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/10/Go-4/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Tao Zi 2
+          Go-4
         
       </div>
     </a>
   
   
-    <a href="/2019/04/28/OCR-Source-Code-Repo/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">OCR Source Code Repo</div>
+    <a href="/2019/05/28/NLP事件抽取-事件图谱构建/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NLP事件抽取--事件图谱构建</div>
       <i class="icon-circle-right"></i>
     </a>
   

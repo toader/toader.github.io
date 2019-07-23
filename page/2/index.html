@@ -148,6 +148,585 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Raft" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/27/Raft/">Raft</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/27/Raft/" class="archive-article-date">
+  	<time datetime="2019-03-27T04:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
+<blockquote>
+<p>拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这种情况不考虑计算机之间互相发送恶意信息，极大简化了系统对容错的要求，最主要的是达到一致性。</p>
+</blockquote>
+<p>所以将拜占庭将军问题根据常见的工作上的问题进行简化：假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定？</p>
+<p>对于这个简化后的问题，有许多解决方案，第一个被证明的共识算法是 <code>Paxos</code>，由拜占庭将军问题的作者 <code>Leslie Lamport</code> 在1990年提出，最初以论文难懂而出名，后来这哥们在2001重新发了一篇简单版的论文 <code>Paxos Made Simple</code>，然而还是挺难懂的。</p>
+<p>因为 <code>Paxos</code> 难懂，难实现，所以斯坦福大学的教授在2014年发表了新的分布式协议 <code>Raft</code>。与 <code>Paxos</code> 相比，<code>Raft</code> 有着基本相同的运行效率，但是更容易理解，也更容易被用在系统开发上。</p>
+<h1 id="针对简化版拜占庭将军问题，Raft-解决方案类比"><a href="#针对简化版拜占庭将军问题，Raft-解决方案类比" class="headerlink" title="针对简化版拜占庭将军问题，Raft 解决方案类比"></a>针对简化版拜占庭将军问题，Raft 解决方案类比</h1><p>我们还是用拜占庭将军的例子来帮助理解 <code>Raft</code>。</p>
+<blockquote>
+<p>假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定</p>
+</blockquote>
+<p>Raft 的解决方案大概可以理解成 先在所有将军中选出一个大将军，所有的决定由大将军来做。<br><code>选举环节</code>：<br>比如说现在一共有3个将军 A, B, C，每个将军都有一个随机时间的倒计时器，倒计时一结束，这个将军就会把自己当成大将军候选人，然后派信使去问其他几个将军，能不能选我为总将军？假设现在将军A倒计时结束了，他派信使传递选举投票的信息给将军B和C，如果将军B和C还没把自己当成候选人（倒计时还没有结束），并且没有把选举票投给其他，他们把票投给将军A，信使在回到将军A时，将军A知道自己收到了足够的票数，成为了大将军。在这之后，是否要进攻就由大将军决定，然后派信使去通知另外两个将军，如果在一段时回间后还没有收到复（可能信使被暗杀），那就再重派一个信使，直到收到回复。</p>
+<p>故事先讲到这里，希望不做技术方面的朋友可以大概能理解 <code>Raft</code> 的原理，下面从比较技术的角度讲讲 <code>Raft</code> 的原理。</p>
+<h1 id="Raft-节点状态"><a href="#Raft-节点状态" class="headerlink" title="Raft 节点状态"></a>Raft 节点状态</h1><p>从拜占庭将军的故事映射到分布式系统上，每个将军相当于一个分布式网络节点，每个节点有三种状态：<code>Follower</code>，<code>Candidate</code>，<code>Leader</code>，状态之间是互相转换的，可以参考下图，具体的后面说。</p>
+<p>每个结点上都有一个倒计时器，时间随机在150ms到300ms之间。有几种情况会重设Timeout:</p>
+<ol>
+<li>收到选举的请求</li>
+<li>收到<code>Leader</code>的<code>Heartbeat</code></li>
+</ol>
+<p>在Raft运行过程中，最主要进行两个活动：</p>
+<ol>
+<li>选主<code>Leader Election</code></li>
+<li>复制日志 <code>Log Replication</code></li>
+</ol>
+<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
+<p>在一个节点倒计时结束后，这个节点的状态变成<code>Candidate</code>开始选举，它给其他几个节点发送选举请求（RequestVote）</p>
+<p>其他四个鸡诶单都返回成功，这个节点的状态由<code>Candidate</code>变成了<code>Leader</code>，并在每个一小段时间后，就给所有的<code>Follower</code>发送一个<code>Heartbeat</code>以保持所有节点的状态，<code>Follower</code>收到<code>Leader</code>的<code>Heartbeat</code>后重设<code>Timeout</code>。</p>
+<p>这是最简单的选主情况，只要有超过一半的节点投支持票了，<code>Candidate</code>才会被选举为<code>Leader</code>，5个节点的情况下，3个节点（包括<code>Candidate</code>本身）投了支持就行。</p>
+<h2 id="Leader出故障情况下的选主"><a href="#Leader出故障情况下的选主" class="headerlink" title="Leader出故障情况下的选主"></a>Leader出故障情况下的选主</h2><p>一开始已经有一个<code>Leader</code>，所有节点正常运行。</p>
+<p><code>Leader</code>出故障挂掉了，其他四个<code>Follower</code>将进行重新选主。</p>
+<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term 1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term 2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
+<h2 id="多个Candidate情况下的选主"><a href="#多个Candidate情况下的选主" class="headerlink" title="多个Candidate情况下的选主"></a>多个<code>Candidate</code>情况下的选主</h2><p>假设一开始有4个节点，都还是<code>Follower</code>。</p>
+<p>有两个<code>Follower</code>同时<code>Timeout</code>，都变成了<code>Candidate</code>开始选举，分别给一个<code>Follower</code>发送了投票请求。</p>
+<p>两个<code>Follower</code>分别返回了<code>OK</code>，这时两个<code>Candidate</code>都只有2票，要3票才能被选成<code>Leader</code>。</p>
+<p>两个<code>Candidate</code>会分别给另外一个还没有给自己投票的<code>Follower</code>发送投票请求。</p>
+<p>但是因为<code>Follower</code>在这一轮选举中，都已经投完票了，所以都拒绝了他们的请求。所以在<code>Term 2</code>没有<code>Leader</code>被选出来。</p>
+<p>这时，两个节点的状态是 <code>Candidate</code>，两个是 <code>Follower</code>，但是他们的倒计时器仍然在运行，最先 <code>Timeout</code> 的那个节点会进行发起新一轮 <code>Term 3</code> 的投票。</p>
+<p>两个 <code>Follower</code> 在 <code>Term 3</code> 还没投过票，所以返回 <code>OK</code>，这时 <code>Candidate</code> 一共有三票，被选为了 <code>Leader</code>。</p>
+<p>如果 <code>Leader</code> <code>Heartbeat</code> 的时间晚于另外一个 <code>Candidate</code> <code>timeout</code> 的时间，另外一个 <code>Candidate</code> 仍然会发送选举请求。</p>
+<p>两个 <code>Follower</code> 已经投完票了，拒绝了这个 <code>Candidate</code> 的投票请求。</p>
+<p><code>Leader</code> 进行 <code>Heartbeat</code>， <code>Candidate</code> 收到后状态自动转为 <code>Follower</code>，完成选主。</p>
+<p>以上是 <code>Raft</code> 最重要活动之一选主的介绍，以及在不同情况下如何进行选主。</p>
+<h1 id="复制日志-Log-Replication"><a href="#复制日志-Log-Replication" class="headerlink" title="复制日志 Log Replication"></a>复制日志 <code>Log</code> <code>Replication</code></h1><h2 id="正常情况下复制日志"><a href="#正常情况下复制日志" class="headerlink" title="正常情况下复制日志"></a>正常情况下复制日志</h2><p>Raft 在实际应用场景中的一致性更多的是体现在不同节点之间的数据一致性，客户端发送请求到任何一个节点都能收到一致的返回，当一个节点出故障后，其他节点仍然能以已有的数据正常进行。在选主之后的复制日志就是为了达到这个目的。</p>
+<p>一开始，<code>Leader</code> 和 两个 <code>Follower</code> 都没有任何数据。</p>
+<p>客户端发送请求给 <code>Leader</code>，储存数据 <code>sally</code>，<code>Leader</code> 先将数据写在本地日志，这时候数据还是 <code>Uncommitted</code> (还没最终确认，红色表示)</p>
+<p><code>Leader</code> 给两个 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，数据在 <code>Follower</code> 上没有冲突，则将数据暂时写在本地日志，<code>Follower</code> 的数据也还是 <code>Uncommitted</code>。</p>
+<p><code>Follower</code> 将数据写到本地后，返回 OK。<code>Leader</code> 收到后成功返回，只要收到的成功的返回数量超过半数 (包含<code>Leader</code>)，<code>Leader</code> 将数据 <code>sally</code> 的状态改成 <code>Committed</code>。( 这个时候 <code>Leader</code> 就可以返回给客户端了)</p>
+<p><code>Leader</code> 再次给 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，收到请求后，<code>Follower</code> 将本地日志里 <code>Uncommitted</code> 数据改成 <code>Committed</code>。这样就完成了一整个复制日志的过程，三个节点的数据是一致的</p>
+<h2 id="Network-Partition-情况下进行复制日志"><a href="#Network-Partition-情况下进行复制日志" class="headerlink" title="Network Partition 情况下进行复制日志"></a>Network Partition 情况下进行复制日志</h2><p>在 Network Partition 的情况下，部分节点之间没办法互相通信，Raft 也能保证在这种情况下数据的一致性。</p>
+<p>一开始有 5 个节点处于同一网络状态下。</p>
+<p>Network Partition 将节点分成两边，一边有两个节点，一边三个节点。</p>
+<p>两个节点这边已经有 <code>Leader</code> 了，来自客户端的数据 <code>bob</code> 通过 <code>Leader</code> 同步到 <code>Follower</code>。</p>
+<p>因为只有两个节点，少于3个节点，所以 <code>bob</code> 的状态仍是 <code>Uncommitted</code>。所以在这里，服务器会返回错误给客户端</p>
+<p>另外一个 <code>Partition</code> 有三个节点，进行重新选主。客户端数据 <code>tom</code> 发到新的 <code>Leader</code>，通过和上节网络状态下相似的过程，同步到另外两个 <code>Follower</code></p>
+<p>因为这个 <code>Partition</code> 有3个节点，超过半数，所以数据 <code>tom</code> 都 <code>Commit</code> 了</p>
+<p>网络状态恢复，5个节点再次处于同一个网络状态下。但是这里出现了数据冲突 <code>bob</code> 和 <code>tom</code></p>
+<p>三个节点的 <code>Leader</code> 广播 <code>AppendEntries</code></p>
+<p>两个节点 <code>Partition</code> 的 <code>Leader</code> 自动降级为 <code>Follower</code>，因为这个 <code>Partition</code> 的数据 <code>bob</code> 没有 <code>Commit</code>，返回给客户端的是错误，客户端知道请求没有成功，所以 <code>Follower</code> 在收到 <code>AppendEntries</code> 请求时，可以把 <code>bob</code> 删除，然后同步 <code>tom</code>，通过这么一个过程，就完成了在 <code>Network Partition</code> 情况下的复制日志，保证了数据的一致性。</p>
+<p>小总结<br>Raft 是能够实现分布式系统强一致性的算法，每个系统节点有三种状态 <code>Follower</code>，<code>Candidate</code>，<code>Leader</code>。实现 <code>Raft</code> 算法两个最重要的事是：选主和复制日志</p>
+<p><a href="https://www.infoq.cn/article/coreos-analyse-etcd" target="_blank" rel="noopener">CoreOS实战剖析etcd</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/27/Raft/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-汽车金融业务-反欺诈" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/18/汽车金融业务-反欺诈/">汽车金融业务反欺诈</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/18/汽车金融业务-反欺诈/" class="archive-article-date">
+  	<time datetime="2019-03-18T11:28:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>汽车金融风控领域，当前主要可以操作的领域是反欺诈</p>
+<h3 id="汽车金融反欺诈"><a href="#汽车金融反欺诈" class="headerlink" title="汽车金融反欺诈"></a><strong>汽车金融反欺诈</strong></h3><h4 id="汽车金融分类：新车、二手车"><a href="#汽车金融分类：新车、二手车" class="headerlink" title="汽车金融分类：新车、二手车"></a>汽车金融分类：新车、二手车</h4><blockquote>
+<p>目前西方发达国际购车汽车金融渗透率普遍超过70%，但我国的渗透率只有40%</p>
+</blockquote>
+<p>汽车金融的风险拆分</p>
+<ol>
+<li>真实购车用户违约</li>
+<li>车抵贷包装成消费贷的套现单</li>
+<li>纯粹诈骗</li>
+</ol>
+<p>第一种风险是我们可以接受的，由于市场大环境好，不需要太担心，反而是做了风控容易提高拒单率，得不偿失。</p>
+<p>第二种风险是绝对不能接受的，是容易被很多汽车金融公司总部忽视的隐形炸弹。而第二种风险的发生，一定是车商和业务员的一致配合，车商必然知道买家和卖家是一起的，多半情况下业务员也会知道，因为需要包装材料并做高评估价。在第二种风险中，大数据风控完全无效，因为传到总部录入系统的数根本就是假的。今天大部分汽车金融公司处理此事的做法是高压线的管理政策，有的直接开除，更有甚者直接让作恶员工吃牢饭。</p>
+<p>第三种风险是整体性的风险，不出事则已，一出事可能就是<code>AUM</code>的2%～5%的坏账。由于利益太大，可能骗一票后出国永不回来，对员工高压线的做法也已不管用了。今天大部分汽车金融公司处理此事就两个方法，一个是总部电核，一个是巡查制度。</p>
+<p>所以反欺诈是汽车金融风控的核心关注</p>
+<p>从技术服务角度看可以采用的手段：规则引擎+人工智能（包括了知识图谱）<br>风控场景包括：实时和非实时的</p>
+<h4 id="二手车场景："><a href="#二手车场景：" class="headerlink" title="二手车场景："></a>二手车场景：</h4><p><img width="400" src="/family/carfin.png"></p>
+<p><a href="https://zhuanlan.zhihu.com/p/59272135" target="_blank" rel="noopener">主要参考文章</a></p>
+<p><strong>二手车金融的主要模式</strong></p>
+<blockquote>
+<p>他们或早或晚的走向了以线下自营为主导的发展模式，初步建立了属于自己的护城河，风控能力得到了市场的认可，由此形成了稳定、多元的资金来源。</p>
+</blockquote>
+<blockquote>
+<p>长期来看，基于数据与技术的精细化运营能力将越来越重要，并将左右这些头部平台的兴衰存亡。</p>
+</blockquote>
+<h4 id="汽车金融公司背景"><a href="#汽车金融公司背景" class="headerlink" title="汽车金融公司背景"></a>汽车金融公司背景</h4><p>汽车金融主要方式有银行车贷，信用卡分期，汽车厂商自己的消费金融公司，以及近几年兴起的互联网平台。</p>
+<p><strong>银行车贷</strong></p>
+<p>银行车贷产品优点是利率最低，可选车型也多，首付至少三成，需要办理抵质押流程，审批流程和时间较长，而且审批较为严格，而且一般还会捆绑销售让你买全险。申请银行车贷一般会要求你提供身份证、房产证、社保基数、银行流水等，银行会平局你的信用情况和还款能力，然后给你一个额度。如果你通过4S来办的话，4S店可能还会收你一笔手续费，当然了，作为汽车金融的主要获客渠道，不管你用什么机构的金融服务，只要你在4S店办的贷款或分期，4S店一般都会收一笔手续费。</p>
+<p><strong>信用卡分析</strong></p>
+<p>信用卡分析可能不同银行车贷产品车型有限，缺点是额度可能不大，而且手续费隐含的实际利率比较高，分期半年内较之车贷有优势，因为很多信用卡分期半年内有优惠，超过二年的实际成本等同甚至超过一些互联网平台，年华实际利率可能会超过12%以上，对信用审批相对来说也比较严格，信用卡买车的车价折扣较少，价格可能会比你从经销商那拿的高，这个其实跟你在各家银行的信用卡商城买任何东西都是一样的，银行不光是赚利息，还赚商品销售利润，而且分期额度还是受制于你的信用卡额度。</p>
+<p><strong>厂商背景的汽车金融公司</strong></p>
+<p>国内主要的玩家包括上汽通用汽车金融、宝马汽车金融（中国）、大众汽车金融（中国）、福特汽车金融（中国）、东风日产汽车金融、梅赛德斯-奔驰汽车金融、北京现代汽车金融、东风标致雪铁龙汽车金融、丰田汽车金融（中国）、瑞福德汽车金融、广汽汇理汽车金融、奇瑞徽银汽车金融等。这些公司的优势是销售渠道成熟，而且由于中国汽车市场的利润大部分在生产环节，因此厂家经常为了促销可以拿销售利润来补贴，经常能看到第一年0首付，0利率或者0手续费等这种宣传，但是买得永远不如卖的精，这三项优惠基本不会出现在同一款车型上，而且补贴和优惠一般都是促销车型，你想买的热门车型往往都是没有优惠的，如果你想买的车正好出了优惠，那么还是很划算的。还有就是每家汽车金融公司只给自家的车型提供金融服务，成本比银行贷款略高，搭配的收费项目也挺多，保险一般肯定是要搭售的，而且可能还会把第一受益人写成汽车金融公司，这个也好理解，如果车坏了被偷了抢了，购车客户不还钱了，汽车金融公司还是要有安全保障的。审批整体来说也是比较严格，可能比银行车贷稍微松些。</p>
+<p>汽车金融公司也是一块金融牌照，之前资金来源主要是跟银行的同业拆借，这两年比较流行通过发ABS通过资产证券化来融资。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">业务学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/18/汽车金融业务-反欺诈/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Go-笔记2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/13/Go-笔记2/">Go 笔记2</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/13/Go-笔记2/" class="archive-article-date">
+  	<time datetime="2019-03-13T03:12:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是第二篇Go相关的学习笔记</p>
+<h2 id="Go学习笔记"><a href="#Go学习笔记" class="headerlink" title="Go学习笔记"></a>Go学习笔记</h2><h3 id="bufio包的实现原理："><a href="#bufio包的实现原理：" class="headerlink" title="bufio包的实现原理："></a>bufio包的实现原理：</h3><p><a href="https://www.jb51.net/article/132552.htm" target="_blank" rel="noopener">地址</a></p>
+<blockquote>
+<p>今天面试，碰到一个同行，学习能力不错，但是对薪资需求很高，他提供了一些web方向的coding的心得，看起来不错</p>
+</blockquote>
+<h3 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h3><p><a href="https://github.com/EpochCloud/EpochGo" target="_blank" rel="noopener">语言基础</a><br><a href="https://github.com/EpochCloud/quick" target="_blank" rel="noopener">微服务网关实现</a><br><a href="https://github.com/EpochCloud/ConfCenter" target="_blank" rel="noopener">配置中心</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/13/Go-笔记2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-车险业务学习" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/12/车险业务学习/">车险业务学习</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/12/车险业务学习/" class="archive-article-date">
+  	<time datetime="2019-03-12T06:37:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="国内汽车金融"><a href="#国内汽车金融" class="headerlink" title="国内汽车金融"></a>国内汽车金融</h1><p>参考的主要材料：<br><a href="http://app.myzaker.com/news/article.php?pk=5ad9965d77ac645c6706fe77" target="_blank" rel="noopener">地址1</a><br><a href="https://www.iyiou.com/p/62159.html" target="_blank" rel="noopener">地址2</a></p>
+<p>汽车金融的风险可以拆分，大体风险分三类：</p>
+<ol>
+<li>真实购车用户违约</li>
+<li>车抵贷包装成消费贷的套现单</li>
+<li>纯粹诈骗</li>
+</ol>
+<p>大约Vintage坏账在1%，相比于3C和医美分期，买车（豪车除外）的消费行为本身已经筛选出有一定资信的用户。</p>
+<p>车的买房和卖房都是一起的人，通过消费贷的方式借到了相当于车抵贷的钱。由于后续会慢慢还款，套现单短期看不出坏账，但后患无穷。车抵贷用户本身资质差，借来的现金多半是生意周转或还外债，市场上车抵贷的年化利率都在40%以上，消费贷给消费者的年化率不到20%，中间的差额是公司的损失。从另外一个角度看，虽然做得好的车贷贷公司催回后坏账率可达5%一下，但展期率（另一个角度就是逾期率）却可能高达20%，消费贷公司往往不具备强催收能力，这个问题就会尤其显著。</p>
+<p>消费贷购车后将车二抵或者黑车卖掉，一般还款一期以后就再也不还。由于首付比例高，且卖黑车有折价，通过这个方式骗得的金额并不高，而手续却极其繁琐。可以认为，一般不会有人准备一套手续仅为了骗一辆车，多半是车商拉一堆白户骗走金融公司大批量贷款，作案时期可能在数周到一个月。</p>
+<p>第一种风险是我们可以接受的，由于市场大环境好，不需要太担心，反而是做了风控容易提高拒单率，得不偿失。</p>
+<p>第二种风险是绝对不能接受的，是容易被很多汽车金融公司总部忽视的隐形炸弹。而第二种风险的发生，一定是车商和业务员的一致配合，车商必然知道买家和卖家是一起的，多半情况下业务员也会知道，因为需要包装材料并做高评估价。在第二种风险中，大数据风控完全无效，因为传大总部录入系统的数根本就是假的。今天大部分汽车金融公司处理此事的做法是高压线的管理政策，有的直接开除，更有甚者直接让作恶员工吃牢饭。</p>
+<p>第三种风险是整体性的风险，不出事则已，一出事可能就是总AUM的2～5%的坏账。由于利益太大，可能骗一票后出国永不回来，对员工高压线的做法也已不管用了。今天大部分汽车金融公司处理此事就两个方法，一个是总部电核，一个是巡查制度。</p>
+<p>讨论一下大数据风控的应用：第一个风险可以用大数据风控，但没啥效益。第二个风险都是假资料，根本没法用大数据风控。第三个风险中，大数据风控可以发现一些假单子的聚类，从而给出警告，通知人工核查。但这也属于屠龙之术，出事情之前没人能觉察到效果，也没人会重视。</p>
+<p>总结一下，大数据风控唯一的作用是识别批量造假的单子，但没什么值得神话的。线上房贷的生意，一线的炮火声只有业务员听见，把人管好才是根本。</p>
+<h1 id="汽车金融下半场"><a href="#汽车金融下半场" class="headerlink" title="汽车金融下半场"></a>汽车金融下半场</h1><p>借鉴全球其他国家的经验，目前全球汽车金融渗透率平均约为50%以上，在英国、美国等先进国家，渗透率更高达90%。反观国内，中国虽然连续8年位居全球汽车销售市场最高位，但2016年的汽车金融渗透率仅38%，与英美等先进国家相比，我国汽车金融市场仍有很大的发展空间。</p>
+<p>庞大的潜在市场吸引许多合资车上纷纷引进旗下汽车金融公司，国内自主品牌车厂也已成立或筹建自己的汽车金融公司，至2016年，我国汽车金融公司已增加至25家，资产规模突破4千亿。另一方面，互联网金融公司也以其灵活的数据应用提供更为便利的贷款产品来吸引消费者，企图一同抢占汽车金融的市场大饼，这些都显现了我国汽车金融市场融资渠道的逐渐多元化，且发展方向也逐渐转型为消费者需求为导向—-透过大数据应用简化以往冗长的贷款流程，借由优化消费者服务体验来获取并留住更多客户。</p>
+<blockquote>
+<p>更<code>快</code>的客户体验要求</p>
+</blockquote>
+<p>买车对很多人来说都是人生一件意义重大的事情。如何顺利地选择一辆爱车是需要花费很多精力去准备和策划的事情，制定预算、选车、试驾、贷款、提车、整个购车过程中的用户体验对客户的最终决策都至关重要。</p>
+<blockquote>
+<p>运用共同借款人加强风险管理</p>
+</blockquote>
+<p>买车往往是人生一件意义重大的事情，更可能是一个家庭除来买房以外的第二大开销。然后夫妻之间若有一人具有信用不良记录，就很可能会选择信用状况较好的一方申请车贷，借以掩饰信用瑕疵。因此，在实务上，很多金融业者都会要求客户在申请车贷时必须提供配偶或者直系亲属的姓名作为共同借款人，一同承担还款责任，以同一套风险评估标准共同评估车贷借款人及共借人之信用风险，完整描绘出信用主体的真实信用状况。</p>
+<blockquote>
+<p>不良率太低导致坏客户样本不够支持模型开发</p>
+</blockquote>
+<blockquote>
+<p>信用白户的风险辨识</p>
+</blockquote>
+<p>据统计数据表明，中国汽车消费者30岁以下的人群占比正在逐年上升，年轻族群已经逐渐成为汽车市场的主流消费者。基于此发展趋势，许多品牌车厂陆续推出符合年轻人需求的车款，也积极地针对年轻族群打出许多营销方案。</p>
+<p>以往信用风险模型皆以人行征信变量占大多数，当面对几无信用记录的客群时，信用评分几乎都是落于中间水平，难以有效识别风险。面对这样的困境，我们建议的做法是采集更多样化的数据投入模型开发，例如在模型中投入电信运营商数据、航空及铁路数据、第三方支付数据等，扩大模型中变量的维度，降低人行征信变量的比重，借此提升模型对于无人行信用记录客群的风险辨识度。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">业务学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/12/车险业务学习/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-English-learning" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/12/English-learning/">English learning</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/12/English-learning/" class="archive-article-date">
+  	<time datetime="2019-03-12T04:04:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="英语学习事情"><a href="#英语学习事情" class="headerlink" title="英语学习事情"></a>英语学习事情</h1><h2 id="流利说的学习笔记"><a href="#流利说的学习笔记" class="headerlink" title="流利说的学习笔记"></a>流利说的学习笔记</h2><blockquote>
+<p>今天是学习英语流利说的第一天，一定要抓紧时间，按时按量完成任务。<br>英语学习建立单独的tag来支撑整个</p>
+</blockquote>
+<hr>
+<p>实践已经清晰的表明，完全没有时间去做这些事情。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">英语学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/12/English-learning/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-DV购买计划" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/11/DV购买计划/">DV购买计划</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/11/DV购买计划/" class="archive-article-date">
+  	<time datetime="2019-03-11T05:06:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="为即将落地的新生命准备"><a href="#为即将落地的新生命准备" class="headerlink" title="为即将落地的新生命准备"></a>为即将落地的新生命准备</h1><blockquote>
+<p>我家桃子快要出生了，非常耐心的等等宝宝的到来，紧张忐忑还有很多的开心。<br>计划买个DV，这个月底吧，记录下宝宝出生到以后的所有的事情。</p>
+</blockquote>
+<h2 id="地址"><a href="#地址" class="headerlink" title="地址"></a><a href="https://item.jd.com/2655177.html#crumb-wrap" target="_blank" rel="noopener">地址</a></h2><p>这个价格太贵，重要的是给宝宝一个留念的工具<br><a href="">新地址</a></p>
+<h2 id="给自己买个mark杯，多喝点水。"><a href="#给自己买个mark杯，多喝点水。" class="headerlink" title="给自己买个mark杯，多喝点水。"></a>给自己买个mark杯，多喝点水。</h2><p>mark杯已买</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/11/DV购买计划/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Project进展总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -448,677 +1027,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/02/03/ubuntu-16-04科学上网/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Graph-Database-3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/24/Graph-Database-3/">Graph Database 3</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/24/Graph-Database-3/" class="archive-article-date">
-  	<time datetime="2019-01-24T13:59:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h1><p>为了能够继续推进Dgraph，我们必须开始掌握Go语言，搭建公司的Go语言环境。</p>
-<p>dgraph的参考的google论文是哪些？</p>
-<p><a href="https://blog.dgraph.io/post/badger/" target="_blank" rel="noopener">地址</a><br><a href="https://www.infoq.cn/article/2017%2F11%2Fknowledge-graph-articles" target="_blank" rel="noopener">地址</a></p>
-<p>Pregel的工作量很大，需要长时间的准备。<br>一个现实并可行的方案，是直接使用dgraph来做。Go项目能不能开发起来呢，我们需要把系统用Go构建起来。<br>看更多的Go的代码，学习大神的代码的原则。<br>当前遇到的问题是，人员不能很好的工作，有大量的文档需要书写，但是好像没人写，我这边来准备材料吧。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/24/Graph-Database-3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Graph-Database-2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/24/Graph-Database-2/">Graph Database 2</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/24/Graph-Database-2/" class="archive-article-date">
-  	<time datetime="2019-01-24T03:56:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Pregel路线"><a href="#Pregel路线" class="headerlink" title="Pregel路线"></a>Pregel路线</h1><h2 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h2><p><a href="https://github.com/amoudi87/hyracks" target="_blank" rel="noopener">hyracks</a><br><a href="https://github.com/pregelix/pregelix" target="_blank" rel="noopener">pregelix</a></p>
-<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>作者：Grzegorz Malewicz, Matthew H. Austern .etc.Google Inc 2010-6<br>原文：<a href="http://people.apache.org/~edwardyoon/documents/pregel.pdf" target="_blank" rel="noopener">地址</a></p>
-<blockquote>
-<p>说明：Pregel这篇是发表在2010年的SIGMOD上，Pregel这个名称是为了纪念欧拉，在他提出的格尼斯堡七桥问题中，那些桥所在的河就叫Pregel。最初是为了解决PageRank计算问题，由于MapReduce并不适于这种场景，所以需要发展新的计算模型去完成这项计算任务，在这个过程中逐步提炼出一个通用的图计算框架，并用来解决更多的问题。核心思想源自BSP模型，这个就更早了，是在上世纪80年代由Leslie Valiant(2010年图灵奖得主)提出，之后在1990的Communications of the ACM 上，正式发表了题为A bridging model for parallel computation的文章。目前实际上已经有针对Pregel这篇文章的翻译版本了，不过只翻译了出了前半部分关于Pregel的设计与实现部分。其实后半部分也很重要，有助于理解整个图计算的历史背景，以及Pregel本身的性能和项目本身的演化等，另外最近越来越多的人开始关注这一文章，所以还是抽出时间重新阅读了一遍，并重新翻译出来，以供参考</p>
-</blockquote>
-<p><code>分布式计算</code>,<code>图算法</code></p>
-<h1 id="导引"><a href="#导引" class="headerlink" title="导引"></a>导引</h1><p><code>Pregel</code>  <code>BSP</code>  </p>
-<p>实际应用场景：交通路线图，新闻文章的相似性，疾病爆发路径，以及发表的科学研究文章中的引用关系等<br>经常被用到的算法包括：最短路径算法，聚类算法，各种PageRank算法变种，还有其他具有实际价值的图计算问题，比如最小割，连通分支等。</p>
-<p>对大型图对象进行高效的处理，是非常具有挑战性的。图算法常常表现出比较差的内存访问局部性，针对单个顶点的处理工作过少，以及计算过程中伴随着的并行度的改变等问题，分布式的介入更是加剧了locality的问题，并且增加了在计算过程中机器发生故障的概率。尽管大型图对象无处不在，及其在商业上的重要性，但目前应该还不存在一种在大规模分布式环境下，可以基于各种图表示方法来实现任意图算法的，可扩展的通用系统。</p>
-<p>要实现一种处理大规模图对象的算法通常意味着要在以下几点中作出选择：<br>1、为特定的图应用定制相应的分布式实现。在面对新的图算法或者图表示方式时，就需要做大量的重复实现，不通用。<br>2、基于现有的分布式计算平台，通常情况下，他们并不适合做图处理。比如mapreduce就是一个对许多大规模计算问题都非常合适的计算框架。有时它也被用来对大规模图对象进行挖掘，但是通常在性能和易用性上都不是最优的。尽管这种对数据处理的基本模式经过扩展，已经可以使用方便的聚合<br>3、使用单机的图算法库，如BGL，LEAD，NetworkX，JDSL，Standford GraphBase，FGL等，但对可以解决的问题的规模提出了很大的限制。<br>4、使用已有的并行图计算系统。Parallel BGL和CGMgraph这些库实现了很多并行图算法，但是并没有解决对大规模分布式系统中来说非常重要的容错等一些问题。</p>
-<p>Pregel计算系统的灵感来自valiant提出的BSP（Bluk Synchronous Parallell）模型。Pregel的计算过程由一系列被称为超级步（superstep）的迭代（iterations）组成。在每个超级步中，计算框架都会针对每个顶点调用用户自定义的函数，这个过程是并行的。这个过程不是一个一个顶点的串行调用，同一时刻可能有多个顶点被调用。根据设计，这种计算模型非常的适合分布式的实现；它没有将任何检测执行顺序的机制暴漏在单个超级步中，所有的通信都仅限于S到S+1之间。</p>
-<p>模型的同步性使得在实现算法时很容易理解程序的语义，并且使得Pregel程序天生对异步系统中经常出现的死锁以及临界资源竞争都是免疫的。理论上，Pregel程序的性能即使在与足够并行化的异步系统的对比中都有一定的竞争力。因此通常情况下图计算的应用中顶点的数量要远远大于机器的数量，所以必须要平衡各机器之间的负载，这样各个superstep间的同步就不会增加过多的延迟。</p>
-<h1 id="计算模型"><a href="#计算模型" class="headerlink" title="计算模型"></a>计算模型</h1><p>在<code>Pregel</code>计算模型中，输入是一个有向图，该有向图的每一个顶点都有一个相应的由String描述的顶点标识符。每一个顶点都有一个与之对应的可修改的用户自定义值。每一条有向边都和其源顶点关联，并且也拥有一个可修改的用户自定义值，并同时还记录了其目标顶点的标识符。</p>
-<p>一个典型的Pregel计算过程如下：读取输入初始化改图，当图被初始化好后，运行一系列的超级步直到整个计算结束，这些超级步之间通过一些全局的同步点分隔，输出结果结束计算。</p>
-<p>在每个超级步中，顶点的计算都是并行的，每个顶点执行相同的用于表达给定算法逻辑的用户自定义函数。每个顶点执行相同的用于表达给定算法逻辑的用户自定义函数。每个顶点可以修改其自身及其出边的状态，接收前一个超级步（S-1）中发送给它的消息，并发送消息给其他顶点（这些消息将会在下一个超级步中被接收），甚至是修改整个图的拓扑结构。边，在这种计算模式中并不是核心对象，没有相应的计算运行在其上。</p>
-<p>算法是否能够结束取决于是否所有的顶点都已经<code>vote</code>,标识其自身已经达到<code>halt</code>状态了。在第0个超级步，所有顶点都处于<code>active</code>状态，所有的<code>active</code>顶点都会参与所有对应<code>superstep</code>中的计算。顶点通过将其自身的<code>status</code>设置成<code>halt</code>来表示它已经不再<code>active</code>。这就表示该顶点没有进一步的计算需要执行，除非被再次被外部触发，而Pregel框架将不会在接下来的<code>superstep</code>中执行该顶点，除非该顶点收到其他顶点传送的消息。如果顶点接收到消息被唤醒进入<code>active</code>状态，那么在随后的计算中该顶点必须显示的deactive，还是说顶点此后会一直处于<code>active</code>状态，然后要想不<code>active</code>必须显示<code>deactive</code>，但也可以选择不<code>deactive</code>，还是说顶点必须要显示<code>deactive</code>呢，感觉前者更合理。整个计算在所有顶点都达到<code>inactive</code>状态，并且没有message在传送的时候宣告结束。</p>
-<p>整个<code>Pregel</code>程序的输出是所有顶点输出的集合。通常来都是一个跟输入同构的有向图，但是这并不是系统的一个必要属性，因为顶点和边可以在计算的过程中进行添加和删除。比如一个聚类算法，就有可能是从一个大图中生成的非连通顶点构成的小集合；一个对图的挖掘算法就可能仅仅是输出了从图中挖掘出来的聚合数据等。</p>
-<p>图2通过一个简单的例子来说明这些基本概念：给定一个强连通图，图中每个顶点都包含一个值，它会将最大值传播到每个顶点。在每个超级步中，顶点会从接收到的消息中选出一个最大值，并将这个值传送给其所有的相邻顶点。当某个超级步中已经没有顶点更新其值，那么算法就宣告结束。</p>
-<p>我们选择了一种纯消息传递模型，忽略远程数据读取和其他共享内存的方式，有两个原因，第一，消息传递有足够的表达能力，没必要使用远程读取（remote reads）。我们还没有发现哪种算法是消息传递所不能表达的。第二是出于性能的考虑。在一个集群环境中，从远程机器上读取一个值是会有很高的延迟的，这种情况很难避免。而我们的消息传递模式通过异步和批量的方式传递消息，可以缓解这种远程读取的延迟。</p>
-<p>图算法其实也可以被写成是一系列的链式MapReduce调用。我们选择了另外一种不同的模式的原因在于可用性和性能。Pregel将顶点和边保存在执行计算的那台机器上，而仅仅利用网络来传输信息。而MapReduce本质上是函数式的，所以将图算法用链式MapReduce来实现就需要将整个图的状态从一个阶段传递到另外一个阶段，这样就需要许多的通信和随之而来的序列化和反序列化的开销。另外，这一连串的MapReduce作业各执行阶段需要的协同工作也增加了变成复杂度，而在Pregel中通过引入超级步避免来这样的情况。</p>
-<h1 id="C-API"><a href="#C-API" class="headerlink" title="C++ API"></a>C++ API</h1><p>这一节主要介绍<code>Pregel C++ API</code>中最重要的几个方面，暂时忽略相关其他机制。编写一个<code>Pregel</code>程序需要继承<code>Pregel</code>中已与定义好的一个基类-<code>Vertex</code>类。</p>
-<p>该类的模版参数中定义了三个值类型参数，分别表示顶点，边和消息。每一个顶点都有一个对应的给定类型的值。这种形式可能看上有很多限制，但用户可以用<code>Protocol buffer</code>来管理增加的其他定义和属性。而边和消息类型的行为比较类似。</p>
-<p>用户覆写Vertex类的虚函数Compute()，该函数会在每一个超级步中对每一个顶点进行调用。预定义的Vertex类方法允许Computer()方法查询当前顶点及其边的信息，以及发送消息到其他的顶点。Compute()方法可以通过调用GetValue()方法来得到当前顶点的值，或者通过调用MutableValue()方法来修改当前顶点的值。同时还可以通过由出边的迭代器提供的方法来查看修改出边对应的值。这种状态的修改是立时可见的。由于这种可见性仅限于被修改的那个顶点，所以不同顶点并发进行的数据访问是不存在竞争关系的。</p>
-<p>顶点和其对应的边所关联的值是唯一需要在超级步之间持久化的顶点级状态。将由计算框架管理的图状态限制在一个单一的顶点值或边值的这种做法，简化了主计算流程，图的分布以及故障恢复。</p>
-<h2 id="消息传递机制"><a href="#消息传递机制" class="headerlink" title="消息传递机制"></a>消息传递机制</h2><p>顶点之间的通信是直接通过发送消息，每条消息都包含了消息值和目标顶点的名称。消息值的数据类型是由用户通过Vertex类的模版参数来制定。</p>
-<p>在一个超级步中，一个顶点可以发送任意多的消息。当顶点V的Compute()方法在S+1超级步中被调用时，所有在S超级步中发送给顶点V的消息都可以通过一个迭代器来访问到。在该迭代器中并不保证消息的顺序，但是可以保证消息一定会被传送并且不会重复。</p>
-<p>一种通用的使用方式为：对一个顶点V，遍历其自身的出边，向每条出边发送消息到该边的目标顶点，如图4中<code>PageRank</code>算法所示的那样。但是，<code>dest_vertex</code>并不一定是顶点V的相邻顶点。一个顶点可以从之前收到的消息中获取到其非相邻顶点的标识符，或者顶点标识符可以隐式的得到。比如，图可能是一个<code>clique</code>(一个图中两两相邻的一个点集，或是一个完全子图)，顶点的命名规则都是已知的（从V1到Vn），在这种情况下甚至都不需要显示的保存边的信息。</p>
-<p>当任意一个消息的目标顶点不存在时，便执行用户自定义的<code>handlers</code>。比如在这种情况下，一个<code>handler</code>可以创建该不存在的顶点或从源顶点中删除这条边。</p>
-<h2 id="Combiners"><a href="#Combiners" class="headerlink" title="Combiners"></a>Combiners</h2><p>发送消息，尤其是当目标顶点在另外一台机器时，会产生一些开销。某些情况可以在用户的协助下降低这种开销。比方说，假如Compute()收到许多的int值消息，而它仅仅关心的是这些值的和，而不是每一个int值，这种情况下，系统可以将发往同一个顶点的多个消息合并成一个消息，该消息中仅包含它们的和值，这样就可以减少传输和缓存的开销。</p>
-<p>Combiners在默认情况下并没有被开启，这是因为要找到一种对所有顶点的Compute()函数都合适的Combiner是不可能的。而用户如果想要开启Combiner的功能，需要继承Combiner类，覆写起virtual函数Combine()。框架并不会确保哪些消息会被Combine而哪些不会，也不会去报传送给Combine()的值和Combining操作的执行书序。所以Combiner只应该对那些满足交换律和结合律的操作打开。</p>
-<p>对于某些算法来说，比如单源最短路径，我们观察到通过使用Combiner将流量降低了4倍多。</p>
-<h2 id="Aggregators"><a href="#Aggregators" class="headerlink" title="Aggregators"></a>Aggregators</h2><p><code>Pregel</code>的<code>Aggregators</code>是一种提供全局通信，监控和数据查看的机制。在一个超级步S中，每一个顶点都可以向一个<code>aggregator</code>提供一个数据，系统会使用一种<code>reduce</code>操作来负责聚合这些值，而产生的值将会对所有的顶点在超级步S+1中可见。<code>Pregel</code>包含了一些预定义的<code>aggregators</code>，如可以在各种整数和<code>string</code>类型上执行的<code>min</code>，<code>max</code>，<code>sum</code>操作。</p>
-<p><code>Aggregators</code>可以用来做统计。例如，一个<code>sum aggregator</code>可以用来统计每个顶点的出度，最后相加就是整个图的边的条数。更复杂的一些<code>reduce</code>操作还可以产生统计直方图。</p>
-<p><code>Aggregators</code>也可以用来做全局协同，例如，Compute()函数的一些逻辑分支可能在某些超级步中执行，直到<code>and aggregator</code>表明所有顶点都满足了某条件，之后执行另外的逻辑分支直到结束。又比如一个作用在顶点ID之上的<code>min</code>和<code>max aggregator</code>，可以用来选定某顶点在整个计算过程中扮演某种角色等。</p>
-<p>要定义一个新的aggregator，用户需要继承预定义的Aggregator类，并定义在第一个接收到输入值后如何初始化，以及如何将接收到的多个值最后reduce成一个值。Aggregator操作也应该满足交换律和结合律。</p>
-<p>默认情况下，一个aggregator仅仅会对来自同一个超级步的输入进行聚合，但是有时也可能需要定义一个sticky aggregator，它可以从所有的supersteps中接收数据。这是非常有用的，比如要维护全局的边条数，那么就仅仅在增加和删除边的时候才调整这个值了。</p>
-<p>还可以有更高级的用法。比如，可以用来实现一个𝝙-stepping最短路径算法所需要的分布式优先队列。每个顶点会根据它的当前距离分配一个优先级bucket，在每个超级步中，顶点将它们的indices汇报给min aggregator。在下一个超级步中，将最小值广播给所有worker，然后让在最小index的bucket中的顶点放松它们的边。有关𝝙-stepping最短路径算法可以参考这篇文章：<a href="http://www.cs.utexas.edu/~pingali/CS395T/2012sp/papers/delta-stepping.pdf" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Topology-Mutations"><a href="#Topology-Mutations" class="headerlink" title="Topology Mutations"></a>Topology Mutations</h2><p>有一些图算法可能需要改变图的整个拓扑结构。比如一个聚类算法，可能会将每个聚类替换成一个单一顶点，又比如一个最小生成树算法会删除所有除力组成树的边之外的其他边。正如用户可以在自定义的Compute()函数能发送消息，同样可以产生在图中增添和删除边或顶点的请求。</p>
-<p>多个顶点有可能会在同一个超级步中产生冲突的请求（比如两个请求都要增加一个顶点V，但初始值不一样）。 Pregel中用两种机制来决定如何调用：局部有序和handlers。</p>
-<p>由于是通过消息发送的，拓扑改变在请求发出以后，在超级步中可以高效地执行。在该超级步中，删除会首先被执行，先删除边后删除顶点，因为顶点的删除通常也意味着删除其所有的出边。然后执行添加操作，先增加顶点后增加边，并且所有的拓扑改变都会在Compute()函数调用前完成。这种局部有序保证了大多数冲突的结果的确定性。</p>
-<p>剩余的冲突就需要通过用户自定义的handlers来解决。如果在一个超级步中有多个请求需要创建一个相同的顶点，在默认情况下系统会随便挑选一个请求，但有特殊需求的用户可以定义一个更好的冲突解决策略，用户可以在Vertex类中通过定义一个适当的handler函数来解决冲突。同一种handler机制将被用于解决由于多个顶点删除请求或多个边增加请求或删除请求而造成的冲突。我们委托handler来解决这种类型的冲突，从而使得Compute()函数变得简单，而这样同时也会限制handler和Compute()的交互，但这在应用中还没有遇到什么问题。</p>
-<p>我们的协同机制比较懒，全局的拓扑改变在被apply之前不需要进行协调，只有在它被接收到然后apply时才进行控制，这样就简化了流程，同时能让发送更快。这种设计的选择是为了优化流式处理。直观来讲就是对顶点V的修改引发的冲突由V自己来处理。</p>
-<p>Pregel同样也支持纯local的拓扑改变，例如一个顶点添加或删除其自身的出边或删除其自己。Local的拓扑改变不会引发冲突，并且顶点或边的本地增减能够立即生效，很大程度上简化了分布式的编程。</p>
-<h2 id="Input-and-Output"><a href="#Input-and-Output" class="headerlink" title="Input and Output"></a>Input and Output</h2><p>可以采用多种文件格式进行图的保存，比如可以用text文件，关系数据库，或者Bigtable中的行。为了避免规定四一种特定文件格式，Pregel将从输入中解析出图结构的任务从图的计算过程中进行了分离。类似的，结果可以从任何一种格式输出并根据应用程序选择最适合的存储方式。Pregel library本身提供了很多常用文件格式的readers和writers，但是用户可以通过继承Reader和Writer类来定义它们自己的读写方式。</p>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>Pregel是为Google的集群架构而设计的。每一个集群都包含了上千台机器，这些机器都分列在许多机架上，机架之间有这非常高的内部通信宽带。集群之间是内部互联的，但地理上是分布在不同地方的。</p>
-<p>应用程序通常一个集群管理系统执行，该管理系统会通过调度作业来优化集群资源的使用率，有时候会杀掉一些任务或将任务迁移到其他机器上去。该系统中提供了一个名字服务系统，所以各任务间可以通过与物理地址无关的逻辑名称来各自表示自己。持久化的数据被存储在GFS或Bigtable中，而临时文件比如缓存的消息则存储在本地磁盘中。</p>
-<h2 id="Basic-Architecture"><a href="#Basic-Architecture" class="headerlink" title="Basic Architecture"></a>Basic Architecture</h2><p>Pregel library将一张图划分成许多的partitions，每一个partition包含了一些顶点和以这些顶点为起点的边。将一个顶点分配到某个partition上去取决于该顶点的ID，这意味着即使在别的机器上。也是可以通过顶点的ID来知道该顶点时属于哪个partition，即使该顶点已经不存在了。默认的partition函数为hash(ID) mod N，N为所有partition总数，但是用户可以替换掉它。</p>
-<p>将一个顶戴呢分配给哪个worker机器是整个Pregel中对分布式不透明的主要地方。有些应用程序使用默认的分配策略就可以工作的很好，但是有些应用可以通过定义更好地利用了图本身的locality的分配函数而从中获益。比如一种典型的可以用于Web graph的启发式方法是，将来自同一个站点的网页数据分配到一台机器上进行计算。</p>
-<p>在不考虑出错的情况下，一个Pregel程序的执行过程分为如下几个步骤：<br>1.用户程序的多个copy开始在集群中的机器上执行。其中有一个copy将会作为master，其他的作为worker，master不会被分配图的任何一部分，而只是负责协调worker间的工作。worker利用集群管理系统中提供的名字服务来定位master位置，并发送注册信息给master。<br>2.Master决定对这个图需要多少个partition，并分配一个或多个partitions到worker所在的机器上。这个数字也可能由用户进行控制。一个worker上有多个partition的情况下，可以提高partitions间的并行度，更好的负载均衡，通常都可以提高性能。每一个worker负责维护在其之上的图的那一部分的状态（顶点及边的增删），对该部分中的顶点执行Compute()函数，并管理发送出去的以及接收到的消息。每一个worker都知道该图的计算在所有worker中的分配情况。<br>3.Master进程为每个worker分配用户输入中的一部分，这些输入被看做是一系列记录的集合，每一条记录都包含任意数目的顶点和边。对输入的划分和对整个图的划分都是正交的，通胀都是基于文件边界进行划分。如果一个worker加载的顶点刚好是这个worker所分配到的那一部分，那么相应的数据结构就会被立即更新。否则，该worker就需要将它发送到它所应属于的那个worker上，当所有的输入都被load完成后，所有的顶点将被标记为active状态。<br>4.Master给每个worker发指令，让其运行一个超级步，worker轮询在其之上的顶点，会为每个partition启动一个线程。调用每个active顶点的Compute()函数，传递给它从上一次超级步发送来的消息。消息是被异步发送的，这是为了使得计算和通信可以并行，以及进行batching，但是消息的发送会在本超级步结束前完成。当一个worker完成了其不断重复该步骤，只要有顶点还在active状态，或者还有消息在传输。<br>5.计算结束后，master会给所有的worker发指令，让它保存它那一部分的计算结果。</p>
-<h2 id="Fault-tolerance"><a href="#Fault-tolerance" class="headerlink" title="Fault tolerance"></a>Fault tolerance</h2><p>容错是通过checkpointing来实现的。在每个超级步的开始阶段，master命令worker让它保存它上面的partitions的状态到持久存储设备，包括顶点值，边值，以及接收到的消息。Master自己也会保存aggregator的值。</p>
-<p>work的失效是通过master发给它的周期性的ping消息来检测的。如果一个worker在特定的时间间隔内没有收到ping消息，该worker进程会终止。如果master在一定时间内没有收到worker的反馈，就会将该worker进程标记为失败。</p>
-<p>当一个或多个worker发生障碍，被分配到这些worker的partitions的当前状态信息就丢失了。Master重新分配图的partition到当前可用的worker集合上，所有的partition会从最近的某超级步S开始时写出的checkpoint中重新加载状态信息。该超级步可能比在失败的worker上最后运行的超级步S‘早好几个阶段，此时失去的几个superstep将需要被重新执行。所有的partition都需要重新分配，而不仅仅是失败的worker上的那些，否则如何重新执行丢失的超级步，也正是这样才有了下面的confined recovery。我们对checkpoint频率的选择基于某个故障模型的平均时间，以平衡checkpoint的开销和恢复执行的开销。</p>
-<p>为了改进恢复执行的开销和延迟，confined recovery已经在开发中。除了基本的checkpoint，worker同时还会将其在加载图的过程中和超级步中发送出去的消息写入日志。这样恢复就会被限制在丢掉的那些partitions上。它们会首先通过checkpoint进行恢复，然后系统会通过回放来自正常的partitions的记入日志的消息以及恢复过来的partitions重新生成的消息，更新状态到S‘阶段。这种方式通过只对丢失的partitions进行重新计算节省了在恢复时消耗的计算资源，同时由于每个worker只需要恢复很少的partitions，减少了恢复时的延迟。对发送出去的消息进行保存会产生一定的开销，但是通常机器上的磁盘带宽不会让这种IO操作称为瓶颈。</p>
-<p>confined recovery要求用户算法是确定性的，以避免原始执行过程中所保存下来的消息与恢复时产生的新消息并存情况下带来的不一致。随机化算法可以通过基于超级步和partition产生一个伪随机数生成器来使之确定化。非确定性算法需要关闭confined recovery而使用老的恢复机制。</p>
-<h2 id="Worker-implementation"><a href="#Worker-implementation" class="headerlink" title="Worker implementation"></a>Worker implementation</h2><p>一个worker机器会在内存中维护分配到其之上的graph partition的状态。概念上讲，可以简单地看做是一个从顶点ID到顶点状态的Map，其中顶点状态包括如下信息：该顶点的当前值，一个以该顶点为起点的出边（包括目标顶点ID，边本身的值）列表，一个保存了接收到的消息的队列，以及一个记录当前是否active的标志位。该worker在每个超级步中，会循环遍历所有顶点，并调用每个顶点的Compute()函数，传给该函数顶点的当前值，一个接收到的消息的迭代器和一个出边的迭代器。这里没有对入边的访问，原因是每一条入边其实都是其源顶点的所有出边的一部分，通常在另外的机器上。</p>
-<p>出于性能的考虑，标志顶点是否为active的标志位是和输入消息队列分开保存的。另外，只保存了一份顶点值和边值，但有两份顶点active flag和输入消息队列存在，一份是用于当前超级步，另一个用于下一个超级步。当一个worker在进行超级步S的顶点处理时，同时还会有另外一个线程负责接收从处于同一个超级步的其他worker接收消息。由于顶点当前需要的是S-1超级步的消息，那么对superstep S和superstep S+1的消息就必须分开保存。类似的，顶点V接收到了消息表示V将会在下一个超级步中处于active，而不是单前这一次。</p>
-<p>当Compute()请求发送一个消息到其他顶点时，worker首先确认目标顶点是属于远程的worker机器，还是当前worker。如果是在远程的worker机器上，那么消息就会被缓存，当缓存大小达到一个阈值，最大的那些缓存数据将会被异步地flush出去，作为单独的一个网络消息传输到目标worker。如果是在当前worker，那么就可以做相应的优化：消息就会直接被放到目标顶点的输入消息队列中。</p>
-<p>如果用户提供了Combiner，那么在消息被加入到输出队列或者到达输入队列时，会执行combiner函数。后一种情况并不会节省网络开销，但是会节省用户消息存储的空间。</p>
-<h2 id="Master-implementation"><a href="#Master-implementation" class="headerlink" title="Master implementation"></a>Master implementation</h2><p>Master主要负责的worker之间的工作协调，每一个worker在其注册到master的时候被分配一个唯一的ID。Master内部维护着一个当前活动的worker列表，该列表中就包括每个worker的ID和地址信息，以及那些worker被分配到了整个图的哪一部分。Master中保存这些信息的数据结构大小与partations的个数相关，与图中的顶点和边的数目无关。因此，虽然只有一台master，也足够用来协调对一个非常大的图的计算工作。</p>
-<p>绝大部份的master的工作，包括输入，输出，计算，保存以及从checkpoint中恢复，都将会在一个叫做barriers的地方终止：Master在每一次操作时都会发送相同的指令到所有的活着的worker，然后等待从每个worker的响应，如果任何一个worker失败了，master便进入4.2节中描述的恢复模式。如果barrier同步成功，master便会进入下一个处理阶段，例如master增加超级步的index，并进入下一个超级步的执行。</p>
-<p>Master同时还保存着整个计算过程以及整个graph的状态的统计数据，如图的总大小，关于出度分布的柱状图，处于active状态的顶点个数，在当前超级步的时间信息和消息流量，以及所有用户自定义aggregators的值等。为方便用户监控，Master在内部运行了一个<code>HTTP</code>服务器来显示这些信息。</p>
-<h2 id="Aggregators-1"><a href="#Aggregators-1" class="headerlink" title="Aggregators"></a>Aggregators</h2><p>每个Aggregator会通过对一组value值集合应用aggregation函数计算出一个全局值。每一个worker都保存了一个aggregators的实例集，由type name和实例名称来标识。当一个worker对graph的某一个partition执行一个超级步时，worker会combine所有的提供给本地的那个aggregator实例的值到一个local value：即利用一个aggregator对当前partition中包含的所有顶点值进行局部规约。在超级步结束时，所有workers会将所有包含局部规约值的aggregators的值进行最后的汇总，并汇报给master。这个过程是由所有worker构造出一颗规约树而不是顺序的通过流水线的方式来规约，这样做的原因是为了并行化规约时CPU的使用。在下一个超级步开始时候，master就会将aggregators的全局值发送给每一个worker。</p>
-<h1 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h1><p>本节包含四个例子，它们是由Pregel用户开发地用来解决如下实际问题的简化版算法：PageRank，最短路径，二分图匹配和Semi-Clustering算法。</p>
-<h2 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h2><p>首先来简要介绍下PageRank算法：将文献检索中的引用理论用到Web中，引用网页的链接数一定程度上反映了该网页的重要性和质量。PageRank发展了这种思想，网页间的链接是不平等的。PageRank定义如下：我们假设T1…Tn指向网页A。参数d是制动因子，取值在0，1之间。通常d等于0.85。网页A的PageRank值由下式给出：<br>PageRank或PR（A）可以用简单的迭代算法计算，计算过程是收敛的，随着迭代次数的增加，各网页的PageRank值趋于平稳。可以从如下角度进行理解：<br>1.假设网上冲浪时随机的，不断点击链接，从不返回，最终烦了，另外随机选一个网页冲洗开始冲浪。随机访问一个网页的可能性就是它的PageRank值。制动因子d是随机访问一个网页烦了的可能性，随机另选一个网页。对单个网页或一组网页，一个重要的变量加入到制动因子中。这允许个人可以故意的误导系统，以得到较高的PageRank值。<br>2.直觉上判断，一个网页有很多网页指向它，或者一些PageRank值高的网页指向它，则这个网页很重要。直觉地，在Web中，一个网页被很多网页引用，那么这个网页值得一看。一个网页就像Yahoo这样重要的主页引用即使一次，也值得一看。如果一个网页的质量不高，或者是死链接，像Yahoo这样的主页不会链向它。PageRank处理了这两方面因素，并通过网络链接递归地传递。</p>
-<p>关于该公式需要说明的是，Google后来递归时使用了1-d/N，公式的其他部分未作任何变动，这里的N是互联网中全部的网页数量，也就是本论文中使用的公式，据说这样做使得PageRank变为了被随机访问的期望值。关于PageRank更具体的解释可以参考这篇文章</p>
-<p>PageRank算法的Pregel实现如图4所示。PageRankVertex继承自Vertex类。顶点value类型是double，用来保存PageRank中间值，消息类型也是double，用来传输PageRank分数，边的value类型是void，因为不需要存储任何信息。我们假设，在第0个超级步时，图中各顶点的value值被初始化为1/NumVertices()。在前30个超级步中，每个顶点都会沿着它的出边发送它的PageRank值除以出边数后的结果值。从第1个超级步开始，每个顶点会将到达的消息中的值加到sum值中，同时将它的PageRank值设为0.15/NumVertices()+0.85*sum。到了第30个超级步后，就没有需要发送的消息了，同时所有的顶点VoteToHalt。在实际中，PageRank算法需要一直运行直到收敛，可以使用aggregators来检查是否满足收敛条件。</p>
-<h2 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h2><p>最短路径问题是图论中最有名的问题之一了，同时具有广泛的应用，该问题有几个形式：单源最短路径，是指要找出从某个源顶点到其他所有顶点的最短路径；s-t最短路径，是指要找出给定源顶点s和目标顶点t间的最短路径，这个问题具有广泛的实验应用比如寻找驾驶路线，并引起了广泛关注，同时它也是相对简单的；全局最短路径，对于大规模的图对象来说通常都不太实际，因此它的空间复杂度是O（V*V）的。为简化起见，我们这里以非常适于用Pregel解决的单源最短路径为例，实现代码见图5。</p>
-<p>在该算法中，我们假设与顶点关联的那个值被初始化为INF（比从源点到图中其他顶点的所有可能距离都大的一个常量）。在每个超级步中，每个顶点会首先接收到来自邻居传送过来的消息，该消息包含更新过的从源顶点到该顶点的潜在的最短距离，如果这些更新利的最小值小于该顶点当前关联值，那么顶点就会更新这个值，并发送消息（该消息包含了该顶点的关联值+每个出边的关联值）给它的邻居。在第一个超级步中，只有源顶点会更新它的关联值（从INF改为0），然后发送消息给它的直接邻居。然后这些邻居会更新它们的关联值，然后继续发送消息给它们的邻居，如此循环往复。当没有更新再发生的时候，算法就结束，之后所有顶点的关联值就是从源顶点到它的最短路径，若值为INF表示该顶点不可达。如果所有的边权重都是非负的，就可以保证该过程肯定会结束。</p>
-<p>该算法中的消息保存都是潜在的最小距离。由于接收顶点实际上只关注最小值，因此该算法是可以通过combiner进行优化的，combiner实现如图6所示，它可以大大减少worker间的消息量，以及在执行下一个超级步前所需要缓存的数据量。图5中的实现只是计算出了最短路径，如果要计算最短路径生成树也是很简单的。</p>
-<p>与其他类似的串行算法比如Dijkstra或者是Bellman-Ford相比，该算法需要更多的比较次数，但是它可以用来解决对于单机版实现很难解决的那个规模上的最短路径问题。还有一些更高级的并行算法，比如Thorup和𝝙-stepping，这些高级算法也可以在Pregel系统中实现。但是图5中的那个实现，由于其比较简单同时性能也还可以接受，对于那些普通用户来说也还是很具有吸引力的。</p>
-<h2 id="二分匹配"><a href="#二分匹配" class="headerlink" title="二分匹配"></a>二分匹配</h2><p>二分匹配算法的输入由两个不同的顶点集合组成，所有边的两顶点分别位于两个集合中，输出是边的一个子集，它们之间没有公共顶点。极大匹配是指在当前已完成的匹配下，无法再通过增加未完成匹配的边的方式来增加匹配的边数。我们实现了一个随机化的极大匹配算法，以及一个最大权匹配算法；我们只在此描述下前者。</p>
-<p>在该算法的Pregel实现中，顶点的关联值是由两个值组成的元组：一个是用于标识该顶点所处集合的flag，一个是跟它所匹配的顶点名称。边的关联值类型为void，消息的类型为boolean。该算法是由四个阶段组成的多个循环组成，用来标识当前所处阶段的index可以通过用当前超级步的index mod 4得到。</p>
-<p>在循环的阶段1，右边集合中那些还未被匹配的顶点随机选择它接收到的消息中的其中一个，并发送消息表示接受该请求，然后给其他请求者发送拒绝消息。然后，它也无条件的VoteToHalt。</p>
-<p>在循环的阶段2，左边集合中那些还未被匹配的顶点最多会收到一个确认消息。它会通知匹配顶点，然后无条件的VoteToHalt，它的工作已经完成。</p>
-<h2 id="Semi-Clustering"><a href="#Semi-Clustering" class="headerlink" title="Semi-Clustering"></a>Semi-Clustering</h2><h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>我们使用5.2节描述的单源最短路径（SSSP）实现在一个由300台多核PC组成的集群上进行了多次实验。得到了在所有边的权重为1情况下，针对不同大小规模下的二叉树（为了研究可扩展属性）和对数正态随机图（为了研究更接近真实环境下的性能）的运行时间。</p>
-<p>测量结果没有包含用于初始化集群，在内存中生成测试图以及进行结果验证的时间。因为所有的实验运行的时间都相对比较短，因此出错的概率比较低，同时关闭了checkpointing。</p>
-<p>图7展示了一个具有十亿个顶点（由于是树，故边数应为十亿-1）的二叉树最短路径算法的在Pregel worker数目从50到800之间的情况下的运行时间。通过该图可以看出Pregel伴随着worker数增加的扩展性。可以看到运行时间从170秒降到了17.3秒，相当于使用16倍的worker数获得了大概10倍的加速。</p>
-<p>图8展示了二叉树的顶点数从十亿变化到五百亿时的最短路径算法运行时间，此时worker数是固定的，总共是800个worker被调度300台机器上。通过该图可以看出在顶点数不断增加下的Pregel系统的扩展性。在这个变化过程中，运行时间从17.3秒增长到了702秒，运行时间基本上是随着图大小线性增长的，但是增长地要相对慢些</p>
-<p>前面的实验只是展示了Pregel随着worker数目和图大小增加的情况下的可扩展性，但是二叉树很明显无法代表实际中经常碰到的那些图。因此我们需要继续实验，通过使用一个出度具有对数正态分布的随机生成的图来进行，同时我们令μ=4，σ=1.3，此时的平均出度为127.1。这个分布与很多现实中的大型图都很类似，比如web graph或者是社交网络，在这些情况下，大多数顶点的度都相对较小，但是存在少数的一些顶点的度非常大—可能成千上万甚至更多。</p>
-<p>图9展示了这种类型的图在顶点数从一千万到十亿（此时边数降超过127.1B）的情况下的最短路径算法运行时间，也是总共800个worker被调度300台机器上。最大规模的情况下的运行时间超过了10分钟。</p>
-<p>在所有的实验中，图中worker上的partition方式都是采用的默认的基于随机hash的partition函数；如果使用一个topolog-aware的partition函数应该可以得到更好的性能。此外这里只是使用了一个最基本的最短路径算法；如果使用一个更高级的算法还能再达到更好的性能。因此，本节的实验课过并不代表了使用Pregel所能达到的最好性能。这些结果只能用来展示：只需要编写非常少的代码就可以达到令人满意的性能。实际上，我们的系统在1B顶点和边的情况下的性能结果与下一节提到的运行在112个处理单元组成的集群上，处理具有256M顶点和1B条边的图的<code>Parallel BGL</code>的𝝙-stepping算法结果不相上下，同时Pregel还可以扩展到更大的规模上。</p>
-<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><p>Pregel是一个分布式编程框架，专注于为用户编写图算法提供自然的API，同时将消息机制和容错等底层分布式细节隐藏起来。从概念上看，它非常类似于MapReduce，但是具有更自然的面向图的API和更高效的在图上进行迭代计算的支持。由于专注于图对象使得它与其他的一些分布式框架比如Sawzall，Pig Latin，Drayad 区别开来。Pregel之所以不同，还因为它实现了一个有状态的模型，在这个模型中进程会一直存活着，不断地进行计算，通信和修改本地状态等等，这与数据流模型不同，在数据流模型中进程只是在输入数据上进行计算，然后产生输出数据再交由其他进程处理。</p>
-<p>Pregel借鉴了BSP模型的思想，比如它里面的由计算和通信组成的超级步概念。目前已经存才大量的普通BSP库实现，比如Oxford BSP，Green BSP，BSP lib和Paderborn University BSP Library。这些库本身在提供的通信原语，处理分布式环境下的问题（比如容错）的方式，负载平衡等方面都有些不同。据我们所知，这些BSP实现都是只在几十台机器上运行过，可扩展性和容错性都比较有限，同时都没有提供一个面向图处理的API。</p>
-<p>跟Pregel最接近的应该算是Parallel Boot Graph Library和CGM Graph了。Parallel BGL 为分布式的图定义了一些关键概念，提供了一个基于MPI的实现，同时基于此实现了大量的图算法。并试图维护与BGL（串行的）的兼容性，以方便算法的移植。它内部实现采用了property map来存储与图的顶点和边相关的信息，采用ghost cells存放与远程组件相关的值。在具有很多远程组件时这会影响可扩展性。Pregel使用了一种显式的消息机制来获取远程信息，同时不会将这些值存放在本地。最关键的区别是Pregel提供了容错机制来处理计算环境中发生的故障，这就使得它可以部署在一个很大的集群环境中，在这种环境的集群中故障是很常见的，比如硬件产生了故障或者高优先级的作业发生了资源抢占。</p>
-<p>CGM Graph在概念上非常类似于Pregel，它通过基于MPI的CGM（Coarse Grained Multicomputer）模型提供了大量并行图算法实现。它暴露给用户更多的底层分布式机制，更关注于提供图算法实现而不是提供一个实现这些算法的基础设施。CGM Graph使用了面向对象的编程风格，与Parallel BGL和Pregel的泛型编程风格相比，会有一些性能损失。</p>
-<p>除了Pregel和Parallel BGL之外，基本没有其他系统提供过在billions这个规模的顶点数的实验结果。目前已发表的最大规模的实现结果来自于一个针对s-t最短路径的定制化实现，而不是来自通用框架。Yoo等发票的广度优先搜索实现（s-t最短路径）在BlueGene/L上的实现，是运行在32786个PowerPC处理器上，同时采用了高性能torus网路，对于一个具有3.2B个顶点和32B条边满足泊松分布的随机图的处理用来1.5秒。Bader和Madduri发表了该类型问题在一个10节点Cray MTA-2上的结果，对于一个具有134M个顶点和805M条边的R-MAT随机图的处理用了0.43秒。Lumsadaine等用在一个具有200个处理器的x86_64 Opteron集群上的Parallel BGL结果，与BlueGene/L实现进行了对比，对于一个具有4B个顶点和20B条边的Erdos-Renyi随机图的处理用来0.43秒。</p>
-<p>对于一个具有256M个顶点和平均出席为4的Erdos-Renyi随机图的上的单源最短路径问题来说，在使用△-stepping算法的情况下，结果如下：Cray MTA-2(40个处理器，2.37秒)，在Opterons上的Parallel BGL，112个处理器，35秒。后面的这个时间比较接近于我们针对1B顶点和边的规模在400个worker上的结果。我们还没有任何其他的在1B顶点和127.1B边这个规模上的log-normal随机图上的相关结果。</p>
-<p>另外的一个研究方向是在单台机器上通过扩展内存磁盘来处理更大规模的问题，比如。但是这些实现，对于1B个顶点的规模的图上的处理要花几个小时。</p>
-<h1 id="总结以及未来的工作"><a href="#总结以及未来的工作" class="headerlink" title="总结以及未来的工作"></a>总结以及未来的工作</h1><p>本文的贡献是提出了一个适用于大规模图计算的模型，并描述了它的高质量的，可扩展的，容错实现。</p>
-<p>来自用户的数据显示，我们已经成功地让该模型被使用起来，并具有了不错的可用性，目前已经有很多Pregel应用被部署，同时还要更多的处于设计和实现的过程中。用户反映当它们将思维方式成功转换到“think like a vertex”后，风险提供的API是如此直观，灵活，太好用了。这并不令人吃惊，因为我们从一个开始就是跟早期用户一起做这些工作的，从那时起它们就影响着这些API的设计了。比如，aggregators之所以被支持就是为了解决用户在早期Pregel模型发现的一些限制。此外还有其他的关于Pregel可用性方面的改进都是源自用户的使用经验，比如关于Pregel程序执行过程的详细信息的状态页面，unittsting框架，以及用来帮助用户进行快速原型开发和debug的单机运行模型。</p>
-<p>Pregel已经在性能，可扩展性和容错方面满足了具有billions规模的边的图的处理。同时我们也在继续进行调研以扩展到更大的规模，比如放松模型的同步性，避免让那些运行的快的worker总是等待在超级步之间。</p>
-<p>当前整个的计算状态都是驻留在内存中的。我们已经开始将一些数据存到本地磁盘，同时我们会继续在这个方向进行深入的研究，系统可以支持规模太大以至于内存无法完全存在的情况。</p>
-<p>通过调整顶点在机器间的分配以最小化机器间的通信开销非常具有挑战性。根据图的拓扑结构对输入进行划分有时可能行地通，有时可能不行，图的拓扑结构可能会动态地发生改变。我们希望可以引入动态的re-partitioning机制。</p>
-<p>Pregel是为那种通信主要发生在边上的稀疏图设计的，我们会一直坚持这个假设。尽管我们已经投入一些精力用与支持高的消息收发流量的情况，但是当大部分的顶点都在持续地向大部分的其他顶点发送消失时，性能问题会变得很严重。当然了，实际中dense的图还是很少的，同时需要在稀疏图上进行dense通信的算法也是很少发生的。对于这样的算法来说，其中一些可以转换成Pregel能够比较好的支持的变种，比如通过使用combiners，aggregators或者拓扑变更，当然了这样的计算对于任何高度分布式的系统来说都会是很难的。</p>
-<p>需要注意的一点是，Pregel已经正式成为我们的基础设施的一部分。现在已经不能随意地去修改API而不考虑兼容性了。但是，我们相信现有的编程接口已经是足够抽象和灵活了，足以应对底层系统未来的演化。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/24/Graph-Database-2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Java-8" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/17/Java-8/">Java 8</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/17/Java-8/" class="archive-article-date">
-  	<time datetime="2019-01-17T09:53:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>以后会把所有关于Java 8的学习细节和心得写入这个博客</code></p>
-<blockquote>
-<p>Java 8被直接升级到Java 10把整个工程压力从自己身上移开，开始做技术规划和技术方向预测是技术管理的核心。</p>
-</blockquote>
-<h1 id="Java-8学习经历"><a href="#Java-8学习经历" class="headerlink" title="Java 8学习经历"></a>Java 8学习经历</h1><p>未补充</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/17/Java-8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-New-Life" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/14/New-Life/">New Life</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/14/New-Life/" class="archive-article-date">
-  	<time datetime="2019-01-14T13:56:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="关于新的工程方向"><a href="#关于新的工程方向" class="headerlink" title="关于新的工程方向"></a>关于新的工程方向</h1><blockquote>
-<p>下班了下班了，明天继续。<br>明天开始研究三个材料：<br><a href="https://mp.weixin.qq.com/s/CjrjC1siKf85JUL094n_jw" target="_blank" rel="noopener">回顾如何构建知识图谱</a><br><a href="https://mp.weixin.qq.com/s/E3ytR_QP_h0O8qIv_1IFaQ" target="_blank" rel="noopener">干货好文！自底向上——知识图谱构建技术初探</a><br><a href="https://mp.weixin.qq.com/s/34KCkwfty_Kgj8GlOPjm_A" target="_blank" rel="noopener">知识图谱构建流程</a><br><a href="https://zhuanlan.zhihu.com/p/20944052" target="_blank" rel="noopener">2015年互联网消费金融图谱：寻找未来的独角兽</a><br><a href="https://zhuanlan.zhihu.com/p/35295166" target="_blank" rel="noopener">重磅 | 肖仰华：知识图谱与认知智能</a></p>
-</blockquote>
-<h2 id="关于知识点"><a href="#关于知识点" class="headerlink" title="关于知识点"></a>关于知识点</h2><p><strong>知识图谱划分</strong></p>
-<ul>
-<li>逻辑架构</li>
-<li>技术架构</li>
-</ul>
-<hr>
-<p><strong>逻辑架构</strong></p>
-<ul>
-<li>模式层</li>
-<li>数据层</li>
-</ul>
-<blockquote>
-<p>在数据层之上，是知识图谱的核心，存储经过提炼的知识，通常通过本体库来管理这一层<br>数据层存储真实的数据</p>
-</blockquote>
-<p>类似于metadata和data</p>
-<blockquote>
-<p>模式层：实体-关系-实体，实体-属性-属性值<br>数据层：比尔盖茨-妻子-梅琳达•盖茨</p>
-</blockquote>
-<p><strong>技术架构</strong></p>
-<blockquote>
-<p>知识图谱的整体架构如图所示，其中虚线框内的部分为知识图谱的构建过程，同时也是知识图谱更新的过程。</p>
-</blockquote>
-<p><img width="600" src="/family/Newlife.png"></p>
-<p>让我们顺着这张图来理一下思路。首先我们有一大堆数据，这些数据可能是结构化的、非机构化的以及半结构化的，然后我们基于这些数据来构建知识图谱，这一步主要是通过一系列自动化和半自动化的技术手段，来从原始数据中提取出知识要素，即一堆实体关系，并将其存入我们的知识库的模式层和数据层。</p>
-<p>构建知识图谱是一个迭代更新的过程，根据知识获取的逻辑，每一轮迭代包含三个阶段：</p>
-<h3 id="信息抽取"><a href="#信息抽取" class="headerlink" title="信息抽取"></a>信息抽取</h3><p>从各种类型的数据源中提取出实体、属性以及实体间的相互关系，在此基础上形成本体化的知识表达</p>
-<h3 id="知识融合"><a href="#知识融合" class="headerlink" title="知识融合"></a>知识融合</h3><p>在获取新知识之后，需要对其进行整合，以消除矛盾和歧义，比如某些实体可能有多种表达，某个特定称谓也许对应于多个不同的实体等</p>
-<h3 id="知识加工"><a href="#知识加工" class="headerlink" title="知识加工"></a>知识加工</h3><p>对于经过融合的新知识，需要经过质量评估之后，才能将合格的部分加入到知识库中，以确保知识库的质量</p>
-<p><strong>构建技术</strong></p>
-<ol>
-<li>自顶向下</li>
-<li>自底向上</li>
-</ol>
-<p>当前的工业实践主要是自底向上的构建技术</p>
-<p><strong>关键技术：实体抽取、关系抽取和属性抽取</strong></p>
-<p>实体抽取：命名实体识别<br>关系抽取：</p>
-<ol>
-<li>人工构造语法和语义规则</li>
-<li>统计机器学习方法</li>
-<li>基于特征向量和和函数的有监督学习方法</li>
-<li>研究重点转向半监督和无监督</li>
-<li>开始研究面向开放域的信息抽取方法</li>
-<li>将面向开放域的信息抽取方法和面向封闭领域的传统方法结合</li>
-</ol>
-<p>属性抽取</p>
-<ol>
-<li>实体的属性视作实体与属性值之间的一名名词性关系，将属性抽取任务转化为关系抽取任务</li>
-<li>基于规则和启发式算法，抽取结构化数据</li>
-<li>基于百度的半结构化数据，通过自动抽取生成训练语料，用于训练实体属性标注模型，然后将其应用于对非结构化数据的实体属性抽取</li>
-<li>采用数据挖掘的方法直接从文本中挖掘实体属性和属性值之间的关系模式，据此实现对属性名和属性值在文本中的定位</li>
-</ol>
-<p>知识融合</p>
-<blockquote>
-<p>实体连接、知识合并</p>
-</blockquote>
-<p>知识加工</p>
-<blockquote>
-<p>本体构建、知识推理：<br><code>推理属性值</code>  已知某实体的生日属性，通过推理得到该实体的年龄属性<br><code>推理概念</code>  已知道（老虎，科，猫科）和（猫科，目，食肉目）可以推出（老虎，目，食肉目）</p>
-</blockquote>
-<p>这一块的算法主要有三类，基于逻辑的推理、基于图的推理、基于深度学习的推理。</p>
-<p><strong>基于知识表达的关系推理技术</strong><br><img width="400" src="/tech/knowledge.png"></p>
-<p><strong>基于概率图模型的关系推理技术</strong><br><img width="400" src="/tech/bayes.png"></p>
-<p><strong>基于深度学习的关系推理技术路线示意图</strong><br><img width="400" src="/tech/deeplearn.png"></p>
-<p>知识更新</p>
-<p><code>概念层的更新</code>和<code>数据层的更新</code></p>
-<p>知识图谱的应用</p>
-<ol>
-<li>智能搜索</li>
-<li>构建人物关系图，查看更多维度的数据</li>
-<li>反欺诈<ol>
-<li>一反欺诈的数据来源多样，结构化和非结构化</li>
-<li>不少欺诈案件会涉及到复杂的关系网络</li>
-</ol>
-</li>
-<li>不一致性验证（类似交叉验证）—关系推理</li>
-<li>异常分析（运算量大，一般离线）<ol>
-<li>静态分析 给定一个图形结构和某个时间点，从中去发现一些异常点。</li>
-<li>动态分析 分析其结构随时间变化的趋势。</li>
-</ol>
-</li>
-<li>失联客户管理挖掘</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/14/New-Life/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JanusGraph" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/11/JanusGraph/">JanusGraph</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/11/JanusGraph/" class="archive-article-date">
-  	<time datetime="2019-01-11T12:59:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JanusGraph的历史"><a href="#JanusGraph的历史" class="headerlink" title="JanusGraph的历史"></a>JanusGraph的历史</h2><p><code>Titan</code>是从2012年开始开发，到2016年停止维护的一个分布式图数据库。<br>最初在2012年启动<code>Titan</code>项目的公司是<code>Aurelius</code><br>2015年此公司被<code>DataStax</code>收购，<code>DataStax</code>公司吸收了<code>Titan</code>的图存储能力，形成了自己的商业产品<code>DataStax Enterprise Graph</code></p>
-<hr>
-<p><code>JanusGraph</code>是2016年12月27日从<code>Titan</code> fork出来的一个分支，截止2019年1月最新版本为v0.3.1。</p>
-<hr>
-<p><code>Titan</code>开发者们希望把<code>Titan</code>放到<code>Apache Software Foundation</code>下<br><code>DataStax</code>不愿意这样做，而且从2015年9月<code>DataStax</code>收购了<code>Titan</code>的母公司后，<code>Titan</code>一直处于停滞状态<br>应该是<code>DataStax</code>收购之后，忙于推出自己的商业产品<code>DataStax Enterprise Graph</code></p>
-<hr>
-<p>鉴于此，2016年6月，<code>Titan</code>的开发者们fork了一个<code>Titan</code>的分支，重命名为<code>JanusGraph</code>，并将其置于<code>Linux Software Foundation</code>下<br>因为<code>Titan</code>已经属于<code>DataStax</code>了，所以他们必须另外弄一个商标</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/11/JanusGraph/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Knowledge-Graph" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/09/Knowledge-Graph/">Knowledge Graph</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/09/Knowledge-Graph/" class="archive-article-date">
-  	<time datetime="2019-01-09T13:22:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="知识图谱构建以及底层图数据分析"><a href="#知识图谱构建以及底层图数据分析" class="headerlink" title="知识图谱构建以及底层图数据分析"></a>知识图谱构建以及底层图数据分析</h1><blockquote>
-<p>底层依然使用图数据库，图数据本身具有很大的可研究性</p>
-</blockquote>
-<blockquote>
-<p>知识图谱（知识引擎）是多种技术的综合应用，包括自然语言识别（NLP）、机器学习及图存储技术等，其大量知识来源于非结构化数据。</p>
-</blockquote>
-<blockquote>
-<p>知识图谱的整体使用过程包括知识获取、知识融合、知识存储、知识推理、知识应用等步骤，典型应用场景包括搜索引擎、问答系统等。</p>
-</blockquote>
-<h2 id="2019年3月14日更新"><a href="#2019年3月14日更新" class="headerlink" title="2019年3月14日更新"></a>2019年3月14日更新</h2><p>文档的材料需求越来越多，在即将变为文档工程师前，自己整理下当前能获取的一些外部材料，这里做一些整理，以后会逐步完善</p>
-<p><strong>知乎文章</strong></p>
-<p><a href="https://zhuanlan.zhihu.com/p/26200663" target="_blank" rel="noopener">知识图谱作为投资决策，为何比深度学习更靠谱</a></p>
-<blockquote>
-<p>有别于现在大数据很大程度上强调相关性，深度学习很大程度上强调难以解释的结果。尤其在投资决策领域，没有因果关系，不可理解的投资，那叫投机，不可持续。</p>
-</blockquote>
-<p><strong>Kensho/Palantir Metropolis系统</strong></p>
-<p>通过Metropolis提供丰富的统计和数学操作模块，分析师可以在模型上建立和执行计算来加深理解他们所拥有的数据。</p>
-<p>Palantir投入了很大的精力去开发系统创建和管理知识图谱，它们甚至有一个自己的名字叫动态知识图谱。基本上它只定义了一个知识图谱的框架，类似于编程中的interface或是virutual，然后不同的应用，可以在这个框架下创建自己特有的图谱。</p>
-<p><strong>Palantir系统模型</strong></p>
-<p><img width="400" src="/family/Frame.png"></p>
-<h2 id="数据来源有哪些"><a href="#数据来源有哪些" class="headerlink" title="数据来源有哪些"></a>数据来源有哪些</h2><p>数据来源比较多，因为企业数据比较碎片化，所以类似于工商、税务、海关、司法、金融市场、互联网舆情、政府垂直数据都会包含。另外还有金融监管机构的同业数据和统计披露数据。目前也在对接一些供应量跟产业链的合作对象。</p>
-<p>产业链核心企业为什么愿意共享数据</p>
-<p>这是联合运营概念。现在产业链很多，B2B和S2B也在构建生态，想要更好地去服务成员企业。</p>
-<p>金融服务领域本身就是一个大的领域，而且是一个比较专业的领域，企业本身的数据不足以支撑它来去做好，因为它只是内部的一些ERP数据，但是对成员企业的信用情况、外部情况等等，也需要再补充。</p>
-<p><strong>知识图谱技术在风控方面有哪些应用</strong></p>
-<p>风控有两个模型，一个是风险前置。我们为一些大行做过贷后模型，已经有了很好的效果。贷后模型里面把跟行业有关的变量都去掉，用的就是外部变量，还有关系变量，重新建模依然有很好的效果。把模型前置到营销环节，不依赖于行里的数据。</p>
-<p>银行可以在营销的时候，利用风险模型预判企业的风险大小。有效风险信号，或者是风险特征，即使不是刚性地把它拒绝掉，但至少有了信号，可以有针对性地去考察，所以叫做风险前置。</p>
-<p>无论是针对新增客户还是存量客户，还有风险传导模型。类似辉山乳业这样的一些问题，当外部发生一个重大事件以后，会波及到哪些企业，就是基于风险传导的影响去识别。</p>
-<p><strong>对于风险的测量有哪些考察因素？</strong></p>
-<p>前瞻性风险预测是考察综合风险的一部分，属于关联风险，还有一部分是自身风险。</p>
-<p>关联风险里面，会考虑到企业自身的行业特点、公司体量、集团结构、角色、事件本身的风险等级、关系类型、投资比例、权重、关系强度等等，比如投资关系和担保关系是不一样的，有很多要素要考虑。</p>
-<p>自身风险，依照最早监管机构做风险识别预警的奥斯卡体系，分别会考虑经营层面、结构类、信用类、担保类、偿还类的指标。除了这五大类之外，还有奥斯卡plus，是一套升级体系，包括行业、区域等等相关变量。现在已经有上千个指标的积累，会综合在一起来看。</p>
-<p><strong>企业数据形态当然越丰富越好</strong></p>
-<p>知因智慧采用了两级引擎。我们自己有一级负责采集所有的外部数据，建立图谱和风险信号。还有一级引擎布在客户系统内部，内部会有它的资金交易流水，这些信息在银行里，所以内部引擎把外部信号跟内部嫁接在一起，然后去做判断。</p>
-<p>一方面是要对供应链本身提供服务，给供应链拥有者提供服务，另外一方面是给供应链成员提供服务，这是不同的。</p>
-<p>给拥有者提供服务，例如我们给某大型电商集团旗下金融平台提供的供应链解决方案，使它能更好地针对每个供货商识别发展潜力，提供自己的产品。为了更好地预测每个供货商的发展潜力，就需要一套新的模型。原来的模型可能基于时间序列，基于回归去做，但是要把供货商要预测地更好，也要通过知识图谱的环节，通过人、商品、店铺的体系，这套体系搭建好之后再基于其他要素去预测供货商。</p>
-<p>以上观点来自知乎文章：<br><a href="https://zhuanlan.zhihu.com/p/37431385" target="_blank" rel="noopener">知因智慧创始人任亮：产业知识图谱是AI在金融领域落地的最佳路径</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/09/Knowledge-Graph/">展开全文 >></a>
         </p>
       
 
