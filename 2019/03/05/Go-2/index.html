@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Archives: 2015 | Engineer Gilbert</title>
+  <title>Go-2 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This memo is open for everyone">
-<meta name="keywords" content="Work-Record, Life-Record, Tech-Memo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Engineer Gilbert">
-<meta property="og:url" content="https://toader.github.io/archives/2015/index.html">
+  <meta name="description" content="panic &amp;amp; recover这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。 基本概念 panic 和 recover的函数签名如下： 12panic (i interface() &amp;#123;&amp;#125;)recover () interface &amp;#123;&amp;#125;">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go-2">
+<meta property="og:url" content="https://toader.github.io/2019/03/05/Go-2/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="This memo is open for everyone">
+<meta property="og:description" content="panic &amp;amp; recover这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。 基本概念 panic 和 recover的函数签名如下： 12panic (i interface() &amp;#123;&amp;#125;)recover () interface &amp;#123;&amp;#125;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-10-12T12:33:36.962Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Engineer Gilbert">
-<meta name="twitter:description" content="This memo is open for everyone">
+<meta name="twitter:title" content="Go-2">
+<meta name="twitter:description" content="panic &amp;amp; recover这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。 基本概念 panic 和 recover的函数签名如下： 12panic (i interface() &amp;#123;&amp;#125;)recover () interface &amp;#123;&amp;#125;">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -146,60 +147,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Go-2" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/02/15/That-Day/" class="archive-article-date">
-  	<time datetime="2015-02-15T11:03:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-02-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/02/15/That-Day/">That Day</a>
+    <h1 class="article-title" itemprop="name">
+      Go-2
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/05/Go-2/" class="archive-article-date">
+  	<time datetime="2019-03-05T12:34:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="panic-amp-recover"><a href="#panic-amp-recover" class="headerlink" title="panic &amp; recover"></a>panic &amp; recover</h2><p>这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。</p>
+<p><strong>基本概念</strong></p>
+<p>panic 和 recover的函数签名如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span> (i <span class="keyword">interface</span>() &#123;&#125;)</span><br><span class="line"><span class="built_in">recover</span> () <span class="keyword">interface</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>引发panic有两种情况，一种是程序主动调用panic函数，另一种程序产生运行时错误，由运行时检测并抛出。<br>发生panic后，程序会从调用panic的函数位置或发生panic的地方立即返回，逐层向上执行函数的defer语句，然后逐层打印函数调用堆栈，直到被recover捕获或运行到最外层函数而推出。</p>
+<p>panic的参数是一个空接口类型interface{}, 所以任意类型的变量都可以传递给panic，空接口的详细介绍下次介绍。<br>调用panic的方法非常简单： panic(xxx)。</p>
+<p>panic不但可以在函数正常流程中抛出，在defer逻辑里也可以再次调用panic或抛出panic。defer里面的panic能够被后续执行的defer捕获。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/03/05/Go-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/03/13/Go-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Go-3
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/03/01/Go-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Go-1</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -222,8 +345,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

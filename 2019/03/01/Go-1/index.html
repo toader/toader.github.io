@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Archives: 2015 | Engineer Gilbert</title>
+  <title>Go-1 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This memo is open for everyone">
-<meta name="keywords" content="Work-Record, Life-Record, Tech-Memo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Engineer Gilbert">
-<meta property="og:url" content="https://toader.github.io/archives/2015/index.html">
+  <meta name="description" content="经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go-1">
+<meta property="og:url" content="https://toader.github.io/2019/03/01/Go-1/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="This memo is open for everyone">
+<meta property="og:description" content="经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-10-12T12:34:07.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Engineer Gilbert">
-<meta name="twitter:description" content="This memo is open for everyone">
+<meta name="twitter:title" content="Go-1">
+<meta name="twitter:description" content="经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。 闭包 闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。 闭包 = 函数 + 引用环境 闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -146,60 +147,191 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Go-1" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/02/15/That-Day/" class="archive-article-date">
-  	<time datetime="2015-02-15T11:03:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-02-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/02/15/That-Day/">That Day</a>
+    <h1 class="article-title" itemprop="name">
+      Go-1
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/01/Go-1/" class="archive-article-date">
+  	<time datetime="2019-03-01T09:52:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
+<p><strong>闭包</strong></p>
+<p>闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。</p>
+<p>闭包 = 函数 + 引用环境</p>
+<p>闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变量分配到堆上。</p>
+<p>如果函数返回的闭包引用了该函数的局部变量（参数或函数内部变量）：</p>
+<p>1、多次调用该函数，返回的多个闭包所引用的外部变量是多个副本，原因是每次调用函数都会为局部变量分配内存。<br>2、用一个闭包函数多次，如果该闭包修改了其引用的外部变量，则每一次调用该闭包对该外部变量都有影响，因为闭包函数共享外部引用。</p>
+<p>demo:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fa</span><span class="params">(a <span class="keyword">int</span>)</span> <span class="title">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">        <span class="built_in">println</span>(&amp;a, a)</span><br><span class="line">        a =  a + i</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f := fa(<span class="number">1</span>)</span><br><span class="line">    g := fa(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(f(<span class="number">1</span>))</span><br><span class="line">    <span class="built_in">println</span>(f(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(g(<span class="number">1</span>))</span><br><span class="line">    <span class="built_in">println</span>(g(<span class="number">1</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请预测程序执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0xc420014058 1</span><br><span class="line">2</span><br><span class="line">0xc420014058 2</span><br><span class="line">3</span><br><span class="line">0xc420014060 1</span><br><span class="line">2</span><br><span class="line">0xc420014060 2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>上面的演示是个好的编程方式</p>
+<p>如果函数返回的闭包引用的是全局变量a, 则多次调用该函数返回的多个闭包引用的都是同一个a。同理，调用一个闭包多次引用的也是同一个a。此时如果闭包中修改了a值的逻辑，则每次闭包调用都会影响全局变量a的值。使用闭包是为了减少全局变量，所以闭包引用全局变量不是好的编程方式。</p>
+<blockquote>
+<p>对象是附有行为的数据，而闭包是附有数据的行为，闭包仅仅是锦上添花的东西，不是不可缺少的</p>
+</blockquote>
+<p>有关闭包的内部实现原理见下文。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/03/01/Go-1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/03/05/Go-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Go-2
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/02/03/ubuntu-16-04科学上网/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ubuntu 16.04科学上网</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -222,8 +354,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Archives: 2015 | Engineer Gilbert</title>
+  <title>Linux Command | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This memo is open for everyone">
-<meta name="keywords" content="Work-Record, Life-Record, Tech-Memo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Engineer Gilbert">
-<meta property="og:url" content="https://toader.github.io/archives/2015/index.html">
+  <meta name="description" content="系统探索12345678910111213141516datecaldffreeexitpwdcdls    ls -lt --reversefilelesscpmvmkdirrmln Linux一些文件的约定俗成   目录 使用      / 根目录    /bin 系统启动和运行必须的二进制程序   /boot Linux内核、初始RAM磁盘映像和启动加载程序：/boot/grub/grub.">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Command">
+<meta property="og:url" content="https://toader.github.io/2019/07/29/Linux-Command/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="This memo is open for everyone">
+<meta property="og:description" content="系统探索12345678910111213141516datecaldffreeexitpwdcdls    ls -lt --reversefilelesscpmvmkdirrmln Linux一些文件的约定俗成   目录 使用      / 根目录    /bin 系统启动和运行必须的二进制程序   /boot Linux内核、初始RAM磁盘映像和启动加载程序：/boot/grub/grub.">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-10-12T12:27:19.776Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Engineer Gilbert">
-<meta name="twitter:description" content="This memo is open for everyone">
+<meta name="twitter:title" content="Linux Command">
+<meta name="twitter:description" content="系统探索12345678910111213141516datecaldffreeexitpwdcdls    ls -lt --reversefilelesscpmvmkdirrmln Linux一些文件的约定俗成   目录 使用      / 根目录    /bin 系统启动和运行必须的二进制程序   /boot Linux内核、初始RAM磁盘映像和启动加载程序：/boot/grub/grub.">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -146,60 +147,283 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Linux-Command" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/02/15/That-Day/" class="archive-article-date">
-  	<time datetime="2015-02-15T11:03:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-02-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/02/15/That-Day/">That Day</a>
+    <h1 class="article-title" itemprop="name">
+      Linux Command
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/07/29/Linux-Command/" class="archive-article-date">
+  	<time datetime="2019-07-29T12:21:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="系统探索"><a href="#系统探索" class="headerlink" title="系统探索"></a>系统探索</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">date</span><br><span class="line">cal</span><br><span class="line">df</span><br><span class="line">free</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line"><span class="built_in">cd</span></span><br><span class="line">ls</span><br><span class="line">    ls -lt --reverse</span><br><span class="line">file</span><br><span class="line">less</span><br><span class="line">cp</span><br><span class="line">mv</span><br><span class="line">mkdir</span><br><span class="line">rm</span><br><span class="line">ln</span><br></pre></td></tr></table></figure>
+<h2 id="Linux一些文件的约定俗成"><a href="#Linux一些文件的约定俗成" class="headerlink" title="Linux一些文件的约定俗成"></a>Linux一些文件的约定俗成</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">目录</th>
+<th style="text-align:center">使用 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:center">根目录 </td>
+</tr>
+<tr>
+<td style="text-align:center">/bin</td>
+<td style="text-align:center">系统启动和运行必须的二进制程序</td>
+</tr>
+<tr>
+<td style="text-align:center">/boot</td>
+<td style="text-align:center">Linux内核、初始RAM磁盘映像和启动加载程序：/boot/grub/grub.conf or menu.lst /boot/vmlinuz</td>
+</tr>
+<tr>
+<td style="text-align:center">/dev</td>
+<td style="text-align:center">设备目录。“一切皆文件”</td>
+</tr>
+<tr>
+<td style="text-align:center">/etc</td>
+<td style="text-align:center">配置文件，shell脚本，所有文件都是可读文件 /etc/crontab /etc/fstab /etc/passwd</td>
+</tr>
+<tr>
+<td style="text-align:center">/home</td>
+<td style="text-align:center">通常配置下，每个用户分配一个目录</td>
+</tr>
+<tr>
+<td style="text-align:center">/lib</td>
+<td style="text-align:center">包含系统程序所使用的共享库文件，类似动态链接库</td>
+</tr>
+<tr>
+<td style="text-align:center">/lost+found</td>
+<td style="text-align:center">损坏文件找回处</td>
+</tr>
+<tr>
+<td style="text-align:center">/media</td>
+<td style="text-align:center">现在的Linux系统中，/media目录会包含可移动介质的挂载点，例如USB驱动器，CD-ROMs等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/mnt</td>
+<td style="text-align:center">在早些的Linux系统中，/mnt目录包含可移动介质的挂载点</td>
+</tr>
+<tr>
+<td style="text-align:center">/opt</td>
+<td style="text-align:center">这个/opt目录被用来安装“可选的”软件。这个主要用来存储可能安装在系统中的商业软件产品</td>
+</tr>
+<tr>
+<td style="text-align:center">/proc</td>
+<td style="text-align:center">这个/proc目录很特殊。从存储在硬盘上的文件的意义上说，它不是真正的文件系统。相反，它是一个由Linux内核维护的虚拟文件系统。它所包含的文件是内核的窥视孔。这些文件是可读的，它们会告诉你内核是怎样监管计算机的</td>
+</tr>
+<tr>
+<td style="text-align:center">/root</td>
+<td style="text-align:center">root账号的家目录</td>
+</tr>
+<tr>
+<td style="text-align:center">/sbin</td>
+<td style="text-align:center">这个目录包含<code>系统</code>二进制文件。它们是完成重大系统任务的程序，通常为超级用户保留。</td>
+</tr>
+<tr>
+<td style="text-align:center">/tmp</td>
+<td style="text-align:center">这个/tmp目录，使用存储由各种程序创建的临时文件的地方。一些配置导致系统每次重新启动时，都会清空这个目录。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr</td>
+<td style="text-align:center">在Linux系统中，/usr目录可能是最大的一个。它包含普通用户所需要的所有程序和文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/bin</td>
+<td style="text-align:center">/usr/bin 目录包含系统安装的可执行程序。通常，这个目录会包含许多程序。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/lib</td>
+<td style="text-align:center">包含由/usr/bin目录中的程序所用的共享库。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/local</td>
+<td style="text-align:center">这个/usr/local目录，是非系统发行版自带程序的安装目录。通常，由源码编译的程序会安装在/usr/local/bin目录下。新安装的Linux系统会存在这个目录，并且在管理员安装程序之前，这个目录是空的。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/sbin</td>
+<td style="text-align:center">包含许多系统管理程序</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/share</td>
+<td style="text-align:center">包含许多由/usr/bin目录中的程序使用的共享数据。其中包括像默认的配置文件、图标、桌面鳖精、音频文件等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/share/doc</td>
+<td style="text-align:center">大多数安装在系统中的软件包会包含一些文档。在/usr/share/doc目录下，我们可以找到按照软件包分类的文档。</td>
+</tr>
+<tr>
+<td style="text-align:center">/var</td>
+<td style="text-align:center">除了/tmp和/home目录之外，相对来说，目前我们看到的目录都是静态的，这是说，它们的内容不会改变。/var 目录存放的是动态文件。各种数据库，假脱机文件，用户邮件等等，都位于在这里。</td>
+</tr>
+<tr>
+<td style="text-align:center">/var/log</td>
+<td style="text-align:center">这个/var/log目录包含日志文件、各种系统活动的记录。这些文件非常重要，并且应该时时监测它们。其中最重要的一个文件是/var/log/messages。注意，为了系统安装，在一些系统中，你必须是超级用户才能查看这些日志文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="扩展和延伸"><a href="#扩展和延伸" class="headerlink" title="扩展和延伸"></a>扩展和延伸</h2><p>Linux中的特殊的文件和文件夹<br><code>符号链接</code>和<code>硬链接</code><br>拓展阅读<a href="http://www.pathname.com/fhs/" target="_blank" rel="noopener">Linux完整文件层次体系</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/07/29/Linux-Command/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/07/30/Linux-Command-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Linux Command 2
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/07/23/关于公司发展的技术规划/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于公司技术发展的长远规划</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -222,8 +446,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

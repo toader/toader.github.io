@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://toader.github.io">
-  <title>Archives: 2015 | Engineer Gilbert</title>
+  <title>Linux Command 2 | Engineer Gilbert</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This memo is open for everyone">
-<meta name="keywords" content="Work-Record, Life-Record, Tech-Memo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Engineer Gilbert">
-<meta property="og:url" content="https://toader.github.io/archives/2015/index.html">
+  <meta name="description" content="两组通配符   通配符 意义     * 匹配任意多个字符(包含0/1个)   ? 匹配任意一个字符   [characters] 匹配任意一个属于字符集中的字符   [!characters] 匹配任意一个不是字符集中的字符   [[:class]] 匹配任意一个属于指定字符类中的字符    class的取值列表    字符类 意义     [:alnum:] 匹配任意一个字母或数字   [:a">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Command 2">
+<meta property="og:url" content="https://toader.github.io/2019/07/30/Linux-Command-2/index.html">
 <meta property="og:site_name" content="Engineer Gilbert">
-<meta property="og:description" content="This memo is open for everyone">
+<meta property="og:description" content="两组通配符   通配符 意义     * 匹配任意多个字符(包含0/1个)   ? 匹配任意一个字符   [characters] 匹配任意一个属于字符集中的字符   [!characters] 匹配任意一个不是字符集中的字符   [[:class]] 匹配任意一个属于指定字符类中的字符    class的取值列表    字符类 意义     [:alnum:] 匹配任意一个字母或数字   [:a">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-10-12T12:27:25.610Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Engineer Gilbert">
-<meta name="twitter:description" content="This memo is open for everyone">
+<meta name="twitter:title" content="Linux Command 2">
+<meta name="twitter:description" content="两组通配符   通配符 意义     * 匹配任意多个字符(包含0/1个)   ? 匹配任意一个字符   [characters] 匹配任意一个属于字符集中的字符   [!characters] 匹配任意一个不是字符集中的字符   [[:class]] 匹配任意一个属于指定字符类中的字符    class的取值列表    字符类 意义     [:alnum:] 匹配任意一个字母或数字   [:a">
   
     <link rel="alternative" href="/atom.xml" title="Engineer Gilbert" type="application/atom+xml">
   
@@ -146,60 +147,276 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Linux-Command-2" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/02/15/That-Day/" class="archive-article-date">
-  	<time datetime="2015-02-15T11:03:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-02-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/02/15/That-Day/">That Day</a>
+    <h1 class="article-title" itemprop="name">
+      Linux Command 2
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/07/30/Linux-Command-2/" class="archive-article-date">
+  	<time datetime="2019-07-30T03:40:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="两组通配符"><a href="#两组通配符" class="headerlink" title="两组通配符"></a>两组通配符</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">通配符</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">匹配任意多个字符(包含0/1个)</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:center">匹配任意一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[characters]</td>
+<td style="text-align:center">匹配任意一个属于字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[!characters]</td>
+<td style="text-align:center">匹配任意一个不是字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[[:class]]</td>
+<td style="text-align:center">匹配任意一个属于指定字符类中的字符</td>
+</tr>
+</tbody>
+</table>
+<p>class的取值列表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符类</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">[:alnum:]</td>
+<td style="text-align:center">匹配任意一个字母或数字</td>
+</tr>
+<tr>
+<td style="text-align:center">[:alpha:]</td>
+<td style="text-align:center">匹配任意一个字母</td>
+</tr>
+<tr>
+<td style="text-align:center">[:digit:]</td>
+<td style="text-align:center">匹配任意一个数字</td>
+</tr>
+<tr>
+<td style="text-align:center">[:lower:]</td>
+<td style="text-align:center">匹配任意一个小写字母</td>
+</tr>
+<tr>
+<td style="text-align:center">[:upper:]</td>
+<td style="text-align:center">匹配任意一个大写字母</td>
+</tr>
+</tbody>
+</table>
+<p>举例</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">匹配对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">所有文件</td>
+</tr>
+<tr>
+<td style="text-align:center">g*</td>
+<td style="text-align:center">文件名以<code>g</code>开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">b*.txt</td>
+<td style="text-align:center">以”b”开头，中间有零个或任意多个字符，并以”.txt”结尾的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">Data???</td>
+<td style="text-align:center">以”Data”开头，其后紧接着3个字符的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">[abc]*</td>
+<td style="text-align:center">文件名以”a”,”b”或”c”开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">BACKUP.[0-9][0-9][0-9]</td>
+<td style="text-align:center">以”BACKUP.”开头，并紧接着3个数字的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">[[:upper:]]*</td>
+<td style="text-align:center">以大写字母开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">[![:digit:]]*</td>
+<td style="text-align:center">不以数字开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">*[[:lower:]123]</td>
+<td style="text-align:center">文件以小写字母结尾，或以”1”，”2”，或”3”结尾的文件</td>
+</tr>
+</tbody>
+</table>
+<p>最后一部分为<code>硬链接</code>和<code>符号链接</code></p>
+<p>cat<br>sort<br>uniq<br>grep<br>wc<br>head<br>tail<br>tee</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://toader.github.io/2019/07/30/Linux-Command-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/07/29/Linux-Command/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux Command</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -222,8 +439,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
