@@ -148,32 +148,27 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-整理分界线" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-CS-tech" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/12/整理分界线/">整理分界线</a>
+      <a class="article-title" href="/2021/10/27/CS-tech/">CS tech</a>
     </h1>
   
 
         
-        <a href="/2020/10/12/整理分界线/" class="archive-article-date">
-  	<time datetime="2020-10-12T01:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-12</time>
+        <a href="/2021/10/27/CS-tech/" class="archive-article-date">
+  	<time datetime="2021-10-27T03:20:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="这个提交是个分界线"><a href="#这个提交是个分界线" class="headerlink" title="这个提交是个分界线"></a>这个提交是个分界线</h2><p><strong>之所以选择这个时间，是因为[2020-08-01]这个时间，自己因为事务性的工作太多了，放弃了这个博客的记录。这一年发生了很多的很多的事情</strong></p>
-<h2 id="COVID-19"><a href="#COVID-19" class="headerlink" title="COVID-19"></a>COVID-19</h2><p><strong>这是个绕不开的话题，此前已经计划把以后的工作重心完全转到基础软件+硬件的开发中来。这次疫情更加速了这个过程。接下来回在博客中，把自己这一年来学习到的东西都进行一下总结。</strong></p>
-<p>这一年来非常感谢公司其他同事的努力，让我可以静下心来，从事自己喜欢的技术工作。做一个<code>基础</code>软件工程师。<code>基础</code>是说你的工作要为别人的工作创造条件。你的工作是别人工作的基础，要甘愿做别人的梯子。设计API，给别人提供编程模型。为应用工程师解决实际问题提供基础支持。</p>
-<p>这个疫情期间，再一次重建和稳固了自己的基础认知。从<code>离散数学</code>-<code>数据结构</code>-<code>组成原理</code>-<code>操作系统</code>-<code>算法</code>-<code>编译原理</code>-<code>电路与模拟电子技术</code>-<code>数字逻辑</code>一路回忆起来。<br>MIT6.828  6.824 结合自己的应用开发，基础软件开发。相信自己的认识还是提高了的。接下来，就在这里慢慢梳理下自己的学习路线。希望能给后来者些许参考。</p>
-<p>最后</p>
-<h1 id="中国加油"><a href="#中国加油" class="headerlink" title="中国加油"></a>中国加油</h1>
+        
       
 
       
@@ -181,22 +176,11 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/12/整理分界线/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/10/27/CS-tech/">展开全文 >></a>
         </p>
       
 
@@ -226,400 +210,687 @@
 
 
   
-    <article id="post-Linux-Command-2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Go-lib" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/30/Linux-Command-2/">Linux Command 2</a>
+      <a class="article-title" href="/2021/04/07/Go-lib/">Go lib</a>
     </h1>
   
 
         
-        <a href="/2019/07/30/Linux-Command-2/" class="archive-article-date">
-  	<time datetime="2019-07-30T03:40:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
+        <a href="/2021/04/07/Go-lib/" class="archive-article-date">
+  	<time datetime="2021-04-07T08:31:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="两组通配符"><a href="#两组通配符" class="headerlink" title="两组通配符"></a>两组通配符</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">通配符</th>
-<th style="text-align:center">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">*</td>
-<td style="text-align:center">匹配任意多个字符(包含0/1个)</td>
-</tr>
-<tr>
-<td style="text-align:center">?</td>
-<td style="text-align:center">匹配任意一个字符</td>
-</tr>
-<tr>
-<td style="text-align:center">[characters]</td>
-<td style="text-align:center">匹配任意一个属于字符集中的字符</td>
-</tr>
-<tr>
-<td style="text-align:center">[!characters]</td>
-<td style="text-align:center">匹配任意一个不是字符集中的字符</td>
-</tr>
-<tr>
-<td style="text-align:center">[[:class]]</td>
-<td style="text-align:center">匹配任意一个属于指定字符类中的字符</td>
-</tr>
-</tbody>
-</table>
-<p>class的取值列表</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">字符类</th>
-<th style="text-align:center">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">[:alnum:]</td>
-<td style="text-align:center">匹配任意一个字母或数字</td>
-</tr>
-<tr>
-<td style="text-align:center">[:alpha:]</td>
-<td style="text-align:center">匹配任意一个字母</td>
-</tr>
-<tr>
-<td style="text-align:center">[:digit:]</td>
-<td style="text-align:center">匹配任意一个数字</td>
-</tr>
-<tr>
-<td style="text-align:center">[:lower:]</td>
-<td style="text-align:center">匹配任意一个小写字母</td>
-</tr>
-<tr>
-<td style="text-align:center">[:upper:]</td>
-<td style="text-align:center">匹配任意一个大写字母</td>
-</tr>
-</tbody>
-</table>
-<p>举例</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">模式</th>
-<th style="text-align:center">匹配对象</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">*</td>
-<td style="text-align:center">所有文件</td>
-</tr>
-<tr>
-<td style="text-align:center">g*</td>
-<td style="text-align:center">文件名以<code>g</code>开头的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">b*.txt</td>
-<td style="text-align:center">以”b”开头，中间有零个或任意多个字符，并以”.txt”结尾的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">Data???</td>
-<td style="text-align:center">以”Data”开头，其后紧接着3个字符的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">[abc]*</td>
-<td style="text-align:center">文件名以”a”,”b”或”c”开头的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">BACKUP.[0-9][0-9][0-9]</td>
-<td style="text-align:center">以”BACKUP.”开头，并紧接着3个数字的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">[[:upper:]]*</td>
-<td style="text-align:center">以大写字母开头的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">[![:digit:]]*</td>
-<td style="text-align:center">不以数字开头的文件</td>
-</tr>
-<tr>
-<td style="text-align:center">*[[:lower:]123]</td>
-<td style="text-align:center">文件以小写字母结尾，或以”1”，”2”，或”3”结尾的文件</td>
-</tr>
-</tbody>
-</table>
-<p>最后一部分为<code>硬链接</code>和<code>符号链接</code></p>
-<p>cat<br>sort<br>uniq<br>grep<br>wc<br>head<br>tail<br>tee</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/30/Linux-Command-2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux-Command" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/Linux-Command/">Linux Command</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/29/Linux-Command/" class="archive-article-date">
-  	<time datetime="2019-07-29T12:21:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="系统探索"><a href="#系统探索" class="headerlink" title="系统探索"></a>系统探索</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">date</span><br><span class="line">cal</span><br><span class="line">df</span><br><span class="line">free</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line"><span class="built_in">cd</span></span><br><span class="line">ls</span><br><span class="line">    ls -lt --reverse</span><br><span class="line">file</span><br><span class="line">less</span><br><span class="line">cp</span><br><span class="line">mv</span><br><span class="line">mkdir</span><br><span class="line">rm</span><br><span class="line">ln</span><br></pre></td></tr></table></figure>
-<h2 id="Linux一些文件的约定俗成"><a href="#Linux一些文件的约定俗成" class="headerlink" title="Linux一些文件的约定俗成"></a>Linux一些文件的约定俗成</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">目录</th>
-<th style="text-align:center">使用 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">/</td>
-<td style="text-align:center">根目录 </td>
-</tr>
-<tr>
-<td style="text-align:center">/bin</td>
-<td style="text-align:center">系统启动和运行必须的二进制程序</td>
-</tr>
-<tr>
-<td style="text-align:center">/boot</td>
-<td style="text-align:center">Linux内核、初始RAM磁盘映像和启动加载程序：/boot/grub/grub.conf or menu.lst /boot/vmlinuz</td>
-</tr>
-<tr>
-<td style="text-align:center">/dev</td>
-<td style="text-align:center">设备目录。“一切皆文件”</td>
-</tr>
-<tr>
-<td style="text-align:center">/etc</td>
-<td style="text-align:center">配置文件，shell脚本，所有文件都是可读文件 /etc/crontab /etc/fstab /etc/passwd</td>
-</tr>
-<tr>
-<td style="text-align:center">/home</td>
-<td style="text-align:center">通常配置下，每个用户分配一个目录</td>
-</tr>
-<tr>
-<td style="text-align:center">/lib</td>
-<td style="text-align:center">包含系统程序所使用的共享库文件，类似动态链接库</td>
-</tr>
-<tr>
-<td style="text-align:center">/lost+found</td>
-<td style="text-align:center">损坏文件找回处</td>
-</tr>
-<tr>
-<td style="text-align:center">/media</td>
-<td style="text-align:center">现在的Linux系统中，/media目录会包含可移动介质的挂载点，例如USB驱动器，CD-ROMs等等。</td>
-</tr>
-<tr>
-<td style="text-align:center">/mnt</td>
-<td style="text-align:center">在早些的Linux系统中，/mnt目录包含可移动介质的挂载点</td>
-</tr>
-<tr>
-<td style="text-align:center">/opt</td>
-<td style="text-align:center">这个/opt目录被用来安装“可选的”软件。这个主要用来存储可能安装在系统中的商业软件产品</td>
-</tr>
-<tr>
-<td style="text-align:center">/proc</td>
-<td style="text-align:center">这个/proc目录很特殊。从存储在硬盘上的文件的意义上说，它不是真正的文件系统。相反，它是一个由Linux内核维护的虚拟文件系统。它所包含的文件是内核的窥视孔。这些文件是可读的，它们会告诉你内核是怎样监管计算机的</td>
-</tr>
-<tr>
-<td style="text-align:center">/root</td>
-<td style="text-align:center">root账号的家目录</td>
-</tr>
-<tr>
-<td style="text-align:center">/sbin</td>
-<td style="text-align:center">这个目录包含<code>系统</code>二进制文件。它们是完成重大系统任务的程序，通常为超级用户保留。</td>
-</tr>
-<tr>
-<td style="text-align:center">/tmp</td>
-<td style="text-align:center">这个/tmp目录，使用存储由各种程序创建的临时文件的地方。一些配置导致系统每次重新启动时，都会清空这个目录。</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr</td>
-<td style="text-align:center">在Linux系统中，/usr目录可能是最大的一个。它包含普通用户所需要的所有程序和文件。</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr/bin</td>
-<td style="text-align:center">/usr/bin 目录包含系统安装的可执行程序。通常，这个目录会包含许多程序。</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr/lib</td>
-<td style="text-align:center">包含由/usr/bin目录中的程序所用的共享库。</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr/local</td>
-<td style="text-align:center">这个/usr/local目录，是非系统发行版自带程序的安装目录。通常，由源码编译的程序会安装在/usr/local/bin目录下。新安装的Linux系统会存在这个目录，并且在管理员安装程序之前，这个目录是空的。</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr/sbin</td>
-<td style="text-align:center">包含许多系统管理程序</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr/share</td>
-<td style="text-align:center">包含许多由/usr/bin目录中的程序使用的共享数据。其中包括像默认的配置文件、图标、桌面鳖精、音频文件等等。</td>
-</tr>
-<tr>
-<td style="text-align:center">/usr/share/doc</td>
-<td style="text-align:center">大多数安装在系统中的软件包会包含一些文档。在/usr/share/doc目录下，我们可以找到按照软件包分类的文档。</td>
-</tr>
-<tr>
-<td style="text-align:center">/var</td>
-<td style="text-align:center">除了/tmp和/home目录之外，相对来说，目前我们看到的目录都是静态的，这是说，它们的内容不会改变。/var 目录存放的是动态文件。各种数据库，假脱机文件，用户邮件等等，都位于在这里。</td>
-</tr>
-<tr>
-<td style="text-align:center">/var/log</td>
-<td style="text-align:center">这个/var/log目录包含日志文件、各种系统活动的记录。这些文件非常重要，并且应该时时监测它们。其中最重要的一个文件是/var/log/messages。注意，为了系统安装，在一些系统中，你必须是超级用户才能查看这些日志文件</td>
-</tr>
-</tbody>
-</table>
-<h2 id="扩展和延伸"><a href="#扩展和延伸" class="headerlink" title="扩展和延伸"></a>扩展和延伸</h2><p>Linux中的特殊的文件和文件夹<br><code>符号链接</code>和<code>硬链接</code><br>拓展阅读<a href="http://www.pathname.com/fhs/" target="_blank" rel="noopener">Linux完整文件层次体系</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/29/Linux-Command/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于公司发展的技术规划" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/23/关于公司发展的技术规划/">关于公司技术发展的长远规划</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/23/关于公司发展的技术规划/" class="archive-article-date">
-  	<time datetime="2019-07-23T10:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="规划纲要"><a href="#规划纲要" class="headerlink" title="规划纲要"></a>规划纲要</h2><blockquote>
-<p>写过了如此之多的代码，看过了如此之多的代码，接下来要把公司打造成中国软件工程师黄埔军校。学会了并离开，从技术角度来看是最好的影响业界的方法。</p>
+        <h2 id="Go资料库"><a href="#Go资料库" class="headerlink" title="Go资料库"></a>Go资料库</h2><p>经过这么长时间的学习，发现，其实好的材料很多，需要你辩证的看这些资料。最重要的是把这个材料的出处收集起来，可以提供给你快速检索。<br>然后你需要至少仔细看过一遍。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/298390406" target="_blank" rel="noopener">知乎</a><br><a href="https://golang.org/ref/spec" target="_blank" rel="noopener">Go语言规范</a></p>
+<p>LALR 查看下龙书中多种类型的parser实现。</p>
+<p>Go里面三种类型的函数：</p>
+<ol>
+<li>普通的带名字的函数</li>
+<li>匿名函数或lambda函数</li>
+<li>方法</li>
+</ol>
+<p>匿名函数</p>
+<blockquote>
+<p>解决uint计算范围不够的问题，可以使用big包</p>
 </blockquote>
-<p>几个技术方向：</p>
+<p>匿名函数同样被称之为闭包（函数式语言的术语）：它们被允许调用定义在其它环境下的变量。闭包可使得某个函数捕捉到一些外部状态，例如：函数被创建时的状态。另一种表示方式为：一个闭包继承了函数所声明时的作用域。这种状态（作用域内的变量）都被共享到闭包的环境中，因此这些变量可以在闭包中被操作，直到被销毁，详见第 6.9 节中的示例。闭包经常被用作包装函数：它们会预先定义好 1 个或多个参数以用于包装，详见下一节中的示例。另一个不错的应用就是使用闭包来完成更加简洁的错误检查（详见第 16.10.2 节）。</p>
+<p>可以返回其他函数和接受其他函数作为参数的函数均称为<code>高阶函数</code>，是函数式语言的特点。我们已经在第6.7中得知函数也是一种值，因此很显然Go语言具有一些函数式语言的特性。闭包在Go语言中非常常见，常用于goroutine和管道操作。在第11.14节的程序中，我们将会看到Go语言中的函数在处理混合对象时的强大能力。</p>
+<p>计算函数执行时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const LIM = 50</span><br><span class="line"></span><br><span class="line">var fibs [LIM]int</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    fib3(40)</span><br><span class="line">    permance(fib1,30)</span><br><span class="line">    permance(fib2,30)</span><br><span class="line">    permance(fib3,30)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func permance(f func (n int) (val, pos int), an int) &#123;</span><br><span class="line">    start := time.Now()</span><br><span class="line">    pos := an</span><br><span class="line">    var result int</span><br><span class="line">    result, pos = f(pos)</span><br><span class="line">    end := time.Now()</span><br><span class="line">    delta := end.Sub(start)</span><br><span class="line">    fmt.Printf(&quot;pos: %d result: %d time: %s\n&quot;, pos, result, delta)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func fib1(n int) (val, pos int) &#123;</span><br><span class="line">    if n &lt;= 1 &#123;</span><br><span class="line">        val = 1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        v1, _ := fib1(n-1)</span><br><span class="line">        v2, _ := fib1(n-2)</span><br><span class="line">        val =  v1 + v2</span><br><span class="line">    &#125;</span><br><span class="line">    pos = n</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func fib2(n int) (val, pos int) &#123;</span><br><span class="line">    if n &lt;= 1 &#123;</span><br><span class="line">        val =1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        a,b := 1, 1</span><br><span class="line">        for i := 2;i &lt;= n;i++ &#123;</span><br><span class="line">            a,b = b,a+b</span><br><span class="line">        &#125;</span><br><span class="line">        val = b</span><br><span class="line">    &#125;</span><br><span class="line">    pos = n</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func fib3(n int) (val,pos int) &#123;</span><br><span class="line">    // memoization: check if fibonacci(n) is already known in array:</span><br><span class="line">    if fibs[n] != 0 &#123;</span><br><span class="line">        pos = n</span><br><span class="line">        val = fibs[n]</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    if n &lt;= 1 &#123;</span><br><span class="line">        val = 1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        v1, _ := fib3(n-1)</span><br><span class="line">        v2, _ := fib3(n-2)</span><br><span class="line">        val =  v1 + v2</span><br><span class="line">    &#125;</span><br><span class="line">    fibs[n] = val</span><br><span class="line">    pos = n</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数组长度最大为2Gb</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/07/Go-lib/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Team-Building" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/25/Team-Building/">Team Building</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/25/Team-Building/" class="archive-article-date">
+  	<time datetime="2021-03-25T07:37:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="未来工作重点"><a href="#未来工作重点" class="headerlink" title="未来工作重点"></a>未来工作重点</h2><p>如何build一个数据库。</p>
+<p><img src="/tech/timeline.png" alt="timeline"></p>
+<p>团队建设</p>
+<p>目前的规模：</p>
+<p>团队&amp;梯队建设</p>
+<p>团队的目标是持久稳定的耕耘基础软件领域，特别是存储/分析向的基础软件。</p>
+<p>目前团队的进度</p>
+<blockquote>
+<p>单节点(完成) -&gt; 分布式(draft) -&gt; 云原生/云厂商适配(规划中)</p>
+</blockquote>
+<p>未来主要事件节点包括：<code>单节点GA发布</code>，<code>开源</code>，<code>分布式GA</code></p>
+<p>在10月前<br>计划分批招募16名工程师</p>
+<p>查询/查询优化，存储引擎，分布式，云原生（需要一些前端工程师和网络方面的力量）测试<br>3/1/5/4/3</p>
+<h2 id="一些观点和视野"><a href="#一些观点和视野" class="headerlink" title="一些观点和视野"></a>一些观点和视野</h2><blockquote>
+<p>目前，国内最火的是算法工程师，人工智能应该在软件领域的关键就是算法。例如，现在机器学习非常火，导致大批学生往这方面扎堆，忽略了基础软件研发问题。他们认为算法找工作最好找。据了解我校今年毕业人工智能和算法相关的硕士好多能拿到40万左右，好的博士生能达到80万，他们认为做AI、做算法适合市场的需求，于是一窝蜂跑去做算法。相对而言，算法比较容易入手，老师不讲，自己花几万元出去培训机构那里学学，再练练编程，开放的课程都有很多，学生也有渠道去学。但系统软件做得很少，搞深度学习的都知道，TensorFlow这样软件强大在是一个系统化的深度学习软件，这也不是我们自己研发的，是Google这样的国外大公司和核心科研团队研发出来的。Google开源出来，它的技术落后已经三五年甚至更长时间。Google不可能把最新最强的技术开放出来。这就是我国人工智能研发背后的隐忧，基础性独立研发不足。</p>
+</blockquote>
+<h2 id="开源"><a href="#开源" class="headerlink" title="开源"></a>开源</h2><p>开放的东西才有生命力</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工作</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/25/Team-Building/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-B-tree-vs-LSM-tree" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/09/B-tree-vs-LSM-tree/">B+ tree vs LSM-tree</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/09/B-tree-vs-LSM-tree/" class="archive-article-date">
+  	<time datetime="2021-03-09T10:08:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>nosql基本没有用B+树的，很多采用了LSM Tree，比如hbase/cassandra，rocksdb/leveldb;</p>
+<p>B+树跟LSM Tree的时间复杂度对比（N是tree的node数）</p>
+<blockquote>
+<p>随机点写入，LSM Tree O(1)，B+树O(logN)<br>随机点读出，LSM Tree O(N)，B+树O(logN)</p>
+</blockquote>
+<p>对B+树或者LSM Tree做一些变形增加一些数据结构，可以也可以优化一些时间复杂度，当然这些优化可能带来额外的开销，更多的时候是在读/写、随机/顺序之间的tradeoff，有些专门的论文研究这方面的数据结构和算法。</p>
+<p>传统OLTP数据库在机械磁盘这种慢设备（随机IO性能差很多）上设计的，OLTP场景本来也是读多写少，数据量不大，因此，选择B+数据的数据结构主要是这些历史原因吧。传统数据库的存储引擎非常复杂（存储引擎和查询优化是单机RDBMS的两个核心难点）。此外，即使在SSD上，随机IO跟顺序IO的性能差异也是有的。因此，SSD出现后，传统RDBMS，也没有动力去重构存储引擎。当然，mysql是出现了myrocks这样的项目作为LSM tree的存储引擎</p>
+<p>用B+树数据结构，单独做个index，直观上看，其查询效率是比LSM tree高，毋庸置疑；其实对LSMtree的sst文件做些额外的索引，LSMtree的点查询效果也不会差多少。LSMtree经过compact之后，顺序扫描的性能要比B+树好，因为B+树的block在磁盘的顺序不能保证是顺序的；一个表更新次数过多出现老化的时候，B+树在磁盘的block的位置可能是碎片化的，LSMTree则不会。compact既是LSMtree的优点也是缺点。</p>
+<p>基于行存储的B+树的数组组织格式，是违背并行思想的；比如更新一个字段，需要写入redolog，更新数据文件的时候需要把整个data文件copy一份，然后再写新的data文件（mysql做法）；读入数据的时候，特别是顺序扫描，那么行存储会带来更多额外IO。只是操作部分数据，结果都读写了很多额外的数据。</p>
+<p>SSD做为一个外存，比HDD要好多了，但是相比DRAM，它还是个“外存”。这体现在两方面：</p>
+<p>latency。虽然SSD的latency已经可以到10us这个级别，但比起DRAM还差着两个数量级呢。</p>
+<p>读写单元。SSD一次只能读取一个block，一般至少是512B，而DRAM是64B，cache则是Byte级别。所以要最大化SSD的效率，还是得按block级别去读数据，而不能像DRAM/cache一样随心所欲。</p>
+<p>这两点跟HDD并没有本质的不同。而树状，特别是B+树设计之初就是对着这两点来设计的：把树的上面几层放在内存里，尽量减少外存访问次数；然后把数据按页存储，每次读写单元都是一个页。这两点现在依然很好的贴合SSD的特征。</p>
+<p>当然，因为SSD的IOPS比HDD好太多了，还是会有些可以tune的空间。比如原来append only B+ tree，现在可以做in-place update（虽然落到SSD上，FTL很可能又给做成append…）。比如原来为了堆IOPS，只能把数据分到很多HDD上（造成HDD空间浪费），现在可以直接放在一块SSD上搞定。。。等等。然而，B+树这个总体思想是没有变的，估计还能再战十年。</p>
+<p>存储在磁盘上海量的，排序的，结构化的数据，本质上需要一个高效率的索引结构，在面对大数据量的时候，你不可能把所有数据的索引一次性加载到内存，那么就需要分层的索引结构，btree/b+tree或其他变种tree是天然的分层索引。</p>
+<p>lsm并不是特别适合对比btree/b+tree，它的memtable可以用<strong>skiplist</strong>，也可以用内存b+tree，甚至是tree和hash的联合索引，至于sstable，简单的实现就是block+ block索引，做的更惊喜的话，可以引入micro block和macro block两层的概念，compaction按macro block粒度做，可并发并且避免全量compaction，无论数据或block索引都用定长macro block存储，这样以来，你看看sstable是不是也像一个b+tree了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/09/B-tree-vs-LSM-tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LSM-tree" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/09/LSM-tree/">LSM_tree</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/09/LSM-tree/" class="archive-article-date">
+  	<time datetime="2021-03-09T08:23:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>LSM-Tree全称是<code>Log Structured Merge Tree</code>，是一种分层，有序，面向磁盘的数据结构，其核心思想是充分利用<strong>磁盘批量的顺序写要远比随机写性能高出很多</strong>，如下图示：</p>
+<div align="center"><br>    <img width="30%" src="/tech/prove.jpg"><br></div>
+
+<h2 id="顺序写为什么比随机写快？"><a href="#顺序写为什么比随机写快？" class="headerlink" title="顺序写为什么比随机写快？"></a>顺序写为什么比随机写快？</h2><p>这个问题要分情况讨论：在<strong>机械硬盘</strong>上写还是在<strong>固态硬盘</strong>上写。尽管结论都是顺序写比随机写快，但是原因却是不一样的。</p>
+<p><strong>机械硬盘</strong></p>
+<p>首先说机械硬盘，先介绍一下它的存储原理。机械硬盘的结构你可以想象成一个唱片机，它有一个旋转的盘片和一个能沿半径方向移动的磁头。处理读取和写入请求时，首先可以根据请求的开始地址算出要处理的数据在磁盘上的位置，之后要进行以下几步工作：</p>
+<ol>
+<li>磁头沿半径方向移动，直至移动到数据所在的<strong>柱面</strong>（相同半径的磁道组成的环面）。</li>
+<li>盘片高速旋转，使磁头到达数据的起始位置。</li>
+<li>磁头沿磁道从磁盘读取或写入数据。</li>
+</ol>
+<p>当一次读取的数据量很少的时候，1、2步骤带来的开销是无法忽略的，这使得随机写相对于顺序写会有巨大的性能劣势。因为在顺序写的时候，1、2步骤只需要执行一次，剩下的全是数据传输所需要的固有开销；而每次随机写的时候，前两个步骤都需要执行，带来了极大的额外开销。</p>
+<p><strong>固态硬盘</strong></p>
+<p>其次说固态硬盘。理论上来说，它不应该存在明显的随机写与顺序写的速度差异，因为它就是一块支持随机寻址的存储芯片，没有寻道和旋转盘片的开销，但是随机写实际上还是比顺序写要慢。这是由于其存储介质<strong>闪存</strong>的一些特性导致的，简单来说：</p>
+<ol>
+<li>闪存不支持in-place update：你更新一个数据，不可以直接在原有数据上改，而要写到新的空白的地方，并把原有数据标记为失效。</li>
+<li>标记失效的数据不是浪费空间么？可以将其清除。但是闪存上清除操作的最小单位是一个大块，大约128K-256K的大小。一次清除会影响到还未标记失效的有用的数据，要先把它们移走。</li>
+</ol>
+<p>这种感觉就如同你在网格纸上写一篇文章，一格一格往下写，只能写在空白的格子里；但是你若要清除之前写的内容，只能整行擦除。非常难受而且浪费空间，所以固态硬盘里实现了垃圾回收算法，用来更好地利用存储空间，同时减少数据迁移，保护闪存寿命。<br>那么随机写显然比顺序写带来更大的碎片化，从而带来更多的垃圾回收开销、数据迁移开销，自然就比顺序写要慢了。</p>
+<p>LSM-Tree围绕这一原理进行设计和优化，以此让写性能达到最优。当然这种结构也会有缺点，数据删除或者修改某个记录很困难，<br>幸运的是，在时序存储的场景，数据即为原始凭证，不需要删除和修改。这种结构大大提高了数据的写入能力，但是查询<br>性能受到一定的影响，因此写多读少也是适配场景重要的特征。</p>
+<p>在LSM-Tree里面，核心的磁盘数据结构就是SSTable，全称是Sorted String Table，SSTable的概念其实也是来自于Google<br>的Bigtable论文，论文中对SSTable的描述如下：</p>
+<blockquote>
+<p>An SSTable provides a persistent, ordered immutable map from keys to values, where both keys and values are arbitrary byte strings. Operations are provided to look up the value associated with a specified key, and to iterate over all key/value pairs in a specified key range. Internally, each SSTable contains a sequence of blocks (typically each block is 64KB in size, but this is configurable). A block index (stored at the end of the SSTable) is used to locate blocks; the index is loaded into memory when the SSTable is opened. A lookup can be performed with a single disk seek: we first find the appropriate block by performing a binary search in the in-memory index, and then reading the appropriate block from disk. Optionally, an SSTable can be completely mapped into memory, which allows us to perform lookups and scans without touching disk.</p>
+</blockquote>
+<p>如上所述，SSTable是一种拥有持久化，有序且不可变的键值存储结构，它的key和value都是任意的字节数据，并且提供了按指定key查找和制定范围的key<br>区间迭代遍历的功能。SSTable内部包含了一系列可配置大小的Block块，典型的大小是64KB，关于这些Block块的index存储在SSTable的尾部，用于帮助<br>快速查找特定的Block。当一个SSTable被打开的时候，index会被加载到内存，然后根据key在内存index里面进行一个二分查找，查到该key对应的磁盘的<br>offset之后，然后去磁盘把响应的块数据读取出来。</p>
+<div align="center"><br>    <img width="80%" src="/tech/logStrMergeTrees.png"><br></div>
+
+<p>下面总结一下在LSM-Tree里面如何写数据的？</p>
+<ol>
+<li>当收到一个写请求时，会先把该条数据记录在WAL Log里面，用作故障恢复。</li>
+<li>当写完WAL Log后，会把该条数据写入内存的SSTable里面，也称Memtable。注意为了维持有序性在内存里面可以采用红黑树或者跳跃表相关的数据结构。</li>
+<li>当Memtable超过一定的大小后，会在内存里面冻结，变成Immutable Memtable，同时为了不阻塞写操作需要新生成一个Memtable继续提供服务。</li>
+<li>把内存里面Immutable Memtable flush到硬盘上的SSTable层中，此步骤也称为Minor Compaction。</li>
+<li>当每层的磁盘上的SSTable的体积超过一定的大小或者个数，也会周期的进行合并。此步骤也称为Major Compaction，注意由于SSTable都是有序的，我们可以直接采用merge sort进行高效合并。</li>
+</ol>
+<h2 id="InfluxDB的方案"><a href="#InfluxDB的方案" class="headerlink" title="InfluxDB的方案"></a>InfluxDB的方案</h2><p>InfluxDB采用了一种类似LSM-Tree的结构：</p>
+<p><img src="/tech/5.png" alt="TSM文件总体结构"></p>
+<p>标准LSM-Tree的SSTable：</p>
+<p><img src="/tech/memory_layout.png" alt="TSM文件总体结构"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/09/LSM-tree/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MarkDown手册" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/14/MarkDown手册/">MarkDown手册</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/14/MarkDown手册/" class="archive-article-date">
+  	<time datetime="2021-01-14T09:19:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近组内统一采用了mdbook来做代码文档，这里简单对Markdown的语法进行下汇总。<br>Markdown语法没有一个统一的标准,不同的工具或平台采用的标准不一样，所以有些语法规则和功能是有差异的</p>
+<h2 id="斜体和粗体"><a href="#斜体和粗体" class="headerlink" title="斜体和粗体"></a>斜体和粗体</h2><p>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*斜体*</span><br><span class="line">**粗体** </span><br><span class="line">***加粗斜体*** </span><br><span class="line">~~删除线~~</span><br></pre></td></tr></table></figure></p>
+<p>效果：</p>
+<p><em>斜体</em><br><strong>粗体</strong><br><strong><em>加粗斜体</em></strong><br><del>删除</del> </p>
+<h2 id="分级标题"><a href="#分级标题" class="headerlink" title="分级标题"></a>分级标题</h2><p>第一种写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">这是一个一级标题</span><br><span class="line">========================================= </span><br><span class="line"></span><br><span class="line">&lt;font color=red&gt;这是一个二级标题&lt;/font&gt;</span><br><span class="line">---------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>第二种写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
+<p>第一种写法效果：</p>
+<h1 id="这是一个一级标题"><a href="#这是一个一级标题" class="headerlink" title="这是一个一级标题"></a>这是一个一级标题</h1><h2 id="这是一个二级标题"><a href="#这是一个二级标题" class="headerlink" title="这是一个二级标题"></a>这是一个二级标题</h2><p>第二种写法效果：</p>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><p>Markdown 支持两种形式的链接语法： 行内式和参考式两种形式，行内式一般使用较多。</p>
+<h3 id="行内式"><a href="#行内式" class="headerlink" title="行内式"></a>行内式</h3><p><strong>语法说明：</strong></p>
 <ul>
-<li>Java</li>
-<li>Go</li>
-<li>软件工程</li>
-<li>软硬件工程</li>
-<li>AI</li>
+<li>[]里写链接文字，()里写链接地址, ()中的””中可以为链接指定title属性，title属性可加可不加。title属性的效果是鼠标悬停在链接上会出现指定的 title文字。<a href="链接地址" title="链接标题">链接文字</a>这样的形式。<strong>链接地址与链接标题前有一个空格。</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">欢迎来到[repo](http://gitlab.songshushan.com/ts-group/InnerMeetupsDoc)</span><br><span class="line">欢迎来到[repo](http://gitlab.songshushan.com/ts-group/InnerMeetupsDoc &quot;repo mouse hover&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>显示效果：</strong><br>欢迎来到<a href="http://gitlab.songshushan.com/ts-group/InnerMeetupsDoc" target="_blank" rel="noopener">repo</a><br>欢迎来到<a href="http://gitlab.songshushan.com/ts-group/InnerMeetupsDoc" title="repo mouse hover" target="_blank" rel="noopener">repo</a></p>
+<h3 id="参考式"><a href="#参考式" class="headerlink" title="参考式"></a>参考式</h3><p>参考式超链接一般用在学术论文上面，或者另一种情况，如果某一个链接在文章中多处使用，那么使用引用 的方式创建链接将非常好，它可以让你对链接进行统一的管理。</p>
+<p><strong>语法说明：</strong><br>参考式链接分为两部分，文中的写法 [链接文字][链接标记]，在文本的任意位置添加[链接标记]:链接地址 “链接标题”，链接地址与链接标题前有一个空格。</p>
+<p>如果链接文字本身可以做为链接标记，你也可以写成[链接文字][]<br>[链接文字]：链接地址的形式，见代码的最后一行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我经常去的几个网站[GitHub][1]、[知乎][2]以及[简书][3]</span><br><span class="line">[简书][3]是一个不错的[写作社区][]。</span><br><span class="line"></span><br><span class="line">[1]:https://github.com &quot;GitHub&quot;</span><br><span class="line">[2]:https://www.zhihu.com &quot;知乎&quot;</span><br><span class="line">[3]:http://www.jianshu.com &quot;简书&quot;</span><br><span class="line">[写作社区]:http://www.jianshu.com</span><br></pre></td></tr></table></figure>
+<p>我经常去的几个网站<a href="https://github.com" title="GitHub" target="_blank" rel="noopener">GitHub</a>、<a href="https://www.zhihu.com" title="知乎" target="_blank" rel="noopener">知乎</a>以及<a href="http://www.jianshu.com" title="简书" target="_blank" rel="noopener">简书</a><br><a href="http://www.jianshu.com" title="简书" target="_blank" rel="noopener">简书</a>是一个不错的<a href="http://www.jianshu.com" target="_blank" rel="noopener">写作社区</a>。</p>
+<h3 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h3><p><strong>语法说明：</strong><br>Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用&lt;&gt;;包起来， Markdown 就会自动把它转成链接。一般网址的链接文字就和链接地址一样，例如：</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://www.sqhtech.com&gt;</span><br><span class="line">&lt;liangdong@sqhtech.com&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>效果：</strong><br><a href="http://gitlab.songshushan.com" target="_blank" rel="noopener">http://gitlab.songshushan.com</a><br><a href="mailto:&#108;&#105;&#97;&#110;&#x67;&#x64;&#x6f;&#x6e;&#x67;&#64;&#115;&#113;&#104;&#116;&#101;&#x63;&#104;&#46;&#x63;&#x6f;&#x6d;" target="_blank" rel="noopener">&#108;&#105;&#97;&#110;&#x67;&#x64;&#x6f;&#x6e;&#x67;&#64;&#115;&#113;&#104;&#116;&#101;&#x63;&#104;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<h2 id="锚点"><a href="#锚点" class="headerlink" title="锚点"></a>锚点</h2><p>网页中，锚点其实就是页内超链接，也就是链接本文档内部的某些元素，实现当前页面中的跳转。比如我这里写下一个锚点，点击回到目录，就能跳转到目录。 在目录中点击这一节，就能跳过来。还有下一节的注脚。这些根本上都是用锚点来实现的。</p>
+<p><strong>注意：</strong> Markdown Extra 只支持在标题后插入锚点，其他地方无效。<br><strong>语法描述：</strong> </p>
+<p>在你准备跳转到的指定标题后插入锚点 ## 锚点，然后在文档的其它地方写上连接到锚点的链接。</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## 目录</span><br><span class="line">跳转到[引用其它要素]  hexo</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong><br>跳转到<a href="">引用其它要素</a></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>使用 *，+，- 表示无序列表。<br><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 无序列表项 一</span><br><span class="line">- 无序列表项 二</span><br><span class="line">- 无序列表项 三</span><br></pre></td></tr></table></figure></p>
+<p><strong>效果：</strong> </p>
+<ul>
+<li>无序列表项 一</li>
+<li>无序列表项 二</li>
+<li>无序列表项 三</li>
+</ul>
+<h3 id="定义型列表"><a href="#定义型列表" class="headerlink" title="定义型列表"></a>定义型列表</h3><p><strong>语法说明：</strong><br>定义型列表由名词和解释组成。一行写上定义，紧跟一行写上解释。解释的写法:紧跟一个缩进(Tab)<br><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Markdown</span><br><span class="line">:    轻量级文本标记语言，可以转换成html，pdf等格式（左侧有一个可见的冒号和四个不可见的空格）</span><br><span class="line"></span><br><span class="line">代码块 2</span><br><span class="line">:    这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）</span><br><span class="line"></span><br><span class="line">        代码块（左侧有八个不可见的空格）</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong> </p>
+<p>Markdown<br>:    轻量级文本标记语言，可以转换成html，pdf等格式（左侧有一个可见的冒号和四个不可见的空格）</p>
+<p>代码块2<br>:    这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）</p>
+<pre><code>代码块（左侧有八个不可见的空格）
+</code></pre><h3 id="列表缩进"><a href="#列表缩进" class="headerlink" title="列表缩进"></a>列表缩进</h3><p><strong>语法说明：</strong></p>
+<p>列表项目标记通常是放在最左边，但是其实也可以缩进，最多 3 个空格，项目标记后面则一定要接着至少一个空格或制表符。</p>
+<p>要让列表看起来更漂亮，你可以把内容用固定的缩进整理好（显示效果与代码一致）：</p>
+<ul>
+<li>轻轻的我走了， 正如我轻轻的来； 我轻轻的招手， 作别西天的云彩。<br>那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的心头荡漾。<br>软泥上的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！ </li>
+<li>那榆荫下的一潭， 不是清泉， 是天上虹； 揉碎在浮藻间， 沉淀着彩虹似的梦。<br>寻梦？撑一支长篙， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。<br>但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！<br>悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。</li>
+</ul>
+<p>但是如果你懒，那也行：</p>
+<p><strong>代码：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">*   轻轻的我走了， 正如我轻轻的来； 我轻轻的招手， 作别西天的云彩。</span><br><span class="line">那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的心头荡漾。 </span><br><span class="line">软泥上的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！ </span><br><span class="line">*   那榆荫下的一潭， 不是清泉， 是天上虹； 揉碎在浮藻间， 沉淀着彩虹似的梦。 </span><br><span class="line">寻梦？撑一支长篙， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。 </span><br><span class="line">但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！ </span><br><span class="line">悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。</span><br></pre></td></tr></table></figure>
+<p><strong>显示效果：</strong> </p>
+<ul>
+<li>轻轻的我走了， 正如我轻轻的来； 我轻轻的招手， 作别西天的云彩。<br>那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的心头荡漾。<br>软泥上的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！ </li>
+<li>那榆荫下的一潭， 不是清泉， 是天上虹； 揉碎在浮藻间， 沉淀着彩虹似的梦。<br>寻梦？撑一支长篙， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。<br>但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！<br>悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。</li>
+</ul>
+<h3 id="包含段落的列表"><a href="#包含段落的列表" class="headerlink" title="包含段落的列表"></a>包含段落的列表</h3><p><strong>语法说明：</strong> </p>
+<p>列表项目可以包含多个段落，每个项目下的段落都必须缩进 4 个空格或是 1 个制表符（显示效果与代码一致）</p>
+<ul>
+<li><p>轻轻的我走了， 正如我轻轻的来； 我轻轻的招手， 作别西天的云彩。<br>那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的心头荡漾。<br>软泥上的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！</p>
+<p>那榆荫下的一潭， 不是清泉， 是天上虹； 揉碎在浮藻间， 沉淀着彩虹似的梦。<br>寻梦？撑一支长篙， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。<br>但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！ </p>
+</li>
+<li><p>悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。</p>
+</li>
+</ul>
+<p>如果你每行都有缩进，看起来会看好很多，当然，再次地，如果你很懒惰，Markdown 也允许：</p>
+<p><strong>代码：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">*   轻轻的我走了， 正如我轻轻的来； 我轻轻的招手， 作别西天的云彩。</span><br><span class="line">那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的心头荡漾。 </span><br><span class="line">软泥上的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！</span><br><span class="line"></span><br><span class="line">    那榆荫下的一潭， 不是清泉， 是天上虹； 揉碎在浮藻间， 沉淀着彩虹似的梦。 </span><br><span class="line">寻梦？撑一支长篙， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。 </span><br><span class="line">但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！ </span><br><span class="line"></span><br><span class="line">*   悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。</span><br></pre></td></tr></table></figure>
+<p><strong>显示效果：</strong> </p>
+<ul>
+<li><p>轻轻的我走了， 正如我轻轻的来； 我轻轻的招手， 作别西天的云彩。<br>那河畔的金柳， 是夕阳中的新娘； 波光里的艳影， 在我的心头荡漾。<br>软泥上的青荇， 油油的在水底招摇； 在康河的柔波里， 我甘心做一条水草！</p>
+<p>那榆荫下的一潭， 不是清泉， 是天上虹； 揉碎在浮藻间， 沉淀着彩虹似的梦。<br>寻梦？撑一支长篙， 向青草更青处漫溯； 满载一船星辉， 在星辉斑斓里放歌。<br>但我不能放歌， 悄悄是别离的笙箫； 夏虫也为我沉默， 沉默是今晚的康桥！ </p>
+</li>
+<li><p>悄悄的我走了， 正如我悄悄的来； 我挥一挥衣袖， 不带走一片云彩。</p>
+</li>
+</ul>
+<h3 id="包含引用的列表"><a href="#包含引用的列表" class="headerlink" title="包含引用的列表"></a>包含引用的列表</h3><p><strong>语法说明：</strong><br>如果要在列表项目内放进引用，那 &gt; 就需要缩进：</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*   阅读的方法:</span><br><span class="line">    &gt; 打开书本。</span><br><span class="line">    &gt; 打开电灯。</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong> </p>
+<ul>
+<li>阅读的方法:<blockquote>
+<p>打开书本。<br>打开电灯。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="包含代码区块的引用"><a href="#包含代码区块的引用" class="headerlink" title="包含代码区块的引用"></a>包含代码区块的引用</h3><p><strong>语法说明：</strong> </p>
+<p>如果要放代码区块的话，该区块就需要缩进两次，也就是 8 个空格或是 2 个制表符：</p>
+<ul>
+<li>一列表项包含一个列表区块：<code>代码写在这</code></li>
+</ul>
+<h3 id="一个特殊情况"><a href="#一个特殊情况" class="headerlink" title="一个特殊情况"></a>一个特殊情况</h3><p>在特殊情况下，项目列表很可能会不小心产生，像是下面这样的写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1986. What a great season.</span><br></pre></td></tr></table></figure></p>
+<p>会显示成：</p>
+<ol start="1986">
+<li>What a great season.</li>
+</ol>
+<p>换句话说，也就是在行首出现数字-句点-空白，要避免这样的状况，你可以在句点前面加上反斜杠：</p>
+<p>1986. What a great season. </p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p><strong>语法说明：</strong></p>
+<p>引用需要在被引用的文本前加上&gt;符号。</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 这是一个有两段文字的引用,</span><br><span class="line">&gt;无意义的占行文字1.</span><br><span class="line">&gt;无意义的占行文字2.</span><br><span class="line">&gt;</span><br><span class="line">&gt;无意义的占行文字3.</span><br><span class="line">&gt;无意义的占行文字4.</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong> </p>
+<blockquote>
+<p>这是一个有两段文字的引用,<br>无意义的占行文字1.<br>无意义的占行文字2.</p>
+<p>无意义的占行文字3.<br>无意义的占行文字4.</p>
+</blockquote>
+<h3 id="引用的多层嵌套"><a href="#引用的多层嵌套" class="headerlink" title="引用的多层嵌套"></a>引用的多层嵌套</h3><p>区块引用可以嵌套（例如：引用内的引用），只要根据层次加上不同数量的 &gt;：</p>
+<p><strong>代码：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; 请问 Markdwon 怎么用？ - 小白</span><br><span class="line">&gt;&gt;自己看教程！ - 愤青</span><br><span class="line">&gt;教程在哪？ - 小白</span><br></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>请问 Markdwon 怎么用？ - 小白<br>自己看教程！ - 愤青<br>教程在哪？ - 小白</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="引用其它要素"><a href="#引用其它要素" class="headerlink" title="引用其它要素"></a>引用其它要素</h3><p>引用的区块内也可以使用其他的 Markdown 语法，包括标题、列表、代码区块等：</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 1.   这是第一行列表项。</span><br><span class="line">&gt; 2.   这是第二行列表项。</span><br><span class="line">&gt;</span><br><span class="line">&gt; 给出一些例子代码：</span><br><span class="line">&gt; </span><br><span class="line">&gt;     return shell_exec(&quot;echo $input | $markdown_script&quot;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong></p>
+<blockquote>
+<ol>
+<li>这是第一行列表项。</li>
+<li>这是第二行列表项。</li>
+</ol>
+<p>给出一些例子代码：</p>
+<pre><code>return shell_exec(&quot;echo $input | $markdown_script&quot;);
+</code></pre></blockquote>
+<h1 id="插入图像"><a href="#插入图像" class="headerlink" title="插入图像"></a>插入图像</h1><p>图片的创建方式与超链接相似，而且和超链接一样也有两种写法，行内式和参考式写法。</p>
+<p>语法中图片Alt的意思是如果图片因为某些原因不能显示，就用定义的图片Alt文字来代替图片。 图片Title则和链接中的Title一样，表示鼠标悬停与图片上时出现的文字。 Alt 和 Title 都不是必须的，可以省略，但建议写上。</p>
+<h2 id="行内式-1"><a href="#行内式-1" class="headerlink" title="行内式"></a>行内式</h2><p><strong>语法说明：</strong> ![图片Alt](图片地址 “图片Title”)</p>
+<p><strong>代码：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">美女： </span><br><span class="line">![美女](/tech/beauty.jpeg &quot;美女&quot;)</span><br></pre></td></tr></table></figure>
+<p><strong>显示效果：</strong><br>美女：<br><img src="/tech/beauty.jpeg" alt="美女" title="美女"></p>
+<h2 id="参考式-1"><a href="#参考式-1" class="headerlink" title="参考式"></a>参考式</h2><p><strong>语法说明：</strong> </p>
+<p>在文档要插入图片的地方写 ![图片Alt][标记]<br>在文档的最后写上[标记]:图片地址 “Title”</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">美女：</span><br><span class="line">![美女][girl]</span><br><span class="line"></span><br><span class="line">[girl]:/tech/beauty.jpeg &quot;美女&quot;</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong><br>美女：<br><img src="/tech/beauty.jpeg" alt="美女" title="美女"></p>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p><strong>语法说明：</strong></p>
+<ol>
+<li>不管是哪种方式，第一行为表头，第二行分隔表头和主体部分，第三行开始每一行为一个表格行。</li>
+<li>列于列之间用管道符|隔开。原生方式的表格每一行的两边也要有管道符。</li>
+<li>第二行还可以为不同的列指定对齐方向。默认为左对齐，在-右边加上:就右对齐。</li>
+</ol>
+<p><strong>代码：</strong></p>
+<p>简单方式写表格：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">学号|姓名|分数</span><br><span class="line">-|-|-</span><br><span class="line">小明|男|75</span><br><span class="line">小红|女|79</span><br><span class="line">小陆|男|92</span><br></pre></td></tr></table></figure>
+<p>原生方式写表格：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">|学号|姓名|分数|</span><br><span class="line">|-|-|-|</span><br><span class="line">|小明|男|75|</span><br><span class="line">|小红|女|79|</span><br><span class="line">|小陆|男|92|</span><br></pre></td></tr></table></figure>
+<p>为表格第二列指定方向：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">产品|价格</span><br><span class="line">:-:|:-</span><br><span class="line">Leanote 高级账号|60元/年</span><br><span class="line">Leanote 超级账号|120元/年</span><br><span class="line"></span><br><span class="line">不支持这种语法</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<p>简单方式写表格：</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小明</td>
+<td>男</td>
+<td>75</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td>79</td>
+</tr>
+<tr>
+<td>小陆</td>
+<td>男</td>
+<td>92</td>
+</tr>
+</tbody>
+</table>
+<p>原生方式写表格：</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>小明</td>
+<td>男</td>
+<td>75</td>
+</tr>
+<tr>
+<td>小红</td>
+<td>女</td>
+<td>79</td>
+</tr>
+<tr>
+<td>小陆</td>
+<td>男</td>
+<td>92</td>
+</tr>
+</tbody>
+</table>
+<p>为表格第二列指定方向：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">产品</th>
+<th style="text-align:left">价格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Leanote 高级账号</td>
+<td style="text-align:left">60元/年</td>
+</tr>
+<tr>
+<td style="text-align:center">Leanote 超级账号</td>
+<td style="text-align:left">120元/年</td>
+</tr>
+</tbody>
+</table>
+<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立</p>
+<p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* * *</span><br><span class="line">***</span><br><span class="line">*****</span><br><span class="line">- - -</span><br><span class="line">---------------------------------------</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果都一样：</strong></p>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>对于程序员来说这个功能是必不可少的，插入程序代码的方式有两种，一种是利用缩进(Tab)，另一种是利用”`”符号包裹代码。</p>
+<p><strong>语法说明：</strong></p>
+<p>插入行内代码，即插入一个单词或者一句代码的情况，使用`code`这样的形式插入。<br>插入多行代码，可以使用缩进或者``` code ```,具体看示例。</p>
+<p><strong>注意： 缩进式插入前方必须有空行</strong></p>
+<h3 id="行内式-2"><a href="#行内式-2" class="headerlink" title="行内式"></a>行内式</h3><p><strong>代码：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C语言里的函数 `scanf()` 怎么使用？</span><br></pre></td></tr></table></figure>
+<p><strong>显示效果：</strong> </p>
+<p>C语言里的函数 <code>scanf()</code> 怎么使用？</p>
+<h3 id="缩进式多行代码"><a href="#缩进式多行代码" class="headerlink" title="缩进式多行代码"></a>缩进式多行代码</h3><p>缩进 4 个空格或是 1 个制表符</p>
+<p>一个代码区块会一直持续到没有缩进的那一行（或是文件结尾）。<br><strong>代码：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong></p>
+<pre><code>#include &lt;stdio.h&gt;
+int main(void)
+{
+    printf(&quot;Hello world\n&quot;);
+}
+</code></pre><h3 id="用六个-包裹多行代码"><a href="#用六个-包裹多行代码" class="headerlink" title="用六个`包裹多行代码"></a>用六个`包裹多行代码</h3><p><strong>代码：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">#include &lt;stdio.h&gt; </span><br><span class="line">int main(void) </span><br><span class="line">&#123; </span><br><span class="line">    printf(&quot;Hello world\n&quot;); </span><br><span class="line">&#125; </span><br><span class="line">```</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a>代码高亮</h3><p>代码高亮示例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* nth element in the fibonacci series.</span></span><br><span class="line"><span class="comment">* @param n &gt;= 0</span></span><br><span class="line"><span class="comment">* @return the nth element, &gt;= 0.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">var</span> tmp;</span><br><span class="line">  <span class="keyword">while</span> (--n &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    tmp = a;</span><br><span class="line">    a += b;</span><br><span class="line">    b = tmp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">document</span>.write(fib(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span>:</span></span><br><span class="line">   empCount = <span class="number">0</span></span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, salary)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.salary = salary</span><br><span class="line">        Employee.empCount += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML-原始码"><a href="#HTML-原始码" class="headerlink" title="HTML 原始码"></a>HTML 原始码</h2><p>在代码区块里面， &amp; 、 &lt; 和 &gt; 会自动转成 HTML 实体，这样的方式让你非常容易使用 Markdown 插入范例用的 HTML 原始码，只需要复制贴上，剩下的 Markdown 都会帮你处理，例如：</p>
+<p><strong>代码：</strong></p>
+<p>第一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;footer&quot;&gt;</span><br><span class="line">   © 2015 sqhtech Corporation</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>第二个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;星期一&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;星期二&lt;/th&gt;</span><br><span class="line">        &lt;th&gt;星期三&lt;/th&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">    &lt;tr&gt;</span><br><span class="line">        &lt;td&gt;李强&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;张明&lt;/td&gt;</span><br><span class="line">        &lt;td&gt;王平&lt;/td&gt;</span><br><span class="line">    &lt;/tr&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>显示效果：</strong></p>
+<p>第一个例子：</p>
+<p><div class="footer"><br>   © 2015 sqhtech Corporation<br></div><br>第二个例子：</p>
+<table><br>    <tr><br>        <th rowspan="2">值班人员</th><br>        <th>星期一</th><br>        <th>星期二</th><br>        <th>星期三</th><br>    </tr><br>    <tr><br>        <td>李强</td><br>        <td>张明</td><br>        <td>王平</td><br>    </tr><br></table>
+
+<h2 id="TodoList"><a href="#TodoList" class="headerlink" title="TodoList"></a>TodoList</h2><p><strong>代码：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">近期任务安排:</span><br><span class="line">- [x] 整理Markdown手册</span><br><span class="line">- [ ] 改善项目</span><br><span class="line">   - [x] 优化首页显示方式</span><br><span class="line">   - [x] 修复闪退问题</span><br><span class="line">   - [ ] 修复视频卡顿</span><br><span class="line">- [ ] A3项目修复</span><br><span class="line">   - [x] 修复数值错误</span><br></pre></td></tr></table></figure>
+<p><strong>效果：</strong></p>
+<p>近期任务安排:</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> 整理Markdown手册</li>
+<li style="list-style: none"><input type="checkbox"> 改善项目<ul>
+<li style="list-style: none"><input type="checkbox" checked> 优化首页显示方式</li>
+<li style="list-style: none"><input type="checkbox" checked> 修复闪退问题</li>
+<li style="list-style: none"><input type="checkbox"> 修复视频卡顿</li>
+</ul>
+</li>
+<li style="list-style: none"><input type="checkbox"> A3项目修复<ul>
+<li style="list-style: none"><input type="checkbox" checked> 修复数值错误</li>
+</ul>
+</li>
 </ul>
 
       
@@ -634,7 +905,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
@@ -644,7 +915,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/23/关于公司发展的技术规划/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/01/14/MarkDown手册/">展开全文 >></a>
         </p>
       
 
@@ -674,37 +945,33 @@
 
 
   
-    <article id="post-多维分析与OLAP" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-sqlite3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/23/多维分析与OLAP/">多维分析与OLAP</a>
+      <a class="article-title" href="/2020/12/28/sqlite3/">sqlite3</a>
     </h1>
   
 
         
-        <a href="/2019/07/23/多维分析与OLAP/" class="archive-article-date">
-  	<time datetime="2019-07-23T08:48:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-23</time>
+        <a href="/2020/12/28/sqlite3/" class="archive-article-date">
+  	<time datetime="2020-12-28T06:15:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="自己的心里话"><a href="#自己的心里话" class="headerlink" title="自己的心里话"></a>自己的心里话</h2><p>知识图谱，项目管理都是很好的职业方向。但是作为一个有技术追求的人，这些是不够的。今年的几个事情，让自己的压力陡增，桃子出生了，自己想学习一些硬件构建能力的规划，一直都提不上日程。自我成长过慢，业务需求理解在加深，工程能力在减弱。这几年的工作经历，自己角色的转变：<br>数据工程师，系统学习者，java工程师，java高级工程师，调参狗，调包侠，技术管理者。能力评估：拥有完整的业务系统的设计能力和构建能力-java向的，Tomcat容器的，CRUD系统。<br>不能胜任的角色：<code>高阶的软硬件系统设计者</code>、<code>基础系统-软件工程师</code>、<code>工业软件工程师</code>、<code>AIoT行业参与者</code>。</p>
-<p>自己接下来需要努力的方向：<br>需要完全的整理自己以前的<code>知识结构</code>。从新规划自己对<code>数学和离散数学</code>的认识。<code>软件系统构造能力</code>，<code>硬件理解能力</code>，<code>软硬结合能力</code>。</p>
-<h2 id="自己的危机意识很强，但是需要把时间利用起来"><a href="#自己的危机意识很强，但是需要把时间利用起来" class="headerlink" title="自己的危机意识很强，但是需要把时间利用起来"></a>自己的危机意识很强，但是需要把时间利用起来</h2><p>目前设计的一个大数据平台的水平：<br>Apache Kylin<br>三种特殊的dimension<br>Mandatory维度<br>Hierarchy维度<br>Derived维度<br>可推导的维度，需要该维度对应的一个或者多个列可以和维度表的主键是一对一的，这种维度可以大大减少cuboid个数。</p>
-<p>以下内容为网络内容，我在此处觉得学习以后很有用，在这里列出：</p>
-<blockquote>
-<p>由于Kylin的核心在于预计算缓存数据，那么对于实时的数据查询的支持就不如mondrian好了，但是一般情况下我们数据分析并没有完全实时的要求，数据延迟几个小时甚至一天是可以接受的，Kylin提供了增量cube的接口，Kylin的实现是一个cube中可以包含多个segment，每一个segment对应着一个物理cube，在实际存储上对应着一个hbase的一个表，用户定义根据某一个字段进行增量，在使用的时候首先需要订一个好cube的定义，可以指定一个时间的pa-rtition字段作为增量cube的依赖字段，其实这个选择是作为原始数据选择的条件，例如选择起始时间A到B的数据那么创建的cube则会只包含这个时间段的数据聚合值，创建完一个cube之后可以再次基于以前的cube进行build，每次build会生成一个新的segment，只不过原始数据不一样了，每次查询的时候会查询所有的segment聚合之后的值进行返回，有点类似于tablet的存储方式，但是当segment存在过多的时候查询效率就会下降，因此需要在存在多个segment的时候将它们进行合并，合并的时候其实是指定一个时间区间，内部会选择这个时间区间内的所有segment进行合并，合并完成之后使用新的segment替换被合并的多个segment，合并的执行时非常迅速的，数据不需要再从HDFS中获取，直接将两个hbase表中相同key的数据进行聚合就可以了。但是有一点需要注意的是当合并完成之后，被合并的几个segment所对应的hbase表并没有被删除。实际的使用过程中对于增量的cube可以写个定时任务每天凌晨进行build，当达到一个数目之后进行merge（其实每次build完成之后都进行merge也应该是可以的）。</p>
-</blockquote>
-<blockquote>
-<h1 id="cube的词典树"><a href="#cube的词典树" class="headerlink" title="cube的词典树"></a>cube的词典树</h1><p>kylin的cube数据是作为key-value结构存储在hbase中的，key是每一个维度成员的组合值，不同的cuboid下面的key的结构是不一样的，例如cuboid={brand，product，year}下面的一个key可能是brand=’Nike’，product=’shoe’，year=2015，那么这个key就可以写成Nike:shoe:2015，但是如果使用这种方式的话会出现很多重复，所以一般情况下我们会把一个维度下的所有成员取出来，然后保存在一个数组里面，使用数组的下标组合成为一个key，这样可以大大节省key的存储空间，kylin也使用了相同的方法，只不过使用了字典树（Trie树），每一个维度的字典树作为cube的元数据以二进制的方式存储在hbase中，内存中也会一直保持一份。</p>
-</blockquote>
-<p>以上介绍了kylin的整体框架以及部分的模块的流程，由于之前主要是关注cube的一些操作，例如创建、构建、合并等，对于查询这一块了解的较少，当然，这一块是kylin的核心之一。接下来会从源代码的角度去看kylin是如何构建和mergecube的，以及执行查询的流程。</p>
+        <p>关于如何恢复mac的notes</p>
+<p>mac上的notes存储使用sqlite3来做版本控制，因此原始数据是存储在数据库中的，误删除后可以采用如下的方式的来找到误删除的数据</p>
+<p>找到目录<code>/Users/XXXX/Library/Containers/com.apple.Notes/Data/Library/Notes</code><br>可见三个文件：<br>NotesV7.storedata<br>NotesV7.storedata-shm<br>NotesV7.storedata-wal</p>
+<h1 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 NotesV7.storedata .schema</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE ZATTACHMENT ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZNOTE INTEGER, Z10_NOTE INTEGER, ZCONTENTID VARCHAR, ZFILEURL BLOB );</span><br><span class="line"></span><br><span class="line">CREATE TABLE ZFOLDER ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZACCOUNT INTEGER, Z1_ACCOUNT INTEGER, ZPARENT INTEGER, Z6_PARENT INTEGER, ZISDISTINGUISHED INTEGER, ZALLEGEDHIGHESTMODIFICATIONSEQUENCE INTEGER, ZCOMPUTEDHIGHESTMODIFICATIONSEQUENCE INTEGER, ZUIDNEXT INTEGER, ZUIDVALIDITY INTEGER, ZTRASHACCOUNT INTEGER, Z1_TRASHACCOUNT INTEGER, ZNAME VARCHAR, ZCHANGEKEY VARCHAR, ZFOLDERID VARCHAR, ZSYNCSTATE VARCHAR, ZSERVERNAME VARCHAR );</span><br><span class="line"></span><br><span class="line">CREATE TABLE ZNOTEBODY ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZNOTE INTEGER, Z10_NOTE INTEGER, ZHTMLSTRING VARCHAR );</span><br><span class="line"></span><br><span class="line">CREATE TABLE ZOFFLINEACTION ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZSEQUENCENUMBER INTEGER, ZACCOUNT INTEGER, Z1_ACCOUNT INTEGER, ZFOLDER INTEGER, Z6_FOLDER INTEGER, ZPARENT INTEGER, Z6_PARENT INTEGER, ZORIGINALPARENT INTEGER, Z6_ORIGINALPARENT INTEGER, ZFOLDER1 INTEGER, Z6_FOLDER1 INTEGER, ZNOTE INTEGER, Z10_NOTE INTEGER, ZORIGINALFOLDER INTEGER, Z6_ORIGINALFOLDER INTEGER );</span><br><span class="line"></span><br><span class="line">CREATE TABLE Z_PRIMARYKEY (Z_ENT INTEGER PRIMARY KEY, Z_NAME VARCHAR, Z_SUPER INTEGER, Z_MAX INTEGER);</span><br><span class="line">CREATE TABLE Z_METADATA (Z_VERSION INTEGER PRIMARY KEY, Z_UUID VARCHAR(255), Z_PLIST BLOB);</span><br><span class="line">CREATE TABLE Z_MODELCACHE (Z_CONTENT BLOB);</span><br><span class="line"></span><br><span class="line">CREATE TABLE ZACCOUNT ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZALLOWINSECUREAUTHENTICATION INTEGER, ZDIDCHOOSETOMIGRATE INTEGER, ZENABLED INTEGER, ZROOTFOLDER INTEGER, Z6_ROOTFOLDER INTEGER, ZTRASHFOLDER INTEGER, ZGMAILCAPABILITIESSUPPORT INTEGER, ZPORT INTEGER, ZSECURITYLAYERTYPE INTEGER, ZMIGRATIONOFFERED INTEGER, ZACCOUNTDESCRIPTION VARCHAR, ZEMAILADDRESS VARCHAR, ZFULLNAME VARCHAR, ZPARENTACACCOUNTIDENTIFIER VARCHAR, ZUSERNAME VARCHAR, ZFOLDERHIERARCHYSYNCSTATE VARCHAR, ZAUTHENTICATION VARCHAR, ZHOSTNAME VARCHAR, ZSERVERPATHPREFIX VARCHAR, ZEXTERNALURL BLOB, ZINTERNALURL BLOB, ZLASTUSEDAUTODISCOVERURL BLOB, ZTLSCERTIFICATE BLOB );</span><br><span class="line">CREATE TABLE ZNOTE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZBODY INTEGER, ZFOLDER INTEGER, Z6_FOLDER INTEGER, ZMIMEDATASIZE INTEGER, ZDATECREATED TIMESTAMP, ZDATEEDITED TIMESTAMP, ZREMOTEID VARCHAR, ZTITLE VARCHAR, ZCHANGEKEY VARCHAR, ZUNIVERSALLYUNIQUEID BLOB );</span><br><span class="line"></span><br><span class="line">CREATE TABLE ACHANGE ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZCHANGETYPE INTEGER, ZENTITY INTEGER, ZENTITYPK INTEGER, ZTRANSACTIONID INTEGER, ZCOLUMNS BLOB );</span><br><span class="line">CREATE TABLE ATRANSACTION ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZAUTHORTS INTEGER, ZBUNDLEIDTS INTEGER, ZCONTEXTNAMETS INTEGER, ZPROCESSIDTS INTEGER, ZTIMESTAMP FLOAT, ZAUTHOR VARCHAR, ZBUNDLEID VARCHAR, ZCONTEXTNAME VARCHAR, ZPROCESSID VARCHAR, ZQUERYGEN BLOB );</span><br><span class="line">CREATE TABLE ATRANSACTIONSTRING ( Z_PK INTEGER PRIMARY KEY, Z_ENT INTEGER, Z_OPT INTEGER, ZNAME VARCHAR );</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 NotesV7.storedata &quot;SELECT * FROM ZNOTEBODY&quot; | sed &apos;s/&amp;nbsp;/ /g&apos;</span><br></pre></td></tr></table></figure>
+<p>记录 2020年12月28日操作，恢复2019年9月26日-2020年12月28日笔记</p>
 
       
 
@@ -728,7 +995,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/23/多维分析与OLAP/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/28/sqlite3/">展开全文 >></a>
         </p>
       
 
@@ -758,45 +1025,32 @@
 
 
   
-    <article id="post-Go-5" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-OS-3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/Go-5/">Go-5</a>
+      <a class="article-title" href="/2020/11/25/OS-3/">OS-3</a>
     </h1>
   
 
         
-        <a href="/2019/07/10/Go-5/" class="archive-article-date">
-  	<time datetime="2019-07-10T08:38:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
+        <a href="/2020/11/25/OS-3/" class="archive-article-date">
+  	<time datetime="2020-11-25T09:49:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>select是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。</p>
-<p>select随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s); </span><br><span class="line">    <span class="comment">/* 你可以定义任意数量的 case */</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以下描述了 select 语句的语法：</p>
-<ol>
-<li>每个case都必须是一个通信。</li>
-<li>所有channel表达式都会被求值。</li>
-<li>所有被发送的表达式都会被求值。</li>
-<li>如果任意某个通信可以进行，它就执行；其他被忽略。</li>
-<li>如果有多个case都可以运行，Select会随机公平地选出一个执行。其他不会执行。<br>否则：</li>
-<li>如果有default子句，则执行该语句。</li>
-<li>如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。</li>
-</ol>
-<p>Go语言变量作用域<br>作用域为已声明标示符所表示的常量、类型、变量、函数或包在源代码中的作用范围。<br>Go语言中变量可以在三个地方声明：</p>
-<ol>
-<li>函数内定义的变量称为局部变量</li>
-<li>函数外定义的变量称为全局变量</li>
-<li>函数定义中的变量称为形式参数</li>
-</ol>
+        <p>Linux支持多种可执行文件格式</p>
+<p>ELF格式是其中最常用的</p>
+<p>xxd 二进制文件</p>
+<p><em>ELF文件的header</em></p>
+<p><code>文件内容的分布</code><br><code>指令集体系结构</code><br><code>入口地址</code></p>
+<p>elf<br><code>Magic</code>:<br><code>7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00`</code></p>
 
       
 
@@ -820,7 +1074,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/10/Go-5/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/11/25/OS-3/">展开全文 >></a>
         </p>
       
 
@@ -850,77 +1104,40 @@
 
 
   
-    <article id="post-Go-4" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-OS-2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/Go-4/">Go-4</a>
+      <a class="article-title" href="/2020/11/25/OS-2/">OS-2</a>
     </h1>
   
 
         
-        <a href="/2019/07/09/Go-4/" class="archive-article-date">
-  	<time datetime="2019-07-09T13:29:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
+        <a href="/2020/11/25/OS-2/" class="archive-article-date">
+  	<time datetime="2020-11-25T09:17:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>这是第二篇Go相关的学习笔记</p>
-</blockquote>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">1</span>&lt;&lt;<span class="number">3</span></span><br><span class="line">output: <span class="number">8</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">3</span>&lt;&lt;<span class="number">1</span></span><br><span class="line">output: <span class="number">6</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>说明 i&lt;&lt;j  表示<code>i左移j位</code></p>
-</blockquote>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    i=<span class="number">1</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    j=<span class="number">3</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    k</span><br><span class="line">    l</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"i="</span>,i)</span><br><span class="line">    fmt.Println(<span class="string">"j="</span>,j)</span><br><span class="line">    fmt.Println(<span class="string">"k="</span>,k)</span><br><span class="line">    fmt.Println(<span class="string">"l="</span>,l)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output: <span class="number">1</span> <span class="number">6</span> <span class="number">10</span> <span class="number">24</span></span><br></pre></td></tr></table></figure>
-<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>真值表：<br>由于markdown语法原因<br>p|q = porq</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">p</th>
-<th style="text-align:center">q</th>
-<th style="text-align:center">p&amp;q</th>
-<th style="text-align:center">p&#124;q</th>
-<th style="text-align:center">p^q</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:left">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-
+        <h1 id="System"><a href="#System" class="headerlink" title="System:"></a>System:</h1><p>1 x CPU<br>1 x printer<br>1 x disk</p>
+<p>// P1:<br>(1) compute<br>(2) printer</p>
+<p>// P2:<br>(1) compute<br>(2) save to disk(file)</p>
+<p>———————————&gt;</p>
+<p>P1 compute; P1 print …………..<br>            P2 compute; P2 save to disk</p>
+<p>P1 compute -&gt; (10ms switch out) -&gt; P2 compute -&gt; (10ms) -&gt; P1 -&gt; …</p>
+<p>P1 compute … (interrupt)                                   P2 compute …<br>                |                                             | </p>
+<pre><code>+ ----&gt; (interrupt handler) - switch to P2 -&gt;(OS)
+</code></pre><p>a.out (dead loop) —-<br>                    |<br>                interrupt –&gt; OS –&gt; other process</p>
+<p>10</p>
+<p>P1: 4KB  -&gt;  *(some-bad-addr) = 0;  -&gt; crash<br>P2: 68KB<br>P3: 1.5MB<br>P4: 4KB<br>P5: 4KB<br>…</p>
+<p>System: 2MB</p>
+<p><em>scheduling</em></p>
+<h1 id="Multics-MIT-1965"><a href="#Multics-MIT-1965" class="headerlink" title="Multics MIT 1965"></a>Multics MIT 1965</h1><h1 id="信号API、管道、grep-1973"><a href="#信号API、管道、grep-1973" class="headerlink" title="信号API、管道、grep 1973"></a>信号API、管道、grep 1973</h1><h1 id="1983-BSD-socket"><a href="#1983-BSD-socket" class="headerlink" title="1983 BSD socket"></a>1983 BSD socket</h1><h1 id="1984-procfs"><a href="#1984-procfs" class="headerlink" title="1984 procfs"></a>1984 procfs</h1>
       
 
       
@@ -943,7 +1160,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/09/Go-4/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/11/25/OS-2/">展开全文 >></a>
         </p>
       
 
@@ -973,40 +1190,28 @@
 
 
   
-    <article id="post-OCR-Source-Code-Repo" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Anaconda3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/28/OCR-Source-Code-Repo/">OCR Source Code Repo</a>
+      <a class="article-title" href="/2020/11/23/Anaconda3/">Anaconda3</a>
     </h1>
   
 
         
-        <a href="/2019/04/28/OCR-Source-Code-Repo/" class="archive-article-date">
-  	<time datetime="2019-04-28T04:02:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
+        <a href="/2020/11/23/Anaconda3/" class="archive-article-date">
+  	<time datetime="2020-11-23T11:25:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>OCR主要分为两个阶段：第一个阶段为文字区域检测，第二个阶段为文字识别</p>
-</blockquote>
-<p><a href="https://github.com/bai-shang/OCR_TF_CRNN_CTC" target="_blank" rel="noopener">OCR_TF_CRNN_CTC</a><br><a href="https://github.com/pjreddie/darknet" target="_blank" rel="noopener">darknet</a><br><a href="https://github.com/chineseocr/chineseocr" target="_blank" rel="noopener">chineseocr</a><br><a href="https://github.com/thoqbk/traprange" target="_blank" rel="noopener">traprange</a><br><a href="https://github.com/cseas/ocr-table" target="_blank" rel="noopener">ocr-table</a></p>
-<p><a href="https://www.dfki.de/fileadmin/user_upload/import/9672_PID4966073.pdf" target="_blank" rel="noopener">paper</a><br><a href="https://blog.goodaudience.com/table-detection-using-deep-learning-7182918d778" target="_blank" rel="noopener">document</a></p>
-<p>新的资源：</p>
-<p><a href="https://github.com/data-liberation/data-liberation-resources/issues/2" target="_blank" rel="noopener">data-resources</a></p>
-<p>业内人士的观点：</p>
-<blockquote>
-<p>真正能把中文OCR做得比较专业的，一共也没几家，国内2家，国外2家。国内是文通和汉王，国外是ABBYY和IRIS（台湾原来有2家丹青和蒙恬，这两年没什么动静了）。像大家提到的紫光OCR、CAJViewer、MS Office、清华OCR、包括慧视小灵鼠，这些都是文通的产品或者使用文通的识别引擎，尚书则是汉王的产品，和中晶扫描仪捆绑销售的。这两家的中文识别率都是非常不错的。而国外的2家，主要特点是西方语言的识别率很好，而且支持多种西欧语言，产品化程度也很高，不过中文方面速度和识别率还是有差距的，当然这两年人家也是在不断进步。Google的开源项目，至少在中文方面，和这些家相比，各项性能指标水平差距还蛮大的呢。 </p>
-</blockquote>
-<p>作者：张岩<br>链接：<a href="https://www.zhihu.com/question/19593313/answer/14199596" target="_blank" rel="noopener">https://www.zhihu.com/question/19593313/answer/14199596</a></p>
-<p>公司最近的OCR POC我参与比较少，目前的主要问题是因为是标注数据的量的问题，模型</p>
-
+        <h1 id="操作常用指令"><a href="#操作常用指令" class="headerlink" title="操作常用指令"></a>操作常用指令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conda activate base</span><br><span class="line">conda deactivate</span><br><span class="line">conda config --<span class="built_in">set</span> auto_activate_base <span class="literal">false</span></span><br><span class="line">conda config --<span class="built_in">set</span> auto_activate_base <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">conda create -n mlflow-1.11.0 python=3.6</span><br><span class="line">conda activate mlflow-1.11.0</span><br><span class="line">pip install mlflow==1.11.0 </span><br><span class="line">pip install mysqlclient</span><br><span class="line">pip install boto3</span><br><span class="line">conda create -n mlflow python==3.6</span><br></pre></td></tr></table></figure>
+<h1 id="环境操作"><a href="#环境操作" class="headerlink" title="环境操作"></a>环境操作</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">conda info -e</span><br><span class="line">conda create -n label python=3.6</span><br><span class="line">conda remove -n label --all</span><br><span class="line"></span><br><span class="line">conda create -n mlflow python=3.6</span><br><span class="line">pip install mlflow</span><br><span class="line">pip install sklearn</span><br></pre></td></tr></table></figure>
       
 
       
@@ -1019,7 +1224,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
@@ -1029,228 +1234,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/28/OCR-Source-Code-Repo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-TigerGraph-Online-Meeting" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/24/TigerGraph-Online-Meeting/">TigerGraph Online Meeting</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/24/TigerGraph-Online-Meeting/" class="archive-article-date">
-  	<time datetime="2019-04-24T02:35:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>刘奔月<br><code>链接分析</code>, <code>xx分析</code>, <code>xx分析</code>,<code>社团发现</code></p>
-<blockquote>
-<p>机器学习不能产生非常准确的结果，在图谱上可以找到更加直接的结果</p>
-</blockquote>
-<p>举例：医生出问题了，会有违法行为<br><code>Tiger</code>实时深度分析<br>关系数据库：不是为发现和探索型而设计的<br>图数据库：GSQL</p>
-<p>单源最短路径，未加权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shortest_ss(BVERTEX v, BOOL display)</span><br></pre></td></tr></table></figure></p>
-<p>单源最短路径，加权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shortest_path_any_wt(VERTEX v, INT maxDepth)</span><br></pre></td></tr></table></figure></p>
-<p>全源最短路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">all_pairs_shortest()</span><br></pre></td></tr></table></figure></p>
-<p>三角形统计<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tri_count_fast()</span><br><span class="line">tri_count_fast_file(FILE filepath)</span><br><span class="line">tri_count_fast_attr()</span><br></pre></td></tr></table></figure></p>
-<p>MPP = 并行计算</p>
-<p>基准报告</p>
-<p>tigergraph是唯一的第六步的查询的图数据库</p>
-<p>深度链接分析</p>
-<p>SAR = 可疑活动报告<br><a href="https://testdrive.tigergraph.com/main/dashboard" target="_blank" rel="noopener">https://testdrive.tigergraph.com/main/dashboard</a></p>
-<p>benchmark测试<br><img width="600" src="/tech/benchmark.png"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/24/TigerGraph-Online-Meeting/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Raft" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/27/Raft/">Raft</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/27/Raft/" class="archive-article-date">
-  	<time datetime="2019-03-27T04:45:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上篇讲到了「拜占庭将军问题」：多个拜占庭将军要如何在可能有叛徒、信使可能被策反或者暗杀的情况下达成是否要进攻的一致性决定？还不了解的先看看上一篇《拜占庭将军问题》。这篇主要是介绍简化版拜占庭将军问题的解决方案：Raft 共识算法。</p>
-<blockquote>
-<p>拜占庭将军问题是分布式领域最复杂、最严格的容错模型。但在日常工作中使用的分布式系统面对的问题不会那么复杂，更多的是计算机故障挂掉了，或者网络通信问题而没法传递信息，这种情况不考虑计算机之间互相发送恶意信息，极大简化了系统对容错的要求，最主要的是达到一致性。</p>
-</blockquote>
-<p>所以将拜占庭将军问题根据常见的工作上的问题进行简化：假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定？</p>
-<p>对于这个简化后的问题，有许多解决方案，第一个被证明的共识算法是 <code>Paxos</code>，由拜占庭将军问题的作者 <code>Leslie Lamport</code> 在1990年提出，最初以论文难懂而出名，后来这哥们在2001重新发了一篇简单版的论文 <code>Paxos Made Simple</code>，然而还是挺难懂的。</p>
-<p>因为 <code>Paxos</code> 难懂，难实现，所以斯坦福大学的教授在2014年发表了新的分布式协议 <code>Raft</code>。与 <code>Paxos</code> 相比，<code>Raft</code> 有着基本相同的运行效率，但是更容易理解，也更容易被用在系统开发上。</p>
-<h1 id="针对简化版拜占庭将军问题，Raft-解决方案类比"><a href="#针对简化版拜占庭将军问题，Raft-解决方案类比" class="headerlink" title="针对简化版拜占庭将军问题，Raft 解决方案类比"></a>针对简化版拜占庭将军问题，Raft 解决方案类比</h1><p>我们还是用拜占庭将军的例子来帮助理解 <code>Raft</code>。</p>
-<blockquote>
-<p>假设将军中没有叛军，信使的信息可靠但有可能被暗杀的情况下，将军们如何达成一致性决定</p>
-</blockquote>
-<p>Raft 的解决方案大概可以理解成 先在所有将军中选出一个大将军，所有的决定由大将军来做。<br><code>选举环节</code>：<br>比如说现在一共有3个将军 A, B, C，每个将军都有一个随机时间的倒计时器，倒计时一结束，这个将军就会把自己当成大将军候选人，然后派信使去问其他几个将军，能不能选我为总将军？假设现在将军A倒计时结束了，他派信使传递选举投票的信息给将军B和C，如果将军B和C还没把自己当成候选人（倒计时还没有结束），并且没有把选举票投给其他，他们把票投给将军A，信使在回到将军A时，将军A知道自己收到了足够的票数，成为了大将军。在这之后，是否要进攻就由大将军决定，然后派信使去通知另外两个将军，如果在一段时回间后还没有收到复（可能信使被暗杀），那就再重派一个信使，直到收到回复。</p>
-<p>故事先讲到这里，希望不做技术方面的朋友可以大概能理解 <code>Raft</code> 的原理，下面从比较技术的角度讲讲 <code>Raft</code> 的原理。</p>
-<h1 id="Raft-节点状态"><a href="#Raft-节点状态" class="headerlink" title="Raft 节点状态"></a>Raft 节点状态</h1><p>从拜占庭将军的故事映射到分布式系统上，每个将军相当于一个分布式网络节点，每个节点有三种状态：<code>Follower</code>，<code>Candidate</code>，<code>Leader</code>，状态之间是互相转换的，可以参考下图，具体的后面说。</p>
-<p>每个结点上都有一个倒计时器，时间随机在150ms到300ms之间。有几种情况会重设Timeout:</p>
-<ol>
-<li>收到选举的请求</li>
-<li>收到<code>Leader</code>的<code>Heartbeat</code></li>
-</ol>
-<p>在Raft运行过程中，最主要进行两个活动：</p>
-<ol>
-<li>选主<code>Leader Election</code></li>
-<li>复制日志 <code>Log Replication</code></li>
-</ol>
-<h1 id="选主-Leader-Election"><a href="#选主-Leader-Election" class="headerlink" title="选主 Leader Election"></a>选主 Leader Election</h1><h2 id="正常情况下选主"><a href="#正常情况下选主" class="headerlink" title="正常情况下选主"></a>正常情况下选主</h2><p>假设现在有如图5个节点，5个节点一开始的状态都是<code>Follower</code></p>
-<p>在一个节点倒计时结束后，这个节点的状态变成<code>Candidate</code>开始选举，它给其他几个节点发送选举请求（RequestVote）</p>
-<p>其他四个鸡诶单都返回成功，这个节点的状态由<code>Candidate</code>变成了<code>Leader</code>，并在每个一小段时间后，就给所有的<code>Follower</code>发送一个<code>Heartbeat</code>以保持所有节点的状态，<code>Follower</code>收到<code>Leader</code>的<code>Heartbeat</code>后重设<code>Timeout</code>。</p>
-<p>这是最简单的选主情况，只要有超过一半的节点投支持票了，<code>Candidate</code>才会被选举为<code>Leader</code>，5个节点的情况下，3个节点（包括<code>Candidate</code>本身）投了支持就行。</p>
-<h2 id="Leader出故障情况下的选主"><a href="#Leader出故障情况下的选主" class="headerlink" title="Leader出故障情况下的选主"></a>Leader出故障情况下的选主</h2><p>一开始已经有一个<code>Leader</code>，所有节点正常运行。</p>
-<p><code>Leader</code>出故障挂掉了，其他四个<code>Follower</code>将进行重新选主。</p>
-<p>4个节点的选主过程和5个节点的类似，在选出一个新的<code>Leader</code>后，原来的<code>Leader</code>恢复了又重新加入了，这个时候怎么处理？在<code>Raft</code>里，第几轮选举是有记录的，重新加入的<code>Leader</code>是第一轮选举（<code>Term 1</code>）选出来的，而现在的<code>Leader</code>则是<code>Term 2</code>，所有原来的<code>Leader</code>会自觉降级为<code>Follower</code></p>
-<h2 id="多个Candidate情况下的选主"><a href="#多个Candidate情况下的选主" class="headerlink" title="多个Candidate情况下的选主"></a>多个<code>Candidate</code>情况下的选主</h2><p>假设一开始有4个节点，都还是<code>Follower</code>。</p>
-<p>有两个<code>Follower</code>同时<code>Timeout</code>，都变成了<code>Candidate</code>开始选举，分别给一个<code>Follower</code>发送了投票请求。</p>
-<p>两个<code>Follower</code>分别返回了<code>OK</code>，这时两个<code>Candidate</code>都只有2票，要3票才能被选成<code>Leader</code>。</p>
-<p>两个<code>Candidate</code>会分别给另外一个还没有给自己投票的<code>Follower</code>发送投票请求。</p>
-<p>但是因为<code>Follower</code>在这一轮选举中，都已经投完票了，所以都拒绝了他们的请求。所以在<code>Term 2</code>没有<code>Leader</code>被选出来。</p>
-<p>这时，两个节点的状态是 <code>Candidate</code>，两个是 <code>Follower</code>，但是他们的倒计时器仍然在运行，最先 <code>Timeout</code> 的那个节点会进行发起新一轮 <code>Term 3</code> 的投票。</p>
-<p>两个 <code>Follower</code> 在 <code>Term 3</code> 还没投过票，所以返回 <code>OK</code>，这时 <code>Candidate</code> 一共有三票，被选为了 <code>Leader</code>。</p>
-<p>如果 <code>Leader</code> <code>Heartbeat</code> 的时间晚于另外一个 <code>Candidate</code> <code>timeout</code> 的时间，另外一个 <code>Candidate</code> 仍然会发送选举请求。</p>
-<p>两个 <code>Follower</code> 已经投完票了，拒绝了这个 <code>Candidate</code> 的投票请求。</p>
-<p><code>Leader</code> 进行 <code>Heartbeat</code>， <code>Candidate</code> 收到后状态自动转为 <code>Follower</code>，完成选主。</p>
-<p>以上是 <code>Raft</code> 最重要活动之一选主的介绍，以及在不同情况下如何进行选主。</p>
-<h1 id="复制日志-Log-Replication"><a href="#复制日志-Log-Replication" class="headerlink" title="复制日志 Log Replication"></a>复制日志 <code>Log</code> <code>Replication</code></h1><h2 id="正常情况下复制日志"><a href="#正常情况下复制日志" class="headerlink" title="正常情况下复制日志"></a>正常情况下复制日志</h2><p>Raft 在实际应用场景中的一致性更多的是体现在不同节点之间的数据一致性，客户端发送请求到任何一个节点都能收到一致的返回，当一个节点出故障后，其他节点仍然能以已有的数据正常进行。在选主之后的复制日志就是为了达到这个目的。</p>
-<p>一开始，<code>Leader</code> 和 两个 <code>Follower</code> 都没有任何数据。</p>
-<p>客户端发送请求给 <code>Leader</code>，储存数据 <code>sally</code>，<code>Leader</code> 先将数据写在本地日志，这时候数据还是 <code>Uncommitted</code> (还没最终确认，红色表示)</p>
-<p><code>Leader</code> 给两个 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，数据在 <code>Follower</code> 上没有冲突，则将数据暂时写在本地日志，<code>Follower</code> 的数据也还是 <code>Uncommitted</code>。</p>
-<p><code>Follower</code> 将数据写到本地后，返回 OK。<code>Leader</code> 收到后成功返回，只要收到的成功的返回数量超过半数 (包含<code>Leader</code>)，<code>Leader</code> 将数据 <code>sally</code> 的状态改成 <code>Committed</code>。( 这个时候 <code>Leader</code> 就可以返回给客户端了)</p>
-<p><code>Leader</code> 再次给 <code>Follower</code> 发送 <code>AppendEntries</code> 请求，收到请求后，<code>Follower</code> 将本地日志里 <code>Uncommitted</code> 数据改成 <code>Committed</code>。这样就完成了一整个复制日志的过程，三个节点的数据是一致的</p>
-<h2 id="Network-Partition-情况下进行复制日志"><a href="#Network-Partition-情况下进行复制日志" class="headerlink" title="Network Partition 情况下进行复制日志"></a>Network Partition 情况下进行复制日志</h2><p>在 Network Partition 的情况下，部分节点之间没办法互相通信，Raft 也能保证在这种情况下数据的一致性。</p>
-<p>一开始有 5 个节点处于同一网络状态下。</p>
-<p>Network Partition 将节点分成两边，一边有两个节点，一边三个节点。</p>
-<p>两个节点这边已经有 <code>Leader</code> 了，来自客户端的数据 <code>bob</code> 通过 <code>Leader</code> 同步到 <code>Follower</code>。</p>
-<p>因为只有两个节点，少于3个节点，所以 <code>bob</code> 的状态仍是 <code>Uncommitted</code>。所以在这里，服务器会返回错误给客户端</p>
-<p>另外一个 <code>Partition</code> 有三个节点，进行重新选主。客户端数据 <code>tom</code> 发到新的 <code>Leader</code>，通过和上节网络状态下相似的过程，同步到另外两个 <code>Follower</code></p>
-<p>因为这个 <code>Partition</code> 有3个节点，超过半数，所以数据 <code>tom</code> 都 <code>Commit</code> 了</p>
-<p>网络状态恢复，5个节点再次处于同一个网络状态下。但是这里出现了数据冲突 <code>bob</code> 和 <code>tom</code></p>
-<p>三个节点的 <code>Leader</code> 广播 <code>AppendEntries</code></p>
-<p>两个节点 <code>Partition</code> 的 <code>Leader</code> 自动降级为 <code>Follower</code>，因为这个 <code>Partition</code> 的数据 <code>bob</code> 没有 <code>Commit</code>，返回给客户端的是错误，客户端知道请求没有成功，所以 <code>Follower</code> 在收到 <code>AppendEntries</code> 请求时，可以把 <code>bob</code> 删除，然后同步 <code>tom</code>，通过这么一个过程，就完成了在 <code>Network Partition</code> 情况下的复制日志，保证了数据的一致性。</p>
-<p>小总结<br>Raft 是能够实现分布式系统强一致性的算法，每个系统节点有三种状态 <code>Follower</code>，<code>Candidate</code>，<code>Leader</code>。实现 <code>Raft</code> 算法两个最重要的事是：选主和复制日志</p>
-<p><a href="https://www.infoq.cn/article/coreos-analyse-etcd" target="_blank" rel="noopener">CoreOS实战剖析etcd</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/27/Raft/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/11/23/Anaconda3/">展开全文 >></a>
         </p>
       
 
@@ -1282,7 +1266,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1294,7 +1278,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 Gilbert Leung
+    		&copy; 2021 Gilbert Leung
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a>
@@ -1374,6 +1358,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
               </li>
              
               <li class="article-tag-list-item">

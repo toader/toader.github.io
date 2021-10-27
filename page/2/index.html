@@ -148,32 +148,33 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Go-3" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-OS-1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/Go-3/">Go-3</a>
+      <a class="article-title" href="/2020/11/12/OS-1/">OS-1</a>
     </h1>
   
 
         
-        <a href="/2019/03/13/Go-3/" class="archive-article-date">
-  	<time datetime="2019-03-13T03:12:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-13</time>
+        <a href="/2020/11/12/OS-1/" class="archive-article-date">
+  	<time datetime="2020-11-12T03:53:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这是第二篇Go相关的学习笔记</p>
-<h2 id="Go学习笔记"><a href="#Go学习笔记" class="headerlink" title="Go学习笔记"></a>Go学习笔记</h2><h3 id="bufio包的实现原理："><a href="#bufio包的实现原理：" class="headerlink" title="bufio包的实现原理："></a>bufio包的实现原理：</h3><p><a href="https://www.jb51.net/article/132552.htm" target="_blank" rel="noopener">地址</a></p>
-<blockquote>
-<p>今天面试，碰到一个同行，学习能力不错，但是对薪资需求很高，他提供了一些web方向的coding的心得，看起来不错</p>
-</blockquote>
-<h3 id="github地址"><a href="#github地址" class="headerlink" title="github地址"></a>github地址</h3><p><a href="https://github.com/EpochCloud/EpochGo" target="_blank" rel="noopener">语言基础</a><br><a href="https://github.com/EpochCloud/quick" target="_blank" rel="noopener">微服务网关实现</a><br><a href="https://github.com/EpochCloud/ConfCenter" target="_blank" rel="noopener">配置中心</a></p>
+        <h1 id="OS：Three-Easy-Pieces"><a href="#OS：Three-Easy-Pieces" class="headerlink" title="OS：Three Easy Pieces"></a>OS：Three Easy Pieces</h1><h2 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h2><p><em>进程、虚拟存储、设备抽象</em></p>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p><em>多个程序分时共享多个处理器；进程/线程间通信</em></p>
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p><em>UNIX文件系统和它的后代们</em> <code>ext2</code> <code>ext3</code> <code>ext4</code> <code>btrfs</code> <code>xfs</code> <code>zfs</code></p>
+<h2 id="Coreutils"><a href="#Coreutils" class="headerlink" title="Coreutils"></a>Coreutils</h2><p><code>xxd</code><br><code>readelf</code></p>
+<p>starti<br>layout asm<br>info register</p>
+<p>dubug工具<a href="http://www.gnu.org/software/gdb/documentation/" target="_blank" rel="noopener">GDB</a></p>
+<p>同一进程的线程共享代码，全局变量，不共享堆栈，寄存器</p>
 
       
 
@@ -197,7 +198,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/13/Go-3/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/11/12/OS-1/">展开全文 >></a>
         </p>
       
 
@@ -227,33 +228,32 @@
 
 
   
-    <article id="post-Go-2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-整理分界线" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/05/Go-2/">Go-2</a>
+      <a class="article-title" href="/2020/10/12/整理分界线/">整理分界线</a>
     </h1>
   
 
         
-        <a href="/2019/03/05/Go-2/" class="archive-article-date">
-  	<time datetime="2019-03-05T12:34:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-05</time>
+        <a href="/2020/10/12/整理分界线/" class="archive-article-date">
+  	<time datetime="2020-10-12T01:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="panic-amp-recover"><a href="#panic-amp-recover" class="headerlink" title="panic &amp; recover"></a>panic &amp; recover</h2><p>这是两个内置函数，这两个内置函数用来处理Go的运行时错误(runtime errors)。panic用来主动抛出错误，recover用来捕获panic抛出的错误。</p>
-<p><strong>基本概念</strong></p>
-<p>panic 和 recover的函数签名如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span> (i <span class="keyword">interface</span>() &#123;&#125;)</span><br><span class="line"><span class="built_in">recover</span> () <span class="keyword">interface</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>引发panic有两种情况，一种是程序主动调用panic函数，另一种程序产生运行时错误，由运行时检测并抛出。<br>发生panic后，程序会从调用panic的函数位置或发生panic的地方立即返回，逐层向上执行函数的defer语句，然后逐层打印函数调用堆栈，直到被recover捕获或运行到最外层函数而推出。</p>
-<p>panic的参数是一个空接口类型interface{}, 所以任意类型的变量都可以传递给panic，空接口的详细介绍下次介绍。<br>调用panic的方法非常简单： panic(xxx)。</p>
-<p>panic不但可以在函数正常流程中抛出，在defer逻辑里也可以再次调用panic或抛出panic。defer里面的panic能够被后续执行的defer捕获。</p>
+        <h2 id="这个提交是个分界线"><a href="#这个提交是个分界线" class="headerlink" title="这个提交是个分界线"></a>这个提交是个分界线</h2><p><strong>之所以选择这个时间，是因为[2019-08-01]这个时间，自己因为事务性的工作太多了，放弃了这个博客的记录。这一年发生了很多的很多的事情</strong></p>
+<h2 id="COVID-19"><a href="#COVID-19" class="headerlink" title="COVID-19"></a>COVID-19</h2><p><strong>这是个绕不开的话题，此前已经计划把以后的工作重心完全转到基础软件+硬件的开发中来。这次疫情更加速了这个过程。接下来回在博客中，把自己这一年来学习到的东西都进行一下总结。</strong></p>
+<p>这一年来非常感谢公司其他同事的努力，让我可以静下心来，从事自己喜欢的技术工作。做一个<code>基础</code>软件工程师。<code>基础</code>是说你的工作要为别人的工作创造条件。你的工作是别人工作的基础，要甘愿做别人的梯子。设计API，给别人提供编程模型。为应用工程师解决实际问题提供基础支持。</p>
+<p>这个疫情期间，再一次重建和稳固了自己的基础认知。从<code>离散数学</code>-<code>数据结构</code>-<code>组成原理</code>-<code>操作系统</code>-<code>算法</code>-<code>编译原理</code>-<code>电路与模拟电子技术</code>-<code>数字逻辑</code>一路回忆起来。<br>MIT6.828  6.824 结合自己的应用开发，基础软件开发。相信自己的认识还是提高了的。接下来，就在这里慢慢梳理下自己的学习路线。希望能给后来者些许参考。</p>
+<p>最后</p>
+<h1 id="中国加油"><a href="#中国加油" class="headerlink" title="中国加油"></a>中国加油</h1><h1 id="待调研系统"><a href="#待调研系统" class="headerlink" title="待调研系统"></a>待调研系统</h1><p><code>mlflow</code><br><code>h2o.ai</code><br><code>tfx</code><br><code>datarobot</code><br><code>dataiku</code><br><code>PerceptiLabs</code></p>
 
       
 
@@ -267,7 +267,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
         		</li>
       		
 		</ul>
@@ -277,7 +277,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/05/Go-2/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/12/整理分界线/">展开全文 >></a>
         </p>
       
 
@@ -307,742 +307,136 @@
 
 
   
-    <article id="post-Go-1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Linux-Command-2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/01/Go-1/">Go-1</a>
+      <a class="article-title" href="/2019/07/30/Linux-Command-2/">Linux Command 2</a>
     </h1>
   
 
         
-        <a href="/2019/03/01/Go-1/" class="archive-article-date">
-  	<time datetime="2019-03-01T09:52:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
+        <a href="/2019/07/30/Linux-Command-2/" class="archive-article-date">
+  	<time datetime="2019-07-30T03:40:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>经过这段时间的学习，整个公司的Go语言的技术栈被搭建起来了，也有一些时间来整理一下，写一点东西出来了。<br>接下来，我们就慢慢的分解整个Go的技术要素，帮助大家成为一个合格的Go系统工程师。</p>
-<p><strong>闭包</strong></p>
-<p>闭包是由函数及其相关引用环境组合而成的实体，一般通过在匿名函数中引用外部函数的局部变量或包全局变量构成。</p>
-<p>闭包 = 函数 + 引用环境</p>
-<p>闭包对闭包外的环境引入是直接引用，编译器检测到闭包，会将闭包引用的外部变量分配到堆上。</p>
-<p>如果函数返回的闭包引用了该函数的局部变量（参数或函数内部变量）：</p>
-<p>1、多次调用该函数，返回的多个闭包所引用的外部变量是多个副本，原因是每次调用函数都会为局部变量分配内存。<br>2、用一个闭包函数多次，如果该闭包修改了其引用的外部变量，则每一次调用该闭包对该外部变量都有影响，因为闭包函数共享外部引用。</p>
-<p>demo:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fa</span><span class="params">(a <span class="keyword">int</span>)</span> <span class="title">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span> <span class="params">(i <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">        <span class="built_in">println</span>(&amp;a, a)</span><br><span class="line">        a =  a + i</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f := fa(<span class="number">1</span>)</span><br><span class="line">    g := fa(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(f(<span class="number">1</span>))</span><br><span class="line">    <span class="built_in">println</span>(f(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(g(<span class="number">1</span>))</span><br><span class="line">    <span class="built_in">println</span>(g(<span class="number">1</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>请预测程序执行结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0xc420014058 1</span><br><span class="line">2</span><br><span class="line">0xc420014058 2</span><br><span class="line">3</span><br><span class="line">0xc420014060 1</span><br><span class="line">2</span><br><span class="line">0xc420014060 2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-<p>上面的演示是个好的编程方式</p>
-<p>如果函数返回的闭包引用的是全局变量a, 则多次调用该函数返回的多个闭包引用的都是同一个a。同理，调用一个闭包多次引用的也是同一个a。此时如果闭包中修改了a值的逻辑，则每次闭包调用都会影响全局变量a的值。使用闭包是为了减少全局变量，所以闭包引用全局变量不是好的编程方式。</p>
-<blockquote>
-<p>对象是附有行为的数据，而闭包是附有数据的行为，闭包仅仅是锦上添花的东西，不是不可缺少的</p>
-</blockquote>
-<p>有关闭包的内部实现原理见下文。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/01/Go-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ubuntu-16-04科学上网" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/03/ubuntu-16-04科学上网/">ubuntu 16.04科学上网</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/03/ubuntu-16-04科学上网/" class="archive-article-date">
-  	<time datetime="2019-02-03T05:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>ubuntu下配置shadowsocks客户端的方法</p>
-</blockquote>
-<p><code>apt-get install shadowsocks</code><br>启动的方法：<br><code>sslocal -s ip -p port -k password -l 1080 -t 600 -m aes-256-cfb</code><br>vim /etc/shadowsocks.json内容如下：<br>{<br>“server”:”ip”,<br>“server_port”:443,<br>“local_port”:1080<br>“password”:”123456”<br>“timeout”:600<br>“method”:”aes-256-cfg”<br>}<br><code>nohup /usr/bin/sslocal -c /etc/shadowsocks/config.json &amp;</code><br>即可后台执行</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/03/ubuntu-16-04科学上网/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Graph-Database-2" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/24/Graph-Database-2/">Graph Database 2</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/24/Graph-Database-2/" class="archive-article-date">
-  	<time datetime="2019-01-24T03:56:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Pregel路线"><a href="#Pregel路线" class="headerlink" title="Pregel路线"></a>Pregel路线</h1><h2 id="工程"><a href="#工程" class="headerlink" title="工程"></a>工程</h2><p><a href="https://github.com/amoudi87/hyracks" target="_blank" rel="noopener">hyracks</a><br><a href="https://github.com/pregelix/pregelix" target="_blank" rel="noopener">pregelix</a></p>
-<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p>作者：Grzegorz Malewicz, Matthew H. Austern .etc.Google Inc 2010-6<br>原文：<a href="http://people.apache.org/~edwardyoon/documents/pregel.pdf" target="_blank" rel="noopener">地址</a></p>
-<blockquote>
-<p>说明：Pregel这篇是发表在2010年的SIGMOD上，Pregel这个名称是为了纪念欧拉，在他提出的格尼斯堡七桥问题中，那些桥所在的河就叫Pregel。最初是为了解决PageRank计算问题，由于MapReduce并不适于这种场景，所以需要发展新的计算模型去完成这项计算任务，在这个过程中逐步提炼出一个通用的图计算框架，并用来解决更多的问题。核心思想源自BSP模型，这个就更早了，是在上世纪80年代由Leslie Valiant(2010年图灵奖得主)提出，之后在1990的Communications of the ACM 上，正式发表了题为A bridging model for parallel computation的文章。目前实际上已经有针对Pregel这篇文章的翻译版本了，不过只翻译了出了前半部分关于Pregel的设计与实现部分。其实后半部分也很重要，有助于理解整个图计算的历史背景，以及Pregel本身的性能和项目本身的演化等，另外最近越来越多的人开始关注这一文章，所以还是抽出时间重新阅读了一遍，并重新翻译出来，以供参考</p>
-</blockquote>
-<p><code>分布式计算</code>,<code>图算法</code></p>
-<h1 id="导引"><a href="#导引" class="headerlink" title="导引"></a>导引</h1><p><code>Pregel</code>  <code>BSP</code>  </p>
-<p>实际应用场景：交通路线图，新闻文章的相似性，疾病爆发路径，以及发表的科学研究文章中的引用关系等<br>经常被用到的算法包括：最短路径算法，聚类算法，各种PageRank算法变种，还有其他具有实际价值的图计算问题，比如最小割，连通分支等。</p>
-<p>对大型图对象进行高效的处理，是非常具有挑战性的。图算法常常表现出比较差的内存访问局部性，针对单个顶点的处理工作过少，以及计算过程中伴随着的并行度的改变等问题，分布式的介入更是加剧了locality的问题，并且增加了在计算过程中机器发生故障的概率。尽管大型图对象无处不在，及其在商业上的重要性，但目前应该还不存在一种在大规模分布式环境下，可以基于各种图表示方法来实现任意图算法的，可扩展的通用系统。</p>
-<p>要实现一种处理大规模图对象的算法通常意味着要在以下几点中作出选择：<br>1、为特定的图应用定制相应的分布式实现。在面对新的图算法或者图表示方式时，就需要做大量的重复实现，不通用。<br>2、基于现有的分布式计算平台，通常情况下，他们并不适合做图处理。比如mapreduce就是一个对许多大规模计算问题都非常合适的计算框架。有时它也被用来对大规模图对象进行挖掘，但是通常在性能和易用性上都不是最优的。尽管这种对数据处理的基本模式经过扩展，已经可以使用方便的聚合<br>3、使用单机的图算法库，如BGL，LEAD，NetworkX，JDSL，Standford GraphBase，FGL等，但对可以解决的问题的规模提出了很大的限制。<br>4、使用已有的并行图计算系统。Parallel BGL和CGMgraph这些库实现了很多并行图算法，但是并没有解决对大规模分布式系统中来说非常重要的容错等一些问题。</p>
-<p>Pregel计算系统的灵感来自valiant提出的BSP（Bluk Synchronous Parallell）模型。Pregel的计算过程由一系列被称为超级步（superstep）的迭代（iterations）组成。在每个超级步中，计算框架都会针对每个顶点调用用户自定义的函数，这个过程是并行的。这个过程不是一个一个顶点的串行调用，同一时刻可能有多个顶点被调用。根据设计，这种计算模型非常的适合分布式的实现；它没有将任何检测执行顺序的机制暴漏在单个超级步中，所有的通信都仅限于S到S+1之间。</p>
-<p>模型的同步性使得在实现算法时很容易理解程序的语义，并且使得Pregel程序天生对异步系统中经常出现的死锁以及临界资源竞争都是免疫的。理论上，Pregel程序的性能即使在与足够并行化的异步系统的对比中都有一定的竞争力。因此通常情况下图计算的应用中顶点的数量要远远大于机器的数量，所以必须要平衡各机器之间的负载，这样各个superstep间的同步就不会增加过多的延迟。</p>
-<h1 id="计算模型"><a href="#计算模型" class="headerlink" title="计算模型"></a>计算模型</h1><p>在<code>Pregel</code>计算模型中，输入是一个有向图，该有向图的每一个顶点都有一个相应的由String描述的顶点标识符。每一个顶点都有一个与之对应的可修改的用户自定义值。每一条有向边都和其源顶点关联，并且也拥有一个可修改的用户自定义值，并同时还记录了其目标顶点的标识符。</p>
-<p>一个典型的Pregel计算过程如下：读取输入初始化改图，当图被初始化好后，运行一系列的超级步直到整个计算结束，这些超级步之间通过一些全局的同步点分隔，输出结果结束计算。</p>
-<p>在每个超级步中，顶点的计算都是并行的，每个顶点执行相同的用于表达给定算法逻辑的用户自定义函数。每个顶点执行相同的用于表达给定算法逻辑的用户自定义函数。每个顶点可以修改其自身及其出边的状态，接收前一个超级步（S-1）中发送给它的消息，并发送消息给其他顶点（这些消息将会在下一个超级步中被接收），甚至是修改整个图的拓扑结构。边，在这种计算模式中并不是核心对象，没有相应的计算运行在其上。</p>
-<p>算法是否能够结束取决于是否所有的顶点都已经<code>vote</code>,标识其自身已经达到<code>halt</code>状态了。在第0个超级步，所有顶点都处于<code>active</code>状态，所有的<code>active</code>顶点都会参与所有对应<code>superstep</code>中的计算。顶点通过将其自身的<code>status</code>设置成<code>halt</code>来表示它已经不再<code>active</code>。这就表示该顶点没有进一步的计算需要执行，除非被再次被外部触发，而Pregel框架将不会在接下来的<code>superstep</code>中执行该顶点，除非该顶点收到其他顶点传送的消息。如果顶点接收到消息被唤醒进入<code>active</code>状态，那么在随后的计算中该顶点必须显示的deactive，还是说顶点此后会一直处于<code>active</code>状态，然后要想不<code>active</code>必须显示<code>deactive</code>，但也可以选择不<code>deactive</code>，还是说顶点必须要显示<code>deactive</code>呢，感觉前者更合理。整个计算在所有顶点都达到<code>inactive</code>状态，并且没有message在传送的时候宣告结束。</p>
-<p>整个<code>Pregel</code>程序的输出是所有顶点输出的集合。通常来都是一个跟输入同构的有向图，但是这并不是系统的一个必要属性，因为顶点和边可以在计算的过程中进行添加和删除。比如一个聚类算法，就有可能是从一个大图中生成的非连通顶点构成的小集合；一个对图的挖掘算法就可能仅仅是输出了从图中挖掘出来的聚合数据等。</p>
-<p>图2通过一个简单的例子来说明这些基本概念：给定一个强连通图，图中每个顶点都包含一个值，它会将最大值传播到每个顶点。在每个超级步中，顶点会从接收到的消息中选出一个最大值，并将这个值传送给其所有的相邻顶点。当某个超级步中已经没有顶点更新其值，那么算法就宣告结束。</p>
-<p>我们选择了一种纯消息传递模型，忽略远程数据读取和其他共享内存的方式，有两个原因，第一，消息传递有足够的表达能力，没必要使用远程读取（remote reads）。我们还没有发现哪种算法是消息传递所不能表达的。第二是出于性能的考虑。在一个集群环境中，从远程机器上读取一个值是会有很高的延迟的，这种情况很难避免。而我们的消息传递模式通过异步和批量的方式传递消息，可以缓解这种远程读取的延迟。</p>
-<p>图算法其实也可以被写成是一系列的链式MapReduce调用。我们选择了另外一种不同的模式的原因在于可用性和性能。Pregel将顶点和边保存在执行计算的那台机器上，而仅仅利用网络来传输信息。而MapReduce本质上是函数式的，所以将图算法用链式MapReduce来实现就需要将整个图的状态从一个阶段传递到另外一个阶段，这样就需要许多的通信和随之而来的序列化和反序列化的开销。另外，这一连串的MapReduce作业各执行阶段需要的协同工作也增加了变成复杂度，而在Pregel中通过引入超级步避免来这样的情况。</p>
-<h1 id="C-API"><a href="#C-API" class="headerlink" title="C++ API"></a>C++ API</h1><p>这一节主要介绍<code>Pregel C++ API</code>中最重要的几个方面，暂时忽略相关其他机制。编写一个<code>Pregel</code>程序需要继承<code>Pregel</code>中已与定义好的一个基类-<code>Vertex</code>类。</p>
-<p>该类的模版参数中定义了三个值类型参数，分别表示顶点，边和消息。每一个顶点都有一个对应的给定类型的值。这种形式可能看上有很多限制，但用户可以用<code>Protocol buffer</code>来管理增加的其他定义和属性。而边和消息类型的行为比较类似。</p>
-<p>用户覆写Vertex类的虚函数Compute()，该函数会在每一个超级步中对每一个顶点进行调用。预定义的Vertex类方法允许Computer()方法查询当前顶点及其边的信息，以及发送消息到其他的顶点。Compute()方法可以通过调用GetValue()方法来得到当前顶点的值，或者通过调用MutableValue()方法来修改当前顶点的值。同时还可以通过由出边的迭代器提供的方法来查看修改出边对应的值。这种状态的修改是立时可见的。由于这种可见性仅限于被修改的那个顶点，所以不同顶点并发进行的数据访问是不存在竞争关系的。</p>
-<p>顶点和其对应的边所关联的值是唯一需要在超级步之间持久化的顶点级状态。将由计算框架管理的图状态限制在一个单一的顶点值或边值的这种做法，简化了主计算流程，图的分布以及故障恢复。</p>
-<h2 id="消息传递机制"><a href="#消息传递机制" class="headerlink" title="消息传递机制"></a>消息传递机制</h2><p>顶点之间的通信是直接通过发送消息，每条消息都包含了消息值和目标顶点的名称。消息值的数据类型是由用户通过Vertex类的模版参数来制定。</p>
-<p>在一个超级步中，一个顶点可以发送任意多的消息。当顶点V的Compute()方法在S+1超级步中被调用时，所有在S超级步中发送给顶点V的消息都可以通过一个迭代器来访问到。在该迭代器中并不保证消息的顺序，但是可以保证消息一定会被传送并且不会重复。</p>
-<p>一种通用的使用方式为：对一个顶点V，遍历其自身的出边，向每条出边发送消息到该边的目标顶点，如图4中<code>PageRank</code>算法所示的那样。但是，<code>dest_vertex</code>并不一定是顶点V的相邻顶点。一个顶点可以从之前收到的消息中获取到其非相邻顶点的标识符，或者顶点标识符可以隐式的得到。比如，图可能是一个<code>clique</code>(一个图中两两相邻的一个点集，或是一个完全子图)，顶点的命名规则都是已知的（从V1到Vn），在这种情况下甚至都不需要显示的保存边的信息。</p>
-<p>当任意一个消息的目标顶点不存在时，便执行用户自定义的<code>handlers</code>。比如在这种情况下，一个<code>handler</code>可以创建该不存在的顶点或从源顶点中删除这条边。</p>
-<h2 id="Combiners"><a href="#Combiners" class="headerlink" title="Combiners"></a>Combiners</h2><p>发送消息，尤其是当目标顶点在另外一台机器时，会产生一些开销。某些情况可以在用户的协助下降低这种开销。比方说，假如Compute()收到许多的int值消息，而它仅仅关心的是这些值的和，而不是每一个int值，这种情况下，系统可以将发往同一个顶点的多个消息合并成一个消息，该消息中仅包含它们的和值，这样就可以减少传输和缓存的开销。</p>
-<p>Combiners在默认情况下并没有被开启，这是因为要找到一种对所有顶点的Compute()函数都合适的Combiner是不可能的。而用户如果想要开启Combiner的功能，需要继承Combiner类，覆写起virtual函数Combine()。框架并不会确保哪些消息会被Combine而哪些不会，也不会去报传送给Combine()的值和Combining操作的执行书序。所以Combiner只应该对那些满足交换律和结合律的操作打开。</p>
-<p>对于某些算法来说，比如单源最短路径，我们观察到通过使用Combiner将流量降低了4倍多。</p>
-<h2 id="Aggregators"><a href="#Aggregators" class="headerlink" title="Aggregators"></a>Aggregators</h2><p><code>Pregel</code>的<code>Aggregators</code>是一种提供全局通信，监控和数据查看的机制。在一个超级步S中，每一个顶点都可以向一个<code>aggregator</code>提供一个数据，系统会使用一种<code>reduce</code>操作来负责聚合这些值，而产生的值将会对所有的顶点在超级步S+1中可见。<code>Pregel</code>包含了一些预定义的<code>aggregators</code>，如可以在各种整数和<code>string</code>类型上执行的<code>min</code>，<code>max</code>，<code>sum</code>操作。</p>
-<p><code>Aggregators</code>可以用来做统计。例如，一个<code>sum aggregator</code>可以用来统计每个顶点的出度，最后相加就是整个图的边的条数。更复杂的一些<code>reduce</code>操作还可以产生统计直方图。</p>
-<p><code>Aggregators</code>也可以用来做全局协同，例如，Compute()函数的一些逻辑分支可能在某些超级步中执行，直到<code>and aggregator</code>表明所有顶点都满足了某条件，之后执行另外的逻辑分支直到结束。又比如一个作用在顶点ID之上的<code>min</code>和<code>max aggregator</code>，可以用来选定某顶点在整个计算过程中扮演某种角色等。</p>
-<p>要定义一个新的aggregator，用户需要继承预定义的Aggregator类，并定义在第一个接收到输入值后如何初始化，以及如何将接收到的多个值最后reduce成一个值。Aggregator操作也应该满足交换律和结合律。</p>
-<p>默认情况下，一个aggregator仅仅会对来自同一个超级步的输入进行聚合，但是有时也可能需要定义一个sticky aggregator，它可以从所有的supersteps中接收数据。这是非常有用的，比如要维护全局的边条数，那么就仅仅在增加和删除边的时候才调整这个值了。</p>
-<p>还可以有更高级的用法。比如，可以用来实现一个𝝙-stepping最短路径算法所需要的分布式优先队列。每个顶点会根据它的当前距离分配一个优先级bucket，在每个超级步中，顶点将它们的indices汇报给min aggregator。在下一个超级步中，将最小值广播给所有worker，然后让在最小index的bucket中的顶点放松它们的边。有关𝝙-stepping最短路径算法可以参考这篇文章：<a href="http://www.cs.utexas.edu/~pingali/CS395T/2012sp/papers/delta-stepping.pdf" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Topology-Mutations"><a href="#Topology-Mutations" class="headerlink" title="Topology Mutations"></a>Topology Mutations</h2><p>有一些图算法可能需要改变图的整个拓扑结构。比如一个聚类算法，可能会将每个聚类替换成一个单一顶点，又比如一个最小生成树算法会删除所有除力组成树的边之外的其他边。正如用户可以在自定义的Compute()函数能发送消息，同样可以产生在图中增添和删除边或顶点的请求。</p>
-<p>多个顶点有可能会在同一个超级步中产生冲突的请求（比如两个请求都要增加一个顶点V，但初始值不一样）。 Pregel中用两种机制来决定如何调用：局部有序和handlers。</p>
-<p>由于是通过消息发送的，拓扑改变在请求发出以后，在超级步中可以高效地执行。在该超级步中，删除会首先被执行，先删除边后删除顶点，因为顶点的删除通常也意味着删除其所有的出边。然后执行添加操作，先增加顶点后增加边，并且所有的拓扑改变都会在Compute()函数调用前完成。这种局部有序保证了大多数冲突的结果的确定性。</p>
-<p>剩余的冲突就需要通过用户自定义的handlers来解决。如果在一个超级步中有多个请求需要创建一个相同的顶点，在默认情况下系统会随便挑选一个请求，但有特殊需求的用户可以定义一个更好的冲突解决策略，用户可以在Vertex类中通过定义一个适当的handler函数来解决冲突。同一种handler机制将被用于解决由于多个顶点删除请求或多个边增加请求或删除请求而造成的冲突。我们委托handler来解决这种类型的冲突，从而使得Compute()函数变得简单，而这样同时也会限制handler和Compute()的交互，但这在应用中还没有遇到什么问题。</p>
-<p>我们的协同机制比较懒，全局的拓扑改变在被apply之前不需要进行协调，只有在它被接收到然后apply时才进行控制，这样就简化了流程，同时能让发送更快。这种设计的选择是为了优化流式处理。直观来讲就是对顶点V的修改引发的冲突由V自己来处理。</p>
-<p>Pregel同样也支持纯local的拓扑改变，例如一个顶点添加或删除其自身的出边或删除其自己。Local的拓扑改变不会引发冲突，并且顶点或边的本地增减能够立即生效，很大程度上简化了分布式的编程。</p>
-<h2 id="Input-and-Output"><a href="#Input-and-Output" class="headerlink" title="Input and Output"></a>Input and Output</h2><p>可以采用多种文件格式进行图的保存，比如可以用text文件，关系数据库，或者Bigtable中的行。为了避免规定四一种特定文件格式，Pregel将从输入中解析出图结构的任务从图的计算过程中进行了分离。类似的，结果可以从任何一种格式输出并根据应用程序选择最适合的存储方式。Pregel library本身提供了很多常用文件格式的readers和writers，但是用户可以通过继承Reader和Writer类来定义它们自己的读写方式。</p>
-<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><p>Pregel是为Google的集群架构而设计的。每一个集群都包含了上千台机器，这些机器都分列在许多机架上，机架之间有这非常高的内部通信宽带。集群之间是内部互联的，但地理上是分布在不同地方的。</p>
-<p>应用程序通常一个集群管理系统执行，该管理系统会通过调度作业来优化集群资源的使用率，有时候会杀掉一些任务或将任务迁移到其他机器上去。该系统中提供了一个名字服务系统，所以各任务间可以通过与物理地址无关的逻辑名称来各自表示自己。持久化的数据被存储在GFS或Bigtable中，而临时文件比如缓存的消息则存储在本地磁盘中。</p>
-<h2 id="Basic-Architecture"><a href="#Basic-Architecture" class="headerlink" title="Basic Architecture"></a>Basic Architecture</h2><p>Pregel library将一张图划分成许多的partitions，每一个partition包含了一些顶点和以这些顶点为起点的边。将一个顶点分配到某个partition上去取决于该顶点的ID，这意味着即使在别的机器上。也是可以通过顶点的ID来知道该顶点时属于哪个partition，即使该顶点已经不存在了。默认的partition函数为hash(ID) mod N，N为所有partition总数，但是用户可以替换掉它。</p>
-<p>将一个顶戴呢分配给哪个worker机器是整个Pregel中对分布式不透明的主要地方。有些应用程序使用默认的分配策略就可以工作的很好，但是有些应用可以通过定义更好地利用了图本身的locality的分配函数而从中获益。比如一种典型的可以用于Web graph的启发式方法是，将来自同一个站点的网页数据分配到一台机器上进行计算。</p>
-<p>在不考虑出错的情况下，一个Pregel程序的执行过程分为如下几个步骤：<br>1.用户程序的多个copy开始在集群中的机器上执行。其中有一个copy将会作为master，其他的作为worker，master不会被分配图的任何一部分，而只是负责协调worker间的工作。worker利用集群管理系统中提供的名字服务来定位master位置，并发送注册信息给master。<br>2.Master决定对这个图需要多少个partition，并分配一个或多个partitions到worker所在的机器上。这个数字也可能由用户进行控制。一个worker上有多个partition的情况下，可以提高partitions间的并行度，更好的负载均衡，通常都可以提高性能。每一个worker负责维护在其之上的图的那一部分的状态（顶点及边的增删），对该部分中的顶点执行Compute()函数，并管理发送出去的以及接收到的消息。每一个worker都知道该图的计算在所有worker中的分配情况。<br>3.Master进程为每个worker分配用户输入中的一部分，这些输入被看做是一系列记录的集合，每一条记录都包含任意数目的顶点和边。对输入的划分和对整个图的划分都是正交的，通胀都是基于文件边界进行划分。如果一个worker加载的顶点刚好是这个worker所分配到的那一部分，那么相应的数据结构就会被立即更新。否则，该worker就需要将它发送到它所应属于的那个worker上，当所有的输入都被load完成后，所有的顶点将被标记为active状态。<br>4.Master给每个worker发指令，让其运行一个超级步，worker轮询在其之上的顶点，会为每个partition启动一个线程。调用每个active顶点的Compute()函数，传递给它从上一次超级步发送来的消息。消息是被异步发送的，这是为了使得计算和通信可以并行，以及进行batching，但是消息的发送会在本超级步结束前完成。当一个worker完成了其不断重复该步骤，只要有顶点还在active状态，或者还有消息在传输。<br>5.计算结束后，master会给所有的worker发指令，让它保存它那一部分的计算结果。</p>
-<h2 id="Fault-tolerance"><a href="#Fault-tolerance" class="headerlink" title="Fault tolerance"></a>Fault tolerance</h2><p>容错是通过checkpointing来实现的。在每个超级步的开始阶段，master命令worker让它保存它上面的partitions的状态到持久存储设备，包括顶点值，边值，以及接收到的消息。Master自己也会保存aggregator的值。</p>
-<p>work的失效是通过master发给它的周期性的ping消息来检测的。如果一个worker在特定的时间间隔内没有收到ping消息，该worker进程会终止。如果master在一定时间内没有收到worker的反馈，就会将该worker进程标记为失败。</p>
-<p>当一个或多个worker发生障碍，被分配到这些worker的partitions的当前状态信息就丢失了。Master重新分配图的partition到当前可用的worker集合上，所有的partition会从最近的某超级步S开始时写出的checkpoint中重新加载状态信息。该超级步可能比在失败的worker上最后运行的超级步S‘早好几个阶段，此时失去的几个superstep将需要被重新执行。所有的partition都需要重新分配，而不仅仅是失败的worker上的那些，否则如何重新执行丢失的超级步，也正是这样才有了下面的confined recovery。我们对checkpoint频率的选择基于某个故障模型的平均时间，以平衡checkpoint的开销和恢复执行的开销。</p>
-<p>为了改进恢复执行的开销和延迟，confined recovery已经在开发中。除了基本的checkpoint，worker同时还会将其在加载图的过程中和超级步中发送出去的消息写入日志。这样恢复就会被限制在丢掉的那些partitions上。它们会首先通过checkpoint进行恢复，然后系统会通过回放来自正常的partitions的记入日志的消息以及恢复过来的partitions重新生成的消息，更新状态到S‘阶段。这种方式通过只对丢失的partitions进行重新计算节省了在恢复时消耗的计算资源，同时由于每个worker只需要恢复很少的partitions，减少了恢复时的延迟。对发送出去的消息进行保存会产生一定的开销，但是通常机器上的磁盘带宽不会让这种IO操作称为瓶颈。</p>
-<p>confined recovery要求用户算法是确定性的，以避免原始执行过程中所保存下来的消息与恢复时产生的新消息并存情况下带来的不一致。随机化算法可以通过基于超级步和partition产生一个伪随机数生成器来使之确定化。非确定性算法需要关闭confined recovery而使用老的恢复机制。</p>
-<h2 id="Worker-implementation"><a href="#Worker-implementation" class="headerlink" title="Worker implementation"></a>Worker implementation</h2><p>一个worker机器会在内存中维护分配到其之上的graph partition的状态。概念上讲，可以简单地看做是一个从顶点ID到顶点状态的Map，其中顶点状态包括如下信息：该顶点的当前值，一个以该顶点为起点的出边（包括目标顶点ID，边本身的值）列表，一个保存了接收到的消息的队列，以及一个记录当前是否active的标志位。该worker在每个超级步中，会循环遍历所有顶点，并调用每个顶点的Compute()函数，传给该函数顶点的当前值，一个接收到的消息的迭代器和一个出边的迭代器。这里没有对入边的访问，原因是每一条入边其实都是其源顶点的所有出边的一部分，通常在另外的机器上。</p>
-<p>出于性能的考虑，标志顶点是否为active的标志位是和输入消息队列分开保存的。另外，只保存了一份顶点值和边值，但有两份顶点active flag和输入消息队列存在，一份是用于当前超级步，另一个用于下一个超级步。当一个worker在进行超级步S的顶点处理时，同时还会有另外一个线程负责接收从处于同一个超级步的其他worker接收消息。由于顶点当前需要的是S-1超级步的消息，那么对superstep S和superstep S+1的消息就必须分开保存。类似的，顶点V接收到了消息表示V将会在下一个超级步中处于active，而不是单前这一次。</p>
-<p>当Compute()请求发送一个消息到其他顶点时，worker首先确认目标顶点是属于远程的worker机器，还是当前worker。如果是在远程的worker机器上，那么消息就会被缓存，当缓存大小达到一个阈值，最大的那些缓存数据将会被异步地flush出去，作为单独的一个网络消息传输到目标worker。如果是在当前worker，那么就可以做相应的优化：消息就会直接被放到目标顶点的输入消息队列中。</p>
-<p>如果用户提供了Combiner，那么在消息被加入到输出队列或者到达输入队列时，会执行combiner函数。后一种情况并不会节省网络开销，但是会节省用户消息存储的空间。</p>
-<h2 id="Master-implementation"><a href="#Master-implementation" class="headerlink" title="Master implementation"></a>Master implementation</h2><p>Master主要负责的worker之间的工作协调，每一个worker在其注册到master的时候被分配一个唯一的ID。Master内部维护着一个当前活动的worker列表，该列表中就包括每个worker的ID和地址信息，以及那些worker被分配到了整个图的哪一部分。Master中保存这些信息的数据结构大小与partations的个数相关，与图中的顶点和边的数目无关。因此，虽然只有一台master，也足够用来协调对一个非常大的图的计算工作。</p>
-<p>绝大部份的master的工作，包括输入，输出，计算，保存以及从checkpoint中恢复，都将会在一个叫做barriers的地方终止：Master在每一次操作时都会发送相同的指令到所有的活着的worker，然后等待从每个worker的响应，如果任何一个worker失败了，master便进入4.2节中描述的恢复模式。如果barrier同步成功，master便会进入下一个处理阶段，例如master增加超级步的index，并进入下一个超级步的执行。</p>
-<p>Master同时还保存着整个计算过程以及整个graph的状态的统计数据，如图的总大小，关于出度分布的柱状图，处于active状态的顶点个数，在当前超级步的时间信息和消息流量，以及所有用户自定义aggregators的值等。为方便用户监控，Master在内部运行了一个<code>HTTP</code>服务器来显示这些信息。</p>
-<h2 id="Aggregators-1"><a href="#Aggregators-1" class="headerlink" title="Aggregators"></a>Aggregators</h2><p>每个Aggregator会通过对一组value值集合应用aggregation函数计算出一个全局值。每一个worker都保存了一个aggregators的实例集，由type name和实例名称来标识。当一个worker对graph的某一个partition执行一个超级步时，worker会combine所有的提供给本地的那个aggregator实例的值到一个local value：即利用一个aggregator对当前partition中包含的所有顶点值进行局部规约。在超级步结束时，所有workers会将所有包含局部规约值的aggregators的值进行最后的汇总，并汇报给master。这个过程是由所有worker构造出一颗规约树而不是顺序的通过流水线的方式来规约，这样做的原因是为了并行化规约时CPU的使用。在下一个超级步开始时候，master就会将aggregators的全局值发送给每一个worker。</p>
-<h1 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h1><p>本节包含四个例子，它们是由Pregel用户开发地用来解决如下实际问题的简化版算法：PageRank，最短路径，二分图匹配和Semi-Clustering算法。</p>
-<h2 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank"></a>PageRank</h2><p>首先来简要介绍下PageRank算法：将文献检索中的引用理论用到Web中，引用网页的链接数一定程度上反映了该网页的重要性和质量。PageRank发展了这种思想，网页间的链接是不平等的。PageRank定义如下：我们假设T1…Tn指向网页A。参数d是制动因子，取值在0，1之间。通常d等于0.85。网页A的PageRank值由下式给出：<br>PageRank或PR（A）可以用简单的迭代算法计算，计算过程是收敛的，随着迭代次数的增加，各网页的PageRank值趋于平稳。可以从如下角度进行理解：<br>1.假设网上冲浪时随机的，不断点击链接，从不返回，最终烦了，另外随机选一个网页冲洗开始冲浪。随机访问一个网页的可能性就是它的PageRank值。制动因子d是随机访问一个网页烦了的可能性，随机另选一个网页。对单个网页或一组网页，一个重要的变量加入到制动因子中。这允许个人可以故意的误导系统，以得到较高的PageRank值。<br>2.直觉上判断，一个网页有很多网页指向它，或者一些PageRank值高的网页指向它，则这个网页很重要。直觉地，在Web中，一个网页被很多网页引用，那么这个网页值得一看。一个网页就像Yahoo这样重要的主页引用即使一次，也值得一看。如果一个网页的质量不高，或者是死链接，像Yahoo这样的主页不会链向它。PageRank处理了这两方面因素，并通过网络链接递归地传递。</p>
-<p>关于该公式需要说明的是，Google后来递归时使用了1-d/N，公式的其他部分未作任何变动，这里的N是互联网中全部的网页数量，也就是本论文中使用的公式，据说这样做使得PageRank变为了被随机访问的期望值。关于PageRank更具体的解释可以参考这篇文章</p>
-<p>PageRank算法的Pregel实现如图4所示。PageRankVertex继承自Vertex类。顶点value类型是double，用来保存PageRank中间值，消息类型也是double，用来传输PageRank分数，边的value类型是void，因为不需要存储任何信息。我们假设，在第0个超级步时，图中各顶点的value值被初始化为1/NumVertices()。在前30个超级步中，每个顶点都会沿着它的出边发送它的PageRank值除以出边数后的结果值。从第1个超级步开始，每个顶点会将到达的消息中的值加到sum值中，同时将它的PageRank值设为0.15/NumVertices()+0.85*sum。到了第30个超级步后，就没有需要发送的消息了，同时所有的顶点VoteToHalt。在实际中，PageRank算法需要一直运行直到收敛，可以使用aggregators来检查是否满足收敛条件。</p>
-<h2 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h2><p>最短路径问题是图论中最有名的问题之一了，同时具有广泛的应用，该问题有几个形式：单源最短路径，是指要找出从某个源顶点到其他所有顶点的最短路径；s-t最短路径，是指要找出给定源顶点s和目标顶点t间的最短路径，这个问题具有广泛的实验应用比如寻找驾驶路线，并引起了广泛关注，同时它也是相对简单的；全局最短路径，对于大规模的图对象来说通常都不太实际，因此它的空间复杂度是O（V*V）的。为简化起见，我们这里以非常适于用Pregel解决的单源最短路径为例，实现代码见图5。</p>
-<p>在该算法中，我们假设与顶点关联的那个值被初始化为INF（比从源点到图中其他顶点的所有可能距离都大的一个常量）。在每个超级步中，每个顶点会首先接收到来自邻居传送过来的消息，该消息包含更新过的从源顶点到该顶点的潜在的最短距离，如果这些更新利的最小值小于该顶点当前关联值，那么顶点就会更新这个值，并发送消息（该消息包含了该顶点的关联值+每个出边的关联值）给它的邻居。在第一个超级步中，只有源顶点会更新它的关联值（从INF改为0），然后发送消息给它的直接邻居。然后这些邻居会更新它们的关联值，然后继续发送消息给它们的邻居，如此循环往复。当没有更新再发生的时候，算法就结束，之后所有顶点的关联值就是从源顶点到它的最短路径，若值为INF表示该顶点不可达。如果所有的边权重都是非负的，就可以保证该过程肯定会结束。</p>
-<p>该算法中的消息保存都是潜在的最小距离。由于接收顶点实际上只关注最小值，因此该算法是可以通过combiner进行优化的，combiner实现如图6所示，它可以大大减少worker间的消息量，以及在执行下一个超级步前所需要缓存的数据量。图5中的实现只是计算出了最短路径，如果要计算最短路径生成树也是很简单的。</p>
-<p>与其他类似的串行算法比如Dijkstra或者是Bellman-Ford相比，该算法需要更多的比较次数，但是它可以用来解决对于单机版实现很难解决的那个规模上的最短路径问题。还有一些更高级的并行算法，比如Thorup和𝝙-stepping，这些高级算法也可以在Pregel系统中实现。但是图5中的那个实现，由于其比较简单同时性能也还可以接受，对于那些普通用户来说也还是很具有吸引力的。</p>
-<h2 id="二分匹配"><a href="#二分匹配" class="headerlink" title="二分匹配"></a>二分匹配</h2><p>二分匹配算法的输入由两个不同的顶点集合组成，所有边的两顶点分别位于两个集合中，输出是边的一个子集，它们之间没有公共顶点。极大匹配是指在当前已完成的匹配下，无法再通过增加未完成匹配的边的方式来增加匹配的边数。我们实现了一个随机化的极大匹配算法，以及一个最大权匹配算法；我们只在此描述下前者。</p>
-<p>在该算法的Pregel实现中，顶点的关联值是由两个值组成的元组：一个是用于标识该顶点所处集合的flag，一个是跟它所匹配的顶点名称。边的关联值类型为void，消息的类型为boolean。该算法是由四个阶段组成的多个循环组成，用来标识当前所处阶段的index可以通过用当前超级步的index mod 4得到。</p>
-<p>在循环的阶段1，右边集合中那些还未被匹配的顶点随机选择它接收到的消息中的其中一个，并发送消息表示接受该请求，然后给其他请求者发送拒绝消息。然后，它也无条件的VoteToHalt。</p>
-<p>在循环的阶段2，左边集合中那些还未被匹配的顶点最多会收到一个确认消息。它会通知匹配顶点，然后无条件的VoteToHalt，它的工作已经完成。</p>
-<h2 id="Semi-Clustering"><a href="#Semi-Clustering" class="headerlink" title="Semi-Clustering"></a>Semi-Clustering</h2><h1 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h1><p>我们使用5.2节描述的单源最短路径（SSSP）实现在一个由300台多核PC组成的集群上进行了多次实验。得到了在所有边的权重为1情况下，针对不同大小规模下的二叉树（为了研究可扩展属性）和对数正态随机图（为了研究更接近真实环境下的性能）的运行时间。</p>
-<p>测量结果没有包含用于初始化集群，在内存中生成测试图以及进行结果验证的时间。因为所有的实验运行的时间都相对比较短，因此出错的概率比较低，同时关闭了checkpointing。</p>
-<p>图7展示了一个具有十亿个顶点（由于是树，故边数应为十亿-1）的二叉树最短路径算法的在Pregel worker数目从50到800之间的情况下的运行时间。通过该图可以看出Pregel伴随着worker数增加的扩展性。可以看到运行时间从170秒降到了17.3秒，相当于使用16倍的worker数获得了大概10倍的加速。</p>
-<p>图8展示了二叉树的顶点数从十亿变化到五百亿时的最短路径算法运行时间，此时worker数是固定的，总共是800个worker被调度300台机器上。通过该图可以看出在顶点数不断增加下的Pregel系统的扩展性。在这个变化过程中，运行时间从17.3秒增长到了702秒，运行时间基本上是随着图大小线性增长的，但是增长地要相对慢些</p>
-<p>前面的实验只是展示了Pregel随着worker数目和图大小增加的情况下的可扩展性，但是二叉树很明显无法代表实际中经常碰到的那些图。因此我们需要继续实验，通过使用一个出度具有对数正态分布的随机生成的图来进行，同时我们令μ=4，σ=1.3，此时的平均出度为127.1。这个分布与很多现实中的大型图都很类似，比如web graph或者是社交网络，在这些情况下，大多数顶点的度都相对较小，但是存在少数的一些顶点的度非常大—可能成千上万甚至更多。</p>
-<p>图9展示了这种类型的图在顶点数从一千万到十亿（此时边数降超过127.1B）的情况下的最短路径算法运行时间，也是总共800个worker被调度300台机器上。最大规模的情况下的运行时间超过了10分钟。</p>
-<p>在所有的实验中，图中worker上的partition方式都是采用的默认的基于随机hash的partition函数；如果使用一个topolog-aware的partition函数应该可以得到更好的性能。此外这里只是使用了一个最基本的最短路径算法；如果使用一个更高级的算法还能再达到更好的性能。因此，本节的实验课过并不代表了使用Pregel所能达到的最好性能。这些结果只能用来展示：只需要编写非常少的代码就可以达到令人满意的性能。实际上，我们的系统在1B顶点和边的情况下的性能结果与下一节提到的运行在112个处理单元组成的集群上，处理具有256M顶点和1B条边的图的<code>Parallel BGL</code>的𝝙-stepping算法结果不相上下，同时Pregel还可以扩展到更大的规模上。</p>
-<h1 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h1><p>Pregel是一个分布式编程框架，专注于为用户编写图算法提供自然的API，同时将消息机制和容错等底层分布式细节隐藏起来。从概念上看，它非常类似于MapReduce，但是具有更自然的面向图的API和更高效的在图上进行迭代计算的支持。由于专注于图对象使得它与其他的一些分布式框架比如Sawzall，Pig Latin，Drayad 区别开来。Pregel之所以不同，还因为它实现了一个有状态的模型，在这个模型中进程会一直存活着，不断地进行计算，通信和修改本地状态等等，这与数据流模型不同，在数据流模型中进程只是在输入数据上进行计算，然后产生输出数据再交由其他进程处理。</p>
-<p>Pregel借鉴了BSP模型的思想，比如它里面的由计算和通信组成的超级步概念。目前已经存才大量的普通BSP库实现，比如Oxford BSP，Green BSP，BSP lib和Paderborn University BSP Library。这些库本身在提供的通信原语，处理分布式环境下的问题（比如容错）的方式，负载平衡等方面都有些不同。据我们所知，这些BSP实现都是只在几十台机器上运行过，可扩展性和容错性都比较有限，同时都没有提供一个面向图处理的API。</p>
-<p>跟Pregel最接近的应该算是Parallel Boot Graph Library和CGM Graph了。Parallel BGL 为分布式的图定义了一些关键概念，提供了一个基于MPI的实现，同时基于此实现了大量的图算法。并试图维护与BGL（串行的）的兼容性，以方便算法的移植。它内部实现采用了property map来存储与图的顶点和边相关的信息，采用ghost cells存放与远程组件相关的值。在具有很多远程组件时这会影响可扩展性。Pregel使用了一种显式的消息机制来获取远程信息，同时不会将这些值存放在本地。最关键的区别是Pregel提供了容错机制来处理计算环境中发生的故障，这就使得它可以部署在一个很大的集群环境中，在这种环境的集群中故障是很常见的，比如硬件产生了故障或者高优先级的作业发生了资源抢占。</p>
-<p>CGM Graph在概念上非常类似于Pregel，它通过基于MPI的CGM（Coarse Grained Multicomputer）模型提供了大量并行图算法实现。它暴露给用户更多的底层分布式机制，更关注于提供图算法实现而不是提供一个实现这些算法的基础设施。CGM Graph使用了面向对象的编程风格，与Parallel BGL和Pregel的泛型编程风格相比，会有一些性能损失。</p>
-<p>除了Pregel和Parallel BGL之外，基本没有其他系统提供过在billions这个规模的顶点数的实验结果。目前已发表的最大规模的实现结果来自于一个针对s-t最短路径的定制化实现，而不是来自通用框架。Yoo等发票的广度优先搜索实现（s-t最短路径）在BlueGene/L上的实现，是运行在32786个PowerPC处理器上，同时采用了高性能torus网路，对于一个具有3.2B个顶点和32B条边满足泊松分布的随机图的处理用来1.5秒。Bader和Madduri发表了该类型问题在一个10节点Cray MTA-2上的结果，对于一个具有134M个顶点和805M条边的R-MAT随机图的处理用了0.43秒。Lumsadaine等用在一个具有200个处理器的x86_64 Opteron集群上的Parallel BGL结果，与BlueGene/L实现进行了对比，对于一个具有4B个顶点和20B条边的Erdos-Renyi随机图的处理用来0.43秒。</p>
-<p>对于一个具有256M个顶点和平均出席为4的Erdos-Renyi随机图的上的单源最短路径问题来说，在使用△-stepping算法的情况下，结果如下：Cray MTA-2(40个处理器，2.37秒)，在Opterons上的Parallel BGL，112个处理器，35秒。后面的这个时间比较接近于我们针对1B顶点和边的规模在400个worker上的结果。我们还没有任何其他的在1B顶点和127.1B边这个规模上的log-normal随机图上的相关结果。</p>
-<p>另外的一个研究方向是在单台机器上通过扩展内存磁盘来处理更大规模的问题，比如。但是这些实现，对于1B个顶点的规模的图上的处理要花几个小时。</p>
-<h1 id="总结以及未来的工作"><a href="#总结以及未来的工作" class="headerlink" title="总结以及未来的工作"></a>总结以及未来的工作</h1><p>本文的贡献是提出了一个适用于大规模图计算的模型，并描述了它的高质量的，可扩展的，容错实现。</p>
-<p>来自用户的数据显示，我们已经成功地让该模型被使用起来，并具有了不错的可用性，目前已经有很多Pregel应用被部署，同时还要更多的处于设计和实现的过程中。用户反映当它们将思维方式成功转换到“think like a vertex”后，风险提供的API是如此直观，灵活，太好用了。这并不令人吃惊，因为我们从一个开始就是跟早期用户一起做这些工作的，从那时起它们就影响着这些API的设计了。比如，aggregators之所以被支持就是为了解决用户在早期Pregel模型发现的一些限制。此外还有其他的关于Pregel可用性方面的改进都是源自用户的使用经验，比如关于Pregel程序执行过程的详细信息的状态页面，unittsting框架，以及用来帮助用户进行快速原型开发和debug的单机运行模型。</p>
-<p>Pregel已经在性能，可扩展性和容错方面满足了具有billions规模的边的图的处理。同时我们也在继续进行调研以扩展到更大的规模，比如放松模型的同步性，避免让那些运行的快的worker总是等待在超级步之间。</p>
-<p>当前整个的计算状态都是驻留在内存中的。我们已经开始将一些数据存到本地磁盘，同时我们会继续在这个方向进行深入的研究，系统可以支持规模太大以至于内存无法完全存在的情况。</p>
-<p>通过调整顶点在机器间的分配以最小化机器间的通信开销非常具有挑战性。根据图的拓扑结构对输入进行划分有时可能行地通，有时可能不行，图的拓扑结构可能会动态地发生改变。我们希望可以引入动态的re-partitioning机制。</p>
-<p>Pregel是为那种通信主要发生在边上的稀疏图设计的，我们会一直坚持这个假设。尽管我们已经投入一些精力用与支持高的消息收发流量的情况，但是当大部分的顶点都在持续地向大部分的其他顶点发送消失时，性能问题会变得很严重。当然了，实际中dense的图还是很少的，同时需要在稀疏图上进行dense通信的算法也是很少发生的。对于这样的算法来说，其中一些可以转换成Pregel能够比较好的支持的变种，比如通过使用combiners，aggregators或者拓扑变更，当然了这样的计算对于任何高度分布式的系统来说都会是很难的。</p>
-<p>需要注意的一点是，Pregel已经正式成为我们的基础设施的一部分。现在已经不能随意地去修改API而不考虑兼容性了。但是，我们相信现有的编程接口已经是足够抽象和灵活了，足以应对底层系统未来的演化。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/24/Graph-Database-2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JanusGraph" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/11/JanusGraph/">JanusGraph</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/11/JanusGraph/" class="archive-article-date">
-  	<time datetime="2019-01-11T12:59:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JanusGraph的历史"><a href="#JanusGraph的历史" class="headerlink" title="JanusGraph的历史"></a>JanusGraph的历史</h2><p><code>Titan</code>是从2012年开始开发，到2016年停止维护的一个分布式图数据库。<br>最初在2012年启动<code>Titan</code>项目的公司是<code>Aurelius</code><br>2015年此公司被<code>DataStax</code>收购，<code>DataStax</code>公司吸收了<code>Titan</code>的图存储能力，形成了自己的商业产品<code>DataStax Enterprise Graph</code></p>
-<hr>
-<p><code>JanusGraph</code>是2016年12月27日从<code>Titan</code> fork出来的一个分支，截止2019年1月最新版本为v0.3.1。</p>
-<hr>
-<p><code>Titan</code>开发者们希望把<code>Titan</code>放到<code>Apache Software Foundation</code>下<br><code>DataStax</code>不愿意这样做，而且从2015年9月<code>DataStax</code>收购了<code>Titan</code>的母公司后，<code>Titan</code>一直处于停滞状态<br>应该是<code>DataStax</code>收购之后，忙于推出自己的商业产品<code>DataStax Enterprise Graph</code></p>
-<hr>
-<p>鉴于此，2016年6月，<code>Titan</code>的开发者们fork了一个<code>Titan</code>的分支，重命名为<code>JanusGraph</code>，并将其置于<code>Linux Software Foundation</code>下<br>因为<code>Titan</code>已经属于<code>DataStax</code>了，所以他们必须另外弄一个商标</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/11/JanusGraph/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Graph-Database" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/08/Graph-Database/">Graph Database</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/08/Graph-Database/" class="archive-article-date">
-  	<time datetime="2019-01-08T07:59:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="图数据分析"><a href="#图数据分析" class="headerlink" title="图数据分析"></a>图数据分析</h1><p><strong>目前市场上的图数据库会宣传的一些特性：</strong></p>
-<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p>是否能快速加载一个大图是检验的主要标准，这个规模大概是<code>10亿</code>边，<code>0.5～1亿</code>顶点</p>
-<h2 id="实时"><a href="#实时" class="headerlink" title="实时"></a>实时</h2><p>主要是指实时<code>更新</code>,数据库更新包括<code>顶点/边的插入/删除</code>，现有<code>顶点/边的属性的upsert</code>等<br>这里注意两个概念：<br><code>事务</code>，在图上并没有清晰概念的事务，锁的粒度大小也非常难于控制，因此现在大多数的<code>事务</code>概念都是<code>伪事务</code><br>另外一点是和多维分析有关，和之前业界多维分析的概念类似，实际非原生图格式的图数据库，它的存储是放在HDFS上，由于<br>HDFS的设计限制，大多数基于HDFS的图平台（例如Giraph，Graphx）不支持实时更新。</p>
-<h2 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h2><ol>
-<li>原生图格式 </li>
-<li>非原生图格式 </li>
-</ol>
-<p>原生图格式：<br>以图模型格式-<code>顶点</code>和<code>边</code>存储图数据。此类供应商中典型的厂商为Neo4j，TigerGraph。</p>
-<p>非原生图格式：<br>实际存储是关系模型、RDF三元组、键值对，在内存中，他们提供中间层API来模拟图遍历，真实的底层存储构建于其他第三方的组件，<br>当然一般上会构建在hadoop生态上。</p>
-<h2 id="查询语言"><a href="#查询语言" class="headerlink" title="查询语言"></a>查询语言</h2><p>图语言可以是<a href="https://en.wikipedia.org/wiki/Turing_completeness" target="_blank" rel="noopener"><code>图灵完备</code></a>的<br>目前业界常见的三个事实上的标准：<br>TigerGraph的<code>GSQL</code> 类似PL/SQL风格的语言<br>Neo4j的<code>Cypher</code>，易用性非常好的语言，实现精细的控制比较难<br><code>Gremlin</code>，高度表达，学习曲线不低，复杂度高。</p>
-<h2 id="计算-存储的横向扩展-纵向扩展"><a href="#计算-存储的横向扩展-纵向扩展" class="headerlink" title="计算/存储的横向扩展/纵向扩展"></a>计算/存储的横向扩展/纵向扩展</h2><blockquote>
-<p>一些图数据库可以在存储水平上水平扩展（横向扩展），这意味着将机器加倍，存储可以加倍，但是计算速度不会提高2倍。</p>
-</blockquote>
-<blockquote>
-<p>一些图数据库也可以在计算上扩展，如果他们这样做，他们必须有一个MPP建筑。</p>
-</blockquote>
-<p>两个概念搭建需要去熟悉<code>MPP</code>和<code>MDD</code></p>
-<p>纵向扩展意味着在单个机器上，图计算引擎可以探索多核并行化计算，并在添加更多核时实现加速，注意加载工作量不能因为横向扩展而加大工作量，否则不是一个优秀的实现。</p>
-<blockquote>
-<p>据TigerGraph描述，其拥有可以横向扩展和纵向扩展的MPP架构；亚马逊海王星无法横向扩展，它可以拥有主数据库的副本以提高吞吐量；Janus Graph和ArangoDB可以横向扩展存储，但不能在同一查询上横向扩展计算；Neo4j无法扩展计算或存储。</p>
-</blockquote>
-<h2 id="OLTP-OLAP-HTAP"><a href="#OLTP-OLAP-HTAP" class="headerlink" title="OLTP/OLAP/HTAP"></a>OLTP/OLAP/HTAP</h2><p>参考上文<code>事务</code>概念，OLAP是离线分析。如果涉及QPS（Query Per Second）则一般上都是支持OLTP的。<br>常用来做测试的算法：连通分量和PageRank算法。是否能在合理的时间内完成10亿个边缘图。</p>
-<h2 id="多图"><a href="#多图" class="headerlink" title="多图"></a>多图</h2><p>其实理论上是TigerGraph提出的概念，在图数据库实现中，能完全切分的连通分支，天然的可以被看成两个不同的图。</p>
-<h2 id="模式-非模式"><a href="#模式-非模式" class="headerlink" title="模式/非模式"></a>模式/非模式</h2><p>目前的图数据库市场，过分的强调无模式的方式，其实元数据分离技术，可以大量的提高数据库系统的性能</p>
-<h2 id="磁盘数据库VS内存数据库"><a href="#磁盘数据库VS内存数据库" class="headerlink" title="磁盘数据库VS内存数据库"></a>磁盘数据库VS内存数据库</h2><p>内存数据库查询更快，预加载比较慢，内存总容量要求大，分布式的情况下更加复杂。<br>磁盘数据库，内存作为缓存，有缓存命中率的问题，与MySQL的机制类似。</p>
-<p>几种常见的开源图数据库</p>
-<h2 id="Neo4j"><a href="#Neo4j" class="headerlink" title="Neo4j"></a>Neo4j</h2><p>java实现<a href="https://github.com/neo4j/neo4j" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Dgraph"><a href="#Dgraph" class="headerlink" title="Dgraph"></a>Dgraph</h2><p>go实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
-<h2 id="cayley"><a href="#cayley" class="headerlink" title="cayley"></a>cayley</h2><p>go实现<a href="https://github.com/cayleygraph/cayley" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Arangodb"><a href="#Arangodb" class="headerlink" title="Arangodb"></a>Arangodb</h2><p>多模型的C++实现<a href="https://github.com/dgraph-io/dgraph" target="_blank" rel="noopener">地址</a></p>
-<h2 id="Titan-JanusGraph-IBM-Graph"><a href="#Titan-JanusGraph-IBM-Graph" class="headerlink" title="Titan/JanusGraph/IBM Graph"></a>Titan/JanusGraph/IBM Graph</h2><p>理解这些图数据库，需要了解Apache TinkerPop Gremlin</p>
-<h1 id="以上几种数据本人的看法"><a href="#以上几种数据本人的看法" class="headerlink" title="以上几种数据本人的看法"></a>以上几种数据本人的看法</h1><p>Neo4j非常早的支持事务的本地原生图数据库。优点很明显，缺点也很明显：<br>明显的优点是：产品成熟，易使用。<br>缺点也非常明显：效率低下，没有数据分片机制，不支持横向扩展–所谓的<code>分布式集群</code>只能提高数据吞吐量，是完整的数据备份。<br>两个go项目：</p>
+        <h2 id="两组通配符"><a href="#两组通配符" class="headerlink" title="两组通配符"></a>两组通配符</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">通配符</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">匹配任意多个字符(包含0/1个)</td>
+</tr>
+<tr>
+<td style="text-align:center">?</td>
+<td style="text-align:center">匹配任意一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[characters]</td>
+<td style="text-align:center">匹配任意一个属于字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[!characters]</td>
+<td style="text-align:center">匹配任意一个不是字符集中的字符</td>
+</tr>
+<tr>
+<td style="text-align:center">[[:class]]</td>
+<td style="text-align:center">匹配任意一个属于指定字符类中的字符</td>
+</tr>
+</tbody>
+</table>
+<p>class的取值列表</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">project</th>
-<th style="text-align:center">star</th>
-<th style="text-align:center">latestVer</th>
-<th style="text-align:center">文档</th>
-<th style="text-align:center">商业运作</th>
-<th style="text-align:center">存储模式</th>
+<th style="text-align:center">字符类</th>
+<th style="text-align:center">意义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">cayley</td>
-<td style="text-align:center">12091</td>
-<td style="text-align:center">v0.7.5</td>
-<td style="text-align:center">很少</td>
-<td style="text-align:center">无</td>
-<td style="text-align:center">非原生图</td>
+<td style="text-align:center">[:alnum:]</td>
+<td style="text-align:center">匹配任意一个字母或数字</td>
 </tr>
 <tr>
-<td style="text-align:center">dgraph</td>
-<td style="text-align:center">7291</td>
-<td style="text-align:center">v1.0.11</td>
-<td style="text-align:center">尚可</td>
-<td style="text-align:center">商业公司</td>
-<td style="text-align:center">原生图</td>
+<td style="text-align:center">[:alpha:]</td>
+<td style="text-align:center">匹配任意一个字母</td>
+</tr>
+<tr>
+<td style="text-align:center">[:digit:]</td>
+<td style="text-align:center">匹配任意一个数字</td>
+</tr>
+<tr>
+<td style="text-align:center">[:lower:]</td>
+<td style="text-align:center">匹配任意一个小写字母</td>
+</tr>
+<tr>
+<td style="text-align:center">[:upper:]</td>
+<td style="text-align:center">匹配任意一个大写字母</td>
 </tr>
 </tbody>
 </table>
-<p>这两个项目不建议使用cayley；建议dgraph在公司内部使用。</p>
-<p>Arangodb是C++实现，以后着重分析</p>
-<p>接下来需要分析的几个要点：</p>
-<h1 id="图的事务概念"><a href="#图的事务概念" class="headerlink" title="图的事务概念"></a>图的事务概念</h1><p>图数据库的使用价值</p>
-<ol>
-<li>优秀的查询性能<ol>
-<li>相对关系型数据库，图数据库产品一般在设计避免大量的join操作，提供快速的查询。 </li>
-</ol>
-</li>
-<li>灵活的数据建模<ol>
-<li>多数图数据库没有预设的schema，借助底层的存储机制，能够更加灵活的变更结构。</li>
-</ol>
-</li>
-<li>易于理解，更加敏捷<ol>
-<li>相对于关系数据库的表格，图的组织形式更接近于现实世界，易于理解。</li>
-</ol>
-</li>
-<li>基于图算法提供强大分析能力<ol>
-<li>PageRank/社区发现算法等</li>
-</ol>
-</li>
-</ol>
-<p>FlocksDB 是 Twitter的产品</p>
-<p>一个底层K/V facebook的 RocksDB</p>
-<blockquote>
-<p>Titan = IBM Graph = DataStax Enterprise Graph = JanusGraph<br>MySQL = MariaDB</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/08/Graph-Database/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Touch-Hexo" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/31/Touch-Hexo/">Touch Hexo</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/31/Touch-Hexo/" class="archive-article-date">
-  	<time datetime="2018-08-31T10:09:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>非常感谢这个技术开放的世界，工程领域的很多知识都可以通过互联网的方式学习到。<br>新开了这个博客，重新开始书写是因为要组织图数据库的项目开发工作。</p>
-</blockquote>
-<h1 id="Hexo学习链接汇总"><a href="#Hexo学习链接汇总" class="headerlink" title="Hexo学习链接汇总"></a>Hexo学习链接汇总</h1><p>重新搭建这个blog所有参考到的文章<br><a href="https://blog.csdn.net/a3212/article/details/77099492" target="_blank" rel="noopener">安装</a><br><a href="https://blog.csdn.net/binglumeng/article/details/67637368" target="_blank" rel="noopener">配置</a><br><a href="https://blog.csdn.net/zhuzhuyule/article/details/58347687" target="_blank" rel="noopener">写作教程</a></p>
-<p>当前该博客未集成rss插件，后续应该会补充上来。</p>
-<p>Hexo中使用的MarkDown语法为 <strong>GFM</strong><br>MarkDown需要长期学习并使用，以达到熟练的程度。</p>
-<p>写作风格问题，请禁止使用该代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock %&#125;</span><br><span class="line">alert(&apos;Hello World!&apos;);</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>应使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```alert(&apos;Hello World!&apos;);```</span><br></pre></td></tr></table></figure></p>
-<p>最后的结果展示为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(&apos;Hello World!&apos;);</span><br></pre></td></tr></table></figure></p>
-<p>以下为Markdown语法区域</p>
-<p>这是一个分段的开始</p>
-<p>这是另一个分段<br>这是一个换行，为什么是两个空格？</p>
-<h2 id="测试标题"><a href="#测试标题" class="headerlink" title="测试标题"></a>测试标题</h2><h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h2><h3 id="标题3"><a href="#标题3" class="headerlink" title="标题3"></a>标题3</h3><h4 id="标题4"><a href="#标题4" class="headerlink" title="标题4"></a>标题4</h4><h5 id="标题5"><a href="#标题5" class="headerlink" title="标题5"></a>标题5</h5><h6 id="标题6"><a href="#标题6" class="headerlink" title="标题6"></a>标题6</h6><h2 id="以下为强调文字"><a href="#以下为强调文字" class="headerlink" title="以下为强调文字"></a>以下为强调文字</h2><p><strong>加粗</strong><br><em>斜体</em><br><strong><em>加粗并斜体</em></strong></p>
-<h2 id="另外一种方法"><a href="#另外一种方法" class="headerlink" title="另外一种方法"></a>另外一种方法</h2><p><strong>加粗</strong><br>_斜体_ <code>该语法并不支持，此处为错误</code><br><strong><em>加粗并斜体</em></strong><br><em><strong>加粗并斜体</strong></em></p>
-<p><del>删除线</del> 来一发</p>
-<h2 id="高亮"><a href="#高亮" class="headerlink" title="高亮"></a>高亮</h2><p><code>这个是高亮显示</code><br><code>这个也是高亮显示</code><br>使用<code>&lt;code&gt;&lt;/code&gt;</code>或使用<code>`</code> 转义</p>
-<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>另外一篇文章中学到的代码块，后面也会提到有三种风格：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">private</span> String code;</span><br><span class="line">Object obc = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure></p>
-<p>之前有误解，其实这是有语言和无语言的原因</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">private</span> String code;</span><br><span class="line">Object obc = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
-<pre><code>import java.io.*;
-private String code;
-Object obc = new Object();
-</code></pre><h2 id="引用测试"><a href="#引用测试" class="headerlink" title="引用测试"></a>引用测试</h2><blockquote>
-<p>引用1<br>引用中<strong>加粗</strong></p>
-</blockquote>
-<blockquote>
-<p>另一个引用</p>
-</blockquote>
-<p><code>两个回车</code> 结束引用</p>
-<p>甚至可以是</p>
-<blockquote>
-<p>引用1<br>引用2<br>引用3<br>引用4</p>
-</blockquote>
-<p><code>两个回车</code> 结束引用</p>
-<p>为了使得sublime3支持markdown语法高亮<br>参考<a href="https://www.jianshu.com/p/aa30cc25c91b" target="_blank" rel="noopener">教程</a>安装插件<code>MarkDown Editing</code>和<code>MarkDown Extended</code></p>
-<h2 id="嵌套引用"><a href="#嵌套引用" class="headerlink" title="嵌套引用"></a>嵌套引用</h2><blockquote>
-<p>动物</p>
-<blockquote>
-<p>水生动物<br>陆生动物</p>
-<blockquote>
-<p>猴子<br>人</p>
-<blockquote>
-<p>程序猿<br>攻城狮<br>产品狗 <code>注意这里：因为没有空行间隔，忽略降级引用标记</code><br>射鸡虱 <code>注意这里：因为没有空行间隔，即使没有引用标记，也沿用上一行引用层级</code></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>两栖类动物</p>
-<blockquote>
-<p>唐老鸭</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>两个回车结束引用，不在引用范围了。</p>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
+<p>举例</p>
+<table>
 <thead>
 <tr>
-<th style="text-align:center">列1</th>
-<th style="text-align:center">列2</th>
-<th style="text-align:center">列3</th>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">匹配对象</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">第一行</td>
-<td style="text-align:center">12</td>
-<td style="text-align:center">13</td>
+<td style="text-align:center">*</td>
+<td style="text-align:center">所有文件</td>
 </tr>
 <tr>
-<td style="text-align:center">第二行</td>
-<td style="text-align:center">22</td>
-<td style="text-align:center">23</td>
+<td style="text-align:center">g*</td>
+<td style="text-align:center">文件名以<code>g</code>开头的文件</td>
 </tr>
 <tr>
-<td style="text-align:center">第三行</td>
-<td style="text-align:center">32</td>
-<td style="text-align:center">33</td>
+<td style="text-align:center">b*.txt</td>
+<td style="text-align:center">以”b”开头，中间有零个或任意多个字符，并以”.txt”结尾的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">Data???</td>
+<td style="text-align:center">以”Data”开头，其后紧接着3个字符的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">[abc]*</td>
+<td style="text-align:center">文件名以”a”,”b”或”c”开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">BACKUP.[0-9][0-9][0-9]</td>
+<td style="text-align:center">以”BACKUP.”开头，并紧接着3个数字的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">[[:upper:]]*</td>
+<td style="text-align:center">以大写字母开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">[![:digit:]]*</td>
+<td style="text-align:center">不以数字开头的文件</td>
+</tr>
+<tr>
+<td style="text-align:center">*[[:lower:]123]</td>
+<td style="text-align:center">文件以小写字母结尾，或以”1”，”2”，或”3”结尾的文件</td>
 </tr>
 </tbody>
 </table>
-<p><code>注意对齐的声明方式</code></p>
-<h2 id="代码块附加"><a href="#代码块附加" class="headerlink" title="代码块附加"></a>代码块附加</h2><p>这里添加了代码块的语言类型，个人感觉增加了不用编程语言的关键字识别</p>
-<p><code>java</code>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String s = <span class="string">"xxxxx"</span>;</span><br><span class="line">HashMap map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br></pre></td></tr></table></figure></p>
-<p><code>Python</code>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># _*_ coding: utf-8 _*_</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Hello World!'</span></span><br></pre></td></tr></table></figure></p>
-<p><code>无语言代码</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">import java.io.*;</span><br><span class="line">private String code;</span><br><span class="line">Object obc = new Object();</span><br><span class="line">```</span><br></pre></td></tr></table></figure></p>
-<h2 id="图片插入"><a href="#图片插入" class="headerlink" title="图片插入"></a>图片插入</h2><p><code>代码</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![我的头像](/family/chess.jpg)</span><br></pre></td></tr></table></figure></p>
-<p><code>效果</code>：<br><img src="/family/chess.jpg" alt="我的头像"></p>
-<p><code>控制下大小</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img width=&quot;150&quot; src=&quot;/family/chess.jpg&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<p><code>效果</code>：<br><img width="150" src="/family/chess.jpg"></p>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>无序列表</p>
-<ul>
-<li>列表项1</li>
-<li>列表项2</li>
-<li>列表项3<ul>
-<li>子列表1</li>
-<li>子列表2</li>
-<li>子列表3</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>列表项4</li>
-<li>列表项5</li>
-<li>列表项6<ul>
-<li>子列表X</li>
-<li>子列表Y</li>
-<li>子列表Z</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>继续列表1</li>
-<li>继续列表2<ul>
-<li>继续子列表M</li>
-<li>继续子列表N</li>
-</ul>
-</li>
-</ul>
-<p>有序列表：<br>这种方式不用收到设置序号，自动生成列表序列</p>
-<ol>
-<li>我是一级序列 </li>
-<li>我是一级序列 </li>
-<li>我是一级序列 <ol>
-<li>我是二级序列 </li>
-<li>我是二级序列 </li>
-<li>我是二级序列 </li>
-</ol>
-</li>
-<li>我是一级序列 </li>
-<li>我是一级序列 <ol>
-<li>我是二级序列 </li>
-<li>我是二级序列 </li>
-<li>还是二级序列，没有三级序列 </li>
-</ol>
-</li>
-</ol>
-<p>自动检测链接：</p>
-<p>本人github：<a href="https://github.com/toader" target="_blank" rel="noopener">https://github.com/toader</a></p>
+<p>最后一部分为<code>硬链接</code>和<code>符号链接</code></p>
+<p>cat<br>sort<br>uniq<br>grep<br>wc<br>head<br>tail<br>tee</p>
 
       
 
@@ -1056,7 +450,7 @@ Object obc = new Object();
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
@@ -1066,7 +460,7 @@ Object obc = new Object();
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/31/Touch-Hexo/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/07/30/Linux-Command-2/">展开全文 >></a>
         </p>
       
 
@@ -1096,33 +490,134 @@ Object obc = new Object();
 
 
   
-    <article id="post-That-Day" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Linux-Command" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/15/That-Day/">That Day</a>
+      <a class="article-title" href="/2019/07/29/Linux-Command/">Linux Command</a>
     </h1>
   
 
         
-        <a href="/2015/02/15/That-Day/" class="archive-article-date">
-  	<time datetime="2015-02-15T11:03:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-02-15</time>
+        <a href="/2019/07/29/Linux-Command/" class="archive-article-date">
+  	<time datetime="2019-07-29T12:21:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>树欲静而风不止</p>
-</blockquote>
-<p><strong>老爷子这辈子最大的爱好就是下棋了，其实老爷子最后还下了一盘棋，而且还下赢了。</strong><br><img src="/family/chess.jpg" alt="老爷子在下棋"></p>
-<p><strong>吃完晚饭散步中</strong><br><img src="/family/walk.jpg" alt="一家人散步，前面那父女俩不知道在说什么悄悄话"></p>
-<h2 id="那年的春节前"><a href="#那年的春节前" class="headerlink" title="那年的春节前"></a>那年的春节前</h2><p>那年春节过的还是很开心，工作后的第四个春节，能看清自己的职业规划，对未来也有信念，想着终于可以让你们不在为我去烦心，挺自豪。<br>谁曾想，离家的这些年，时间在你们身上留下了太多的痕迹，佝偻的身躯，我仿佛视而不见。</p>
-<h2 id="现在"><a href="#现在" class="headerlink" title="现在"></a>现在</h2><p>老婆也怀宝宝了，我也要做爸爸了，希望我也可以做的和你一样好，多想让你看看现在。</p>
+        <h2 id="系统探索"><a href="#系统探索" class="headerlink" title="系统探索"></a>系统探索</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">date</span><br><span class="line">cal</span><br><span class="line">df</span><br><span class="line">free</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="built_in">pwd</span></span><br><span class="line"><span class="built_in">cd</span></span><br><span class="line">ls</span><br><span class="line">    ls -lt --reverse</span><br><span class="line">file</span><br><span class="line">less</span><br><span class="line">cp</span><br><span class="line">mv</span><br><span class="line">mkdir</span><br><span class="line">rm</span><br><span class="line">ln</span><br></pre></td></tr></table></figure>
+<h2 id="Linux一些文件的约定俗成"><a href="#Linux一些文件的约定俗成" class="headerlink" title="Linux一些文件的约定俗成"></a>Linux一些文件的约定俗成</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">目录</th>
+<th style="text-align:center">使用 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:center">根目录 </td>
+</tr>
+<tr>
+<td style="text-align:center">/bin</td>
+<td style="text-align:center">系统启动和运行必须的二进制程序</td>
+</tr>
+<tr>
+<td style="text-align:center">/boot</td>
+<td style="text-align:center">Linux内核、初始RAM磁盘映像和启动加载程序：/boot/grub/grub.conf or menu.lst /boot/vmlinuz</td>
+</tr>
+<tr>
+<td style="text-align:center">/dev</td>
+<td style="text-align:center">设备目录。“一切皆文件”</td>
+</tr>
+<tr>
+<td style="text-align:center">/etc</td>
+<td style="text-align:center">配置文件，shell脚本，所有文件都是可读文件 /etc/crontab /etc/fstab /etc/passwd</td>
+</tr>
+<tr>
+<td style="text-align:center">/home</td>
+<td style="text-align:center">通常配置下，每个用户分配一个目录</td>
+</tr>
+<tr>
+<td style="text-align:center">/lib</td>
+<td style="text-align:center">包含系统程序所使用的共享库文件，类似动态链接库</td>
+</tr>
+<tr>
+<td style="text-align:center">/lost+found</td>
+<td style="text-align:center">损坏文件找回处</td>
+</tr>
+<tr>
+<td style="text-align:center">/media</td>
+<td style="text-align:center">现在的Linux系统中，/media目录会包含可移动介质的挂载点，例如USB驱动器，CD-ROMs等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/mnt</td>
+<td style="text-align:center">在早些的Linux系统中，/mnt目录包含可移动介质的挂载点</td>
+</tr>
+<tr>
+<td style="text-align:center">/opt</td>
+<td style="text-align:center">这个/opt目录被用来安装“可选的”软件。这个主要用来存储可能安装在系统中的商业软件产品</td>
+</tr>
+<tr>
+<td style="text-align:center">/proc</td>
+<td style="text-align:center">这个/proc目录很特殊。从存储在硬盘上的文件的意义上说，它不是真正的文件系统。相反，它是一个由Linux内核维护的虚拟文件系统。它所包含的文件是内核的窥视孔。这些文件是可读的，它们会告诉你内核是怎样监管计算机的</td>
+</tr>
+<tr>
+<td style="text-align:center">/root</td>
+<td style="text-align:center">root账号的家目录</td>
+</tr>
+<tr>
+<td style="text-align:center">/sbin</td>
+<td style="text-align:center">这个目录包含<code>系统</code>二进制文件。它们是完成重大系统任务的程序，通常为超级用户保留。</td>
+</tr>
+<tr>
+<td style="text-align:center">/tmp</td>
+<td style="text-align:center">这个/tmp目录，使用存储由各种程序创建的临时文件的地方。一些配置导致系统每次重新启动时，都会清空这个目录。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr</td>
+<td style="text-align:center">在Linux系统中，/usr目录可能是最大的一个。它包含普通用户所需要的所有程序和文件。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/bin</td>
+<td style="text-align:center">/usr/bin 目录包含系统安装的可执行程序。通常，这个目录会包含许多程序。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/lib</td>
+<td style="text-align:center">包含由/usr/bin目录中的程序所用的共享库。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/local</td>
+<td style="text-align:center">这个/usr/local目录，是非系统发行版自带程序的安装目录。通常，由源码编译的程序会安装在/usr/local/bin目录下。新安装的Linux系统会存在这个目录，并且在管理员安装程序之前，这个目录是空的。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/sbin</td>
+<td style="text-align:center">包含许多系统管理程序</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/share</td>
+<td style="text-align:center">包含许多由/usr/bin目录中的程序使用的共享数据。其中包括像默认的配置文件、图标、桌面鳖精、音频文件等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/usr/share/doc</td>
+<td style="text-align:center">大多数安装在系统中的软件包会包含一些文档。在/usr/share/doc目录下，我们可以找到按照软件包分类的文档。</td>
+</tr>
+<tr>
+<td style="text-align:center">/var</td>
+<td style="text-align:center">除了/tmp和/home目录之外，相对来说，目前我们看到的目录都是静态的，这是说，它们的内容不会改变。/var 目录存放的是动态文件。各种数据库，假脱机文件，用户邮件等等，都位于在这里。</td>
+</tr>
+<tr>
+<td style="text-align:center">/var/log</td>
+<td style="text-align:center">这个/var/log目录包含日志文件、各种系统活动的记录。这些文件非常重要，并且应该时时监测它们。其中最重要的一个文件是/var/log/messages。注意，为了系统安装，在一些系统中，你必须是超级用户才能查看这些日志文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="扩展和延伸"><a href="#扩展和延伸" class="headerlink" title="扩展和延伸"></a>扩展和延伸</h2><p>Linux中的特殊的文件和文件夹<br><code>符号链接</code>和<code>硬链接</code><br>拓展阅读<a href="http://www.pathname.com/fhs/" target="_blank" rel="noopener">Linux完整文件层次体系</a></p>
 
       
 
@@ -1136,7 +631,7 @@ Object obc = new Object();
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">家庭</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
         		</li>
       		
 		</ul>
@@ -1146,7 +641,564 @@ Object obc = new Object();
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2015/02/15/That-Day/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/07/29/Linux-Command/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-关于公司发展的技术规划" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/23/关于公司发展的技术规划/">关于公司技术发展的长远规划</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/23/关于公司发展的技术规划/" class="archive-article-date">
+  	<time datetime="2019-07-23T10:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="规划纲要"><a href="#规划纲要" class="headerlink" title="规划纲要"></a>规划纲要</h2><blockquote>
+<p>写过了如此之多的代码，看过了如此之多的代码，接下来要把公司打造成中国软件工程师黄埔军校。学会了并离开，从技术角度来看是最好的影响业界的方法。</p>
+</blockquote>
+<p>几个技术方向：</p>
+<ul>
+<li>Java</li>
+<li>Go</li>
+<li>软件工程</li>
+<li>软硬件工程</li>
+<li>AI</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/23/关于公司发展的技术规划/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-多维分析与OLAP" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/23/多维分析与OLAP/">多维分析与OLAP</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/23/多维分析与OLAP/" class="archive-article-date">
+  	<time datetime="2019-07-23T08:48:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="自己的心里话"><a href="#自己的心里话" class="headerlink" title="自己的心里话"></a>自己的心里话</h2><p>知识图谱，项目管理都是很好的职业方向。但是作为一个有技术追求的人，这些是不够的。今年的几个事情，让自己的压力陡增，桃子出生了，自己想学习一些硬件构建能力的规划，一直都提不上日程。自我成长过慢，业务需求理解在加深，工程能力在减弱。这几年的工作经历，自己角色的转变：<br>数据工程师，系统学习者，java工程师，java高级工程师，调参狗，调包侠，技术管理者。能力评估：拥有完整的业务系统的设计能力和构建能力-java向的，Tomcat容器的，CRUD系统。<br>不能胜任的角色：<code>高阶的软硬件系统设计者</code>、<code>基础系统-软件工程师</code>、<code>工业软件工程师</code>、<code>AIoT行业参与者</code>。</p>
+<p>自己接下来需要努力的方向：<br>需要完全的整理自己以前的<code>知识结构</code>。从新规划自己对<code>数学和离散数学</code>的认识。<code>软件系统构造能力</code>，<code>硬件理解能力</code>，<code>软硬结合能力</code>。</p>
+<h2 id="自己的危机意识很强，但是需要把时间利用起来"><a href="#自己的危机意识很强，但是需要把时间利用起来" class="headerlink" title="自己的危机意识很强，但是需要把时间利用起来"></a>自己的危机意识很强，但是需要把时间利用起来</h2><p>目前设计的一个大数据平台的水平：<br>Apache Kylin<br>三种特殊的dimension<br>Mandatory维度<br>Hierarchy维度<br>Derived维度<br>可推导的维度，需要该维度对应的一个或者多个列可以和维度表的主键是一对一的，这种维度可以大大减少cuboid个数。</p>
+<p>以下内容为网络内容，我在此处觉得学习以后很有用，在这里列出：</p>
+<blockquote>
+<p>由于Kylin的核心在于预计算缓存数据，那么对于实时的数据查询的支持就不如mondrian好了，但是一般情况下我们数据分析并没有完全实时的要求，数据延迟几个小时甚至一天是可以接受的，Kylin提供了增量cube的接口，Kylin的实现是一个cube中可以包含多个segment，每一个segment对应着一个物理cube，在实际存储上对应着一个hbase的一个表，用户定义根据某一个字段进行增量，在使用的时候首先需要订一个好cube的定义，可以指定一个时间的pa-rtition字段作为增量cube的依赖字段，其实这个选择是作为原始数据选择的条件，例如选择起始时间A到B的数据那么创建的cube则会只包含这个时间段的数据聚合值，创建完一个cube之后可以再次基于以前的cube进行build，每次build会生成一个新的segment，只不过原始数据不一样了，每次查询的时候会查询所有的segment聚合之后的值进行返回，有点类似于tablet的存储方式，但是当segment存在过多的时候查询效率就会下降，因此需要在存在多个segment的时候将它们进行合并，合并的时候其实是指定一个时间区间，内部会选择这个时间区间内的所有segment进行合并，合并完成之后使用新的segment替换被合并的多个segment，合并的执行时非常迅速的，数据不需要再从HDFS中获取，直接将两个hbase表中相同key的数据进行聚合就可以了。但是有一点需要注意的是当合并完成之后，被合并的几个segment所对应的hbase表并没有被删除。实际的使用过程中对于增量的cube可以写个定时任务每天凌晨进行build，当达到一个数目之后进行merge（其实每次build完成之后都进行merge也应该是可以的）。</p>
+</blockquote>
+<blockquote>
+<h1 id="cube的词典树"><a href="#cube的词典树" class="headerlink" title="cube的词典树"></a>cube的词典树</h1><p>kylin的cube数据是作为key-value结构存储在hbase中的，key是每一个维度成员的组合值，不同的cuboid下面的key的结构是不一样的，例如cuboid={brand，product，year}下面的一个key可能是brand=’Nike’，product=’shoe’，year=2015，那么这个key就可以写成Nike:shoe:2015，但是如果使用这种方式的话会出现很多重复，所以一般情况下我们会把一个维度下的所有成员取出来，然后保存在一个数组里面，使用数组的下标组合成为一个key，这样可以大大节省key的存储空间，kylin也使用了相同的方法，只不过使用了字典树（Trie树），每一个维度的字典树作为cube的元数据以二进制的方式存储在hbase中，内存中也会一直保持一份。</p>
+</blockquote>
+<p>以上介绍了kylin的整体框架以及部分的模块的流程，由于之前主要是关注cube的一些操作，例如创建、构建、合并等，对于查询这一块了解的较少，当然，这一块是kylin的核心之一。接下来会从源代码的角度去看kylin是如何构建和mergecube的，以及执行查询的流程。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/23/多维分析与OLAP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Go-5" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/10/Go-5/">Go-5</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/10/Go-5/" class="archive-article-date">
+  	<time datetime="2019-07-10T08:38:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><p>select是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。</p>
+<p>select随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s); </span><br><span class="line">    <span class="comment">/* 你可以定义任意数量的 case */</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下描述了 select 语句的语法：</p>
+<ol>
+<li>每个case都必须是一个通信。</li>
+<li>所有channel表达式都会被求值。</li>
+<li>所有被发送的表达式都会被求值。</li>
+<li>如果任意某个通信可以进行，它就执行；其他被忽略。</li>
+<li>如果有多个case都可以运行，Select会随机公平地选出一个执行。其他不会执行。<br>否则：</li>
+<li>如果有default子句，则执行该语句。</li>
+<li>如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。</li>
+</ol>
+<p>Go语言变量作用域<br>作用域为已声明标示符所表示的常量、类型、变量、函数或包在源代码中的作用范围。<br>Go语言中变量可以在三个地方声明：</p>
+<ol>
+<li>函数内定义的变量称为局部变量</li>
+<li>函数外定义的变量称为全局变量</li>
+<li>函数定义中的变量称为形式参数</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/10/Go-5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Go-4" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/09/Go-4/">Go-4</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/09/Go-4/" class="archive-article-date">
+  	<time datetime="2019-07-09T13:29:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这是第二篇Go相关的学习笔记</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">1</span>&lt;&lt;<span class="number">3</span></span><br><span class="line">output: <span class="number">8</span></span><br><span class="line"></span><br><span class="line">i = <span class="number">3</span>&lt;&lt;<span class="number">1</span></span><br><span class="line">output: <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明 i&lt;&lt;j  表示<code>i左移j位</code></p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    i=<span class="number">1</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    j=<span class="number">3</span>&lt;&lt;<span class="literal">iota</span></span><br><span class="line">    k</span><br><span class="line">    l</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"i="</span>,i)</span><br><span class="line">    fmt.Println(<span class="string">"j="</span>,j)</span><br><span class="line">    fmt.Println(<span class="string">"k="</span>,k)</span><br><span class="line">    fmt.Println(<span class="string">"l="</span>,l)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output: <span class="number">1</span> <span class="number">6</span> <span class="number">10</span> <span class="number">24</span></span><br></pre></td></tr></table></figure>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>真值表：<br>由于markdown语法原因<br>p|q = porq</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">p</th>
+<th style="text-align:center">q</th>
+<th style="text-align:center">p&amp;q</th>
+<th style="text-align:center">p&#124;q</th>
+<th style="text-align:center">p^q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/09/Go-4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-OCR-Source-Code-Repo" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/28/OCR-Source-Code-Repo/">OCR Source Code Repo</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/28/OCR-Source-Code-Repo/" class="archive-article-date">
+  	<time datetime="2019-04-28T04:02:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>OCR主要分为两个阶段：第一个阶段为文字区域检测，第二个阶段为文字识别</p>
+</blockquote>
+<p><a href="https://github.com/bai-shang/OCR_TF_CRNN_CTC" target="_blank" rel="noopener">OCR_TF_CRNN_CTC</a><br><a href="https://github.com/pjreddie/darknet" target="_blank" rel="noopener">darknet</a><br><a href="https://github.com/chineseocr/chineseocr" target="_blank" rel="noopener">chineseocr</a><br><a href="https://github.com/thoqbk/traprange" target="_blank" rel="noopener">traprange</a><br><a href="https://github.com/cseas/ocr-table" target="_blank" rel="noopener">ocr-table</a></p>
+<p><a href="https://www.dfki.de/fileadmin/user_upload/import/9672_PID4966073.pdf" target="_blank" rel="noopener">paper</a><br><a href="https://blog.goodaudience.com/table-detection-using-deep-learning-7182918d778" target="_blank" rel="noopener">document</a></p>
+<p>新的资源：</p>
+<p><a href="https://github.com/data-liberation/data-liberation-resources/issues/2" target="_blank" rel="noopener">data-resources</a></p>
+<p>业内人士的观点：</p>
+<blockquote>
+<p>真正能把中文OCR做得比较专业的，一共也没几家，国内2家，国外2家。国内是文通和汉王，国外是ABBYY和IRIS（台湾原来有2家丹青和蒙恬，这两年没什么动静了）。像大家提到的紫光OCR、CAJViewer、MS Office、清华OCR、包括慧视小灵鼠，这些都是文通的产品或者使用文通的识别引擎，尚书则是汉王的产品，和中晶扫描仪捆绑销售的。这两家的中文识别率都是非常不错的。而国外的2家，主要特点是西方语言的识别率很好，而且支持多种西欧语言，产品化程度也很高，不过中文方面速度和识别率还是有差距的，当然这两年人家也是在不断进步。Google的开源项目，至少在中文方面，和这些家相比，各项性能指标水平差距还蛮大的呢。 </p>
+</blockquote>
+<p>作者：张岩<br>链接：<a href="https://www.zhihu.com/question/19593313/answer/14199596" target="_blank" rel="noopener">https://www.zhihu.com/question/19593313/answer/14199596</a></p>
+<p>公司最近的OCR POC我参与比较少，目前的主要问题是因为是标注数据的量的问题，模型</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/28/OCR-Source-Code-Repo/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-TigerGraph-Online-Meeting" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/24/TigerGraph-Online-Meeting/">TigerGraph Online Meeting</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/24/TigerGraph-Online-Meeting/" class="archive-article-date">
+  	<time datetime="2019-04-24T02:35:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>刘奔月<br><code>链接分析</code>, <code>xx分析</code>, <code>xx分析</code>,<code>社团发现</code></p>
+<blockquote>
+<p>机器学习不能产生非常准确的结果，在图谱上可以找到更加直接的结果</p>
+</blockquote>
+<p>举例：医生出问题了，会有违法行为<br><code>Tiger</code>实时深度分析<br>关系数据库：不是为发现和探索型而设计的<br>图数据库：GSQL</p>
+<p>单源最短路径，未加权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shortest_ss(BVERTEX v, BOOL display)</span><br></pre></td></tr></table></figure></p>
+<p>单源最短路径，加权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shortest_path_any_wt(VERTEX v, INT maxDepth)</span><br></pre></td></tr></table></figure></p>
+<p>全源最短路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">all_pairs_shortest()</span><br></pre></td></tr></table></figure></p>
+<p>三角形统计<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tri_count_fast()</span><br><span class="line">tri_count_fast_file(FILE filepath)</span><br><span class="line">tri_count_fast_attr()</span><br></pre></td></tr></table></figure></p>
+<p>MPP = 并行计算</p>
+<p>基准报告</p>
+<p>tigergraph是唯一的第六步的查询的图数据库</p>
+<p>深度链接分析</p>
+<p>SAR = 可疑活动报告<br><a href="https://testdrive.tigergraph.com/main/dashboard" target="_blank" rel="noopener">https://testdrive.tigergraph.com/main/dashboard</a></p>
+<p>benchmark测试<br><img width="600" src="/tech/benchmark.png"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/24/TigerGraph-Online-Meeting/">展开全文 >></a>
         </p>
       
 
@@ -1178,7 +1230,7 @@ Object obc = new Object();
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1190,7 +1242,7 @@ Object obc = new Object();
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 Gilbert Leung
+    		&copy; 2021 Gilbert Leung
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a>
@@ -1270,6 +1322,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工作</a>
               </li>
              
               <li class="article-tag-list-item">
